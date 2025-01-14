@@ -3,6 +3,8 @@
 # jekyll-theme-cayman
 remote_theme: chrisrhymes/bulma-clean-theme@v0.14.0
 
+layout: page
+
 # Title of the website
 title: Big data course 2025
 
