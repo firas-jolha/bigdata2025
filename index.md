@@ -1,9 +1,9 @@
 ---
 title: Big Data 2025
-subtitle: By **Firas jolha**
+# subtitle: By **Firas jolha**
 layout: page
 # callouts: home_callouts
-show_sidebar: true
+# show_sidebar: true
 ---
 
 
