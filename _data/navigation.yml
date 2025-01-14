@@ -2,8 +2,6 @@
   link: /bs
 - name: Master's (MS)
   link: /ms
-- name: Home
-  link: /
   # dropdown: 
   #   - name: Page 2
   #     link: /page-2/
