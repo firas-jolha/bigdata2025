@@ -1,6 +1,6 @@
 ---
 title: Big Data Technologies and Analytics
-subtitle: IU
+# subtitle: IU
 description: Master's program
 layout: page
 ---

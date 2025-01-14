@@ -1,6 +1,6 @@
 ---
 title: Introduction to Big Data
-subtitle: IU
+# subtitle: IU
 description: Bachelor's program
 layout: page
 ---
