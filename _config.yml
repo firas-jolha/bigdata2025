@@ -1,5 +1,6 @@
 # Theme of the website
-theme: jekyll-theme-cayman
+theme: bulma-clean-theme
+# jekyll-theme-cayman
 
 # Title of the website
 title: Big data course 2025
