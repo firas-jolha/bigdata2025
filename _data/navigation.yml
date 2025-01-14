@@ -1,0 +1,7 @@
+- name: Bachelor's (BS)
+  link: /bs
+- name: Master's (MS)
+  link: /ms
+  # dropdown: 
+  #   - name: Page 2
+  #     link: /page-2/
