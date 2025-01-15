@@ -1,5 +1,5 @@
 ---
-title: Big Data 2025
+title: Home
 # subtitle: By **Firas jolha**
 layout: page
 # callouts: home_callouts
