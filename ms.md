@@ -8,4 +8,4 @@ layout: page
 
 ## Labs
 
-<!-- ### [Lab 1 - Installing HDP Sandbox](html/common/Lab 1 - Installing HDP Sandbox.html) -->
+### [Lab 1 - Installing HDP Sandbox](html/common/Lab 1 - Installing HDP Sandbox.html)
