@@ -128,7 +128,7 @@
 <p><strong>Exercises</strong></p>
 <p><strong>Note:</strong> Take only full-screen and high quality pictures.</p>
 <ol>
-<li>Prepare a report <code>week1</code> with the results of this lab. Create a new Google document with the <a href="https://docs.google.com/document/d/1PkaJQT9n7S9NV2WufyIrtDSkGkJxur6sBdnyg07VDxw/edit?usp=sharing" target="_blank" rel="noopener">following format</a>.</li>
+<li>Prepare a report <code>week1</code> with the results of this lab. Create a new Google document with the <a href="https://docs.google.com/document/d/1tsETYi-rctHObFyZ2R4sK8N7XZ7nffqqjSIw1ojjGoA/edit?usp=sharing" target="_blank" rel="noopener">following format</a>.</li>
 <li><strong>[50 points]</strong> Install HDP on your machine. Take a full screenshot of Ambari dashboard and put it in the report.</li>
 <li><strong>[5 points]</strong> Access HDFS. Screenshot the content of the root folder in HDFS and attach it to the report.</li>
 <li><strong>[5 points]</strong> Download the data file from <a href="https://raw.githubusercontent.com/minsuk-heo/BigData/master/ch06/populationbycountry19802010millions.csv" target="_blank" rel="noopener">here</a>. Add it to HDFS root folder (/) via Ambari Files View and take a screenshot of the content of the HDFS root folder and attach it to the report. Delete the file from HDFS.</li>
@@ -148,7 +148,7 @@ A motivating success story <img class="emoji" alt=":face_with_cowboy_hat:" src="
 <li><a href="https://www.virtualbox.org" target="_blank" rel="noopener">Oracle VM VirtualBox</a> <strong>(Recommended)</strong></li>
 <li><a href="https://www.vmware.com/products/workstation-player.html" target="_blank" rel="noopener">VMware Workstation Player</a> (Only for Linux and Windows)</li>
 <li><a href="https://www.vmware.com/products/fusion.html" target="_blank" rel="noopener">VMware Fusion for mac</a> (Only for macOS)</li>
-</ul><p>For installation instructions, you can use Google but I share here a <a href="https://nerdschalk.com/how-to-install-and-use-virtualbox-on-windows-11/" target="_blank" rel="noopener">tutorial</a> to install <em>VirtualBox</em> on <em>Windows 11</em>. If you have an old version of the software, we recommend to update it in order to avoid any issues in installing the virtual machines. In my PC, I installed VirtualBox 7.0.4 in January 2024.</p><h3 id="2-Installing-HDP-Sandbox"><a class="anchor hidden-xs" href="#2-Installing-HDP-Sandbox" title="2-Installing-HDP-Sandbox"><i class="fa fa-link"></i></a>2. Installing HDP Sandbox</h3><p>Hortonworks Data Platform (HDP) is a straightforward, pre-configured, learning environment that contains the latest developments from Apache Hadoop. The Sandbox comes packaged in a virtual environment that can run in the cloud or on your personal machine. The Sandbox allows you to learn and explore HDP on your own.</p><h3 id="21-Downloading-the-Sandbox"><a class="anchor hidden-xs" href="#21-Downloading-the-Sandbox" title="21-Downloading-the-Sandbox"><i class="fa fa-link"></i></a>2.1. Downloading the Sandbox</h3><p>You can find the download links of the Sandbox in <em>.ova</em> format with respect to the chosen hypervisor. If you are using <strong>VirtualBox</strong>, then download from <a href="https://archive.cloudera.com/hwx-sandbox/hdp/hdp-2.6.5/HDP_2.6.5_virtualbox_180626.ova" target="_blank" rel="noopener">here</a>. For <strong>VMware</strong> users, the download link is <a href="https://archive.cloudera.com/hwx-sandbox/hdp/hdp-2.6.5/HDP_2.6.5_vmware_180622.ov" target="_blank" rel="noopener">here</a>. You can also download them from <a href="https://www.cloudera.com/downloads/hortonworks-sandbox/hdp.html" target="_blank" rel="noopener">the official website</a> but it needs an account on Cloudera website. I share below the download links for all available versions of HDP Sandbox.</p><div class="alert alert-info">
+</ul><p>For installation instructions, you can use Google but I share here a <a href="https://nerdschalk.com/how-to-install-and-use-virtualbox-on-windows-11/" target="_blank" rel="noopener">tutorial</a> to install <em>VirtualBox</em> on <em>Windows 11</em>. If you have an old version of the software, we recommend to update it in order to avoid any issues in installing the virtual machines. In my PC, I installed VirtualBox 7.1.4 in January 2025.</p><h3 id="2-Installing-HDP-Sandbox"><a class="anchor hidden-xs" href="#2-Installing-HDP-Sandbox" title="2-Installing-HDP-Sandbox"><i class="fa fa-link"></i></a>2. Installing HDP Sandbox</h3><p>Hortonworks Data Platform (HDP) is a straightforward, pre-configured, learning environment that contains the latest developments from Apache Hadoop. The Sandbox comes packaged in a virtual environment that can run in the cloud or on your personal machine. The Sandbox allows you to learn and explore HDP on your own.</p><h3 id="21-Downloading-the-Sandbox"><a class="anchor hidden-xs" href="#21-Downloading-the-Sandbox" title="21-Downloading-the-Sandbox"><i class="fa fa-link"></i></a>2.1. Downloading the Sandbox</h3><p>You can find the download links of the Sandbox in <em>.ova</em> format with respect to the chosen hypervisor. If you are using <strong>VirtualBox</strong>, then download from <a href="https://archive.cloudera.com/hwx-sandbox/hdp/hdp-2.6.5/HDP_2.6.5_virtualbox_180626.ova" target="_blank" rel="noopener">here</a>. For <strong>VMware</strong> users, the download link is <a href="https://archive.cloudera.com/hwx-sandbox/hdp/hdp-2.6.5/HDP_2.6.5_vmware_180622.ov" target="_blank" rel="noopener">here</a>. You can also download them from <a href="https://www.cloudera.com/downloads/hortonworks-sandbox/hdp.html" target="_blank" rel="noopener">the official website</a> but it needs an account on Cloudera website. I share below the download links for all available versions of HDP Sandbox.</p><div class="alert alert-info">
 <p>The download links of HDP Sandbox on VirtualBox:</p>
 <ul>
 <li>HDP 2.5.0 (<a href="https://archive.cloudera.com/hwx-sandbox/hdp/hdp-2.5.0/HDP_2.5_virtualbox.ova" target="_blank" rel="noopener">https://archive.cloudera.com/hwx-sandbox/hdp/hdp-2.5.0/HDP_2.5_virtualbox.ova</a>)</li>
@@ -354,16 +354,16 @@ For instance, to transfer the files in <em>data</em> folder from the host machin
             </a>
             <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
                 <div class="toc"><ul class="nav">
-<li class=""><a href="#Lab-1---Installing-HDP-Sandbox" title="Lab 1 - Installing HDP Sandbox">Lab 1 - Installing HDP Sandbox</a></li>
-<li class=""><a href="#Agenda" title="Agenda">Agenda</a></li>
-<li class=""><a href="#Prerequisites" title="Prerequisites">Prerequisites</a></li>
-<li class=""><a href="#Objectives" title="Objectives">Objectives</a></li>
-<li class=""><a href="#Introduction" title="Introduction">Introduction</a></li>
-<li class=""><a href="#Hardware-requirements" title="Hardware requirements">Hardware requirements</a></li>
+<li><a href="#Lab-1---Installing-HDP-Sandbox" title="Lab 1 - Installing HDP Sandbox">Lab 1 - Installing HDP Sandbox</a></li>
+<li><a href="#Agenda" title="Agenda">Agenda</a></li>
+<li><a href="#Prerequisites" title="Prerequisites">Prerequisites</a></li>
+<li><a href="#Objectives" title="Objectives">Objectives</a></li>
+<li><a href="#Introduction" title="Introduction">Introduction</a></li>
+<li><a href="#Hardware-requirements" title="Hardware requirements">Hardware requirements</a></li>
 <li class=""><a href="#Installing-Hortonworks-Sandbox" title="Installing Hortonworks Sandbox">Installing Hortonworks Sandbox</a><ul class="nav">
 <li class=""><a href="#A-Using-a-Hypervisor" title="A. Using a Hypervisor">A. Using a Hypervisor</a><ul class="nav">
 <li class=""><a href="#1-Installing-a-Hypervisor" title="1. Installing a Hypervisor">1. Installing a Hypervisor</a></li>
-<li><a href="#2-Installing-HDP-Sandbox" title="2. Installing HDP Sandbox">2. Installing HDP Sandbox</a></li>
+<li class=""><a href="#2-Installing-HDP-Sandbox" title="2. Installing HDP Sandbox">2. Installing HDP Sandbox</a></li>
 <li class=""><a href="#21-Downloading-the-Sandbox" title="2.1. Downloading the Sandbox">2.1. Downloading the Sandbox</a></li>
 <li class=""><a href="#22-Installing-the-Sandbox" title="2.2. Installing the Sandbox">2.2. Installing the Sandbox</a></li>
 <li class=""><a href="#23-Running-the-VM" title="2.3. Running the VM">2.3. Running the VM</a></li>
@@ -374,7 +374,7 @@ For instance, to transfer the files in <em>data</em> folder from the host machin
 <li class=""><a href="#2-Installing-HDP-Sandbox1" title="2. Installing HDP Sandbox">2. Installing HDP Sandbox</a></li>
 </ul>
 </li>
-<li><a href="#Configuring-the-resources-for-Docker" title="Configuring the resources for Docker">Configuring the resources for Docker</a></li>
+<li class=""><a href="#Configuring-the-resources-for-Docker" title="Configuring the resources for Docker">Configuring the resources for Docker</a></li>
 <li class=""><a href="#StoppingRestarting-the-cluster" title="Stopping/Restarting the cluster">Stopping/Restarting the cluster</a></li>
 </ul>
 </li>
@@ -382,16 +382,16 @@ For instance, to transfer the files in <em>data</em> folder from the host machin
 <li class=""><a href="#Access-via-SSH" title="Access via SSH">Access via SSH</a></li>
 </ul>
 </li>
-<li><a href="#Access-HDFS" title="Access HDFS">Access HDFS</a></li>
-<li><a href="#Transfer-data-between-HDFS-and-local-file-systems" title="Transfer data between HDFS and local file systems">Transfer data between HDFS and local file systems</a><ul class="nav">
-<li><a href="#Transfer-data-into-and-out-of-the-cluster-node" title="Transfer data into and out of the cluster node">Transfer data into and out of the cluster node</a></li>
-<li><a href="#Transfer-data-into-and-out-of-HDFS" title="Transfer data into and out of HDFS">Transfer data into and out of HDFS</a></li>
+<li class=""><a href="#Access-HDFS" title="Access HDFS">Access HDFS</a></li>
+<li class=""><a href="#Transfer-data-between-HDFS-and-local-file-systems" title="Transfer data between HDFS and local file systems">Transfer data between HDFS and local file systems</a><ul class="nav">
+<li class=""><a href="#Transfer-data-into-and-out-of-the-cluster-node" title="Transfer data into and out of the cluster node">Transfer data into and out of the cluster node</a></li>
+<li class=""><a href="#Transfer-data-into-and-out-of-HDFS" title="Transfer data into and out of HDFS">Transfer data into and out of HDFS</a></li>
 </ul>
 </li>
-<li><a href="#Common-issues" title="Common issues">Common issues</a></li>
-<li><a href="#Self-check-questions" title="Self-check questions">Self-check questions</a></li>
-<li><a href="#Appendix" title="Appendix">Appendix</a><ul class="nav">
-<li><a href="#Sandbox-Version" title="Sandbox Version">Sandbox Version</a></li>
+<li class=""><a href="#Common-issues" title="Common issues">Common issues</a></li>
+<li class=""><a href="#Self-check-questions" title="Self-check questions">Self-check questions</a></li>
+<li class=""><a href="#Appendix" title="Appendix">Appendix</a><ul class="nav">
+<li class=""><a href="#Sandbox-Version" title="Sandbox Version">Sandbox Version</a></li>
 <li><a href="#Ambari-Roles" title="Ambari Roles">Ambari Roles</a></li>
 </ul>
 </li>
@@ -408,16 +408,16 @@ For instance, to transfer the files in <em>data</em> folder from the host machin
     </div>
     <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;"  >
         <div class="toc"><ul class="nav">
-<li class=""><a href="#Lab-1---Installing-HDP-Sandbox" title="Lab 1 - Installing HDP Sandbox">Lab 1 - Installing HDP Sandbox</a></li>
-<li class=""><a href="#Agenda" title="Agenda">Agenda</a></li>
-<li class=""><a href="#Prerequisites" title="Prerequisites">Prerequisites</a></li>
-<li class=""><a href="#Objectives" title="Objectives">Objectives</a></li>
-<li class=""><a href="#Introduction" title="Introduction">Introduction</a></li>
-<li class=""><a href="#Hardware-requirements" title="Hardware requirements">Hardware requirements</a></li>
+<li><a href="#Lab-1---Installing-HDP-Sandbox" title="Lab 1 - Installing HDP Sandbox">Lab 1 - Installing HDP Sandbox</a></li>
+<li><a href="#Agenda" title="Agenda">Agenda</a></li>
+<li><a href="#Prerequisites" title="Prerequisites">Prerequisites</a></li>
+<li><a href="#Objectives" title="Objectives">Objectives</a></li>
+<li><a href="#Introduction" title="Introduction">Introduction</a></li>
+<li><a href="#Hardware-requirements" title="Hardware requirements">Hardware requirements</a></li>
 <li class=""><a href="#Installing-Hortonworks-Sandbox" title="Installing Hortonworks Sandbox">Installing Hortonworks Sandbox</a><ul class="nav">
 <li class=""><a href="#A-Using-a-Hypervisor" title="A. Using a Hypervisor">A. Using a Hypervisor</a><ul class="nav">
 <li class=""><a href="#1-Installing-a-Hypervisor" title="1. Installing a Hypervisor">1. Installing a Hypervisor</a></li>
-<li><a href="#2-Installing-HDP-Sandbox" title="2. Installing HDP Sandbox">2. Installing HDP Sandbox</a></li>
+<li class=""><a href="#2-Installing-HDP-Sandbox" title="2. Installing HDP Sandbox">2. Installing HDP Sandbox</a></li>
 <li class=""><a href="#21-Downloading-the-Sandbox" title="2.1. Downloading the Sandbox">2.1. Downloading the Sandbox</a></li>
 <li class=""><a href="#22-Installing-the-Sandbox" title="2.2. Installing the Sandbox">2.2. Installing the Sandbox</a></li>
 <li class=""><a href="#23-Running-the-VM" title="2.3. Running the VM">2.3. Running the VM</a></li>
@@ -428,7 +428,7 @@ For instance, to transfer the files in <em>data</em> folder from the host machin
 <li class=""><a href="#2-Installing-HDP-Sandbox1" title="2. Installing HDP Sandbox">2. Installing HDP Sandbox</a></li>
 </ul>
 </li>
-<li><a href="#Configuring-the-resources-for-Docker" title="Configuring the resources for Docker">Configuring the resources for Docker</a></li>
+<li class=""><a href="#Configuring-the-resources-for-Docker" title="Configuring the resources for Docker">Configuring the resources for Docker</a></li>
 <li class=""><a href="#StoppingRestarting-the-cluster" title="Stopping/Restarting the cluster">Stopping/Restarting the cluster</a></li>
 </ul>
 </li>
@@ -436,16 +436,16 @@ For instance, to transfer the files in <em>data</em> folder from the host machin
 <li class=""><a href="#Access-via-SSH" title="Access via SSH">Access via SSH</a></li>
 </ul>
 </li>
-<li><a href="#Access-HDFS" title="Access HDFS">Access HDFS</a></li>
-<li><a href="#Transfer-data-between-HDFS-and-local-file-systems" title="Transfer data between HDFS and local file systems">Transfer data between HDFS and local file systems</a><ul class="nav">
-<li><a href="#Transfer-data-into-and-out-of-the-cluster-node" title="Transfer data into and out of the cluster node">Transfer data into and out of the cluster node</a></li>
-<li><a href="#Transfer-data-into-and-out-of-HDFS" title="Transfer data into and out of HDFS">Transfer data into and out of HDFS</a></li>
+<li class=""><a href="#Access-HDFS" title="Access HDFS">Access HDFS</a></li>
+<li class=""><a href="#Transfer-data-between-HDFS-and-local-file-systems" title="Transfer data between HDFS and local file systems">Transfer data between HDFS and local file systems</a><ul class="nav">
+<li class=""><a href="#Transfer-data-into-and-out-of-the-cluster-node" title="Transfer data into and out of the cluster node">Transfer data into and out of the cluster node</a></li>
+<li class=""><a href="#Transfer-data-into-and-out-of-HDFS" title="Transfer data into and out of HDFS">Transfer data into and out of HDFS</a></li>
 </ul>
 </li>
-<li><a href="#Common-issues" title="Common issues">Common issues</a></li>
-<li><a href="#Self-check-questions" title="Self-check questions">Self-check questions</a></li>
-<li><a href="#Appendix" title="Appendix">Appendix</a><ul class="nav">
-<li><a href="#Sandbox-Version" title="Sandbox Version">Sandbox Version</a></li>
+<li class=""><a href="#Common-issues" title="Common issues">Common issues</a></li>
+<li class=""><a href="#Self-check-questions" title="Self-check questions">Self-check questions</a></li>
+<li class=""><a href="#Appendix" title="Appendix">Appendix</a><ul class="nav">
+<li class=""><a href="#Sandbox-Version" title="Sandbox Version">Sandbox Version</a></li>
 <li><a href="#Ambari-Roles" title="Ambari Roles">Ambari Roles</a></li>
 </ul>
 </li>
