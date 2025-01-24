@@ -138,6 +138,8 @@
 <li><strong>[5 points]</strong> Create a new user with your name and give it cluster manager (admin) role. Access it, screenshot and add to the report. You can check the roles of HDP from <a href="https://docs.cloudera.com/HDPDocuments/Ambari-2.5.1.0/bk_ambari-administration/content/cluster_roles.html" target="_blank" rel="noopener">here</a>.</li>
 <li>Submit the report <code>week1</code> to Moodle before the deadline. Check the deadline on Moodle. The deadline is generally before the first lab in the next week.</li>
 </ol>
+</div><div class="alert alert-warning">
+<p>In addition to the tasks above, you should have a physical presence in the classroom to show the status of the sandbox installation where the successfull installation is required to obtain points in this assignment. Without this requirement, your report may not be evaluated.</p>
 </div><h1 id="Installing-Hortonworks-Sandbox"><a class="anchor hidden-xs" href="#Installing-Hortonworks-Sandbox" title="Installing-Hortonworks-Sandbox"><i class="fa fa-link"></i></a>Installing Hortonworks Sandbox</h1><p>There are two common ways to install HDP Sandbox on your PC, either by using a hypervisor such as <em>VirtualBox</em> which will pull the Docker image and run a container for your cluster or by directly using Docker where you need to manage your resources via <code>docker</code> command line <a href="https://docs.docker.com/config/containers/resource_constraints/" target="_blank" rel="noopener">options</a> in Linux or you can use WSL backend in Windows where you can configure resources via <code>.wslconfig</code> file.</p><div class="alert alert-danger">
 <p><strong>Note:</strong> For M1- and M2-based MacOS users, please install CentOS 7.5 or Ubuntu 18.04. Then follow the approach <strong>B. using Docker</strong> where you need to install Docker on the virtual machine and run cluster containers.</p>
 <p><img src="https://i.imgur.com/DuC1BqZ.png" alt="" class="md-image md-image"><br>
@@ -339,14 +341,18 @@ For instance, to transfer the files in <em>data</em> folder from the host machin
 <li>What are the default credentials of <code>root</code> user in the cluster?</li>
 <li>How to transfer files from the host machine to the cluster node?</li>
 </ol><h1 id="Appendix"><a class="anchor hidden-xs" href="#Appendix" title="Appendix"><i class="fa fa-link"></i></a>Appendix</h1><h2 id="Sandbox-Version"><a class="anchor hidden-xs" href="#Sandbox-Version" title="Sandbox-Version"><i class="fa fa-link"></i></a>Sandbox Version</h2><p>To find information about the cluster Sandbox, execute the following command on the cluster container:</p><pre><code class="sh hljs"><span class="hljs-keyword">sandbox</span>-<span class="hljs-keyword">version</span>
-</code></pre><h2 id="Ambari-Roles"><a class="anchor hidden-xs" href="#Ambari-Roles" title="Ambari-Roles"><i class="fa fa-link"></i></a>Ambari Roles</h2><p>Ambari 2.4 introduced the notion of Role-Based Access Control(RBAC) for the Ambari web interface. Ambari now includes additional cluster operation roles providing more granular division of control of the Ambari Dashboard and the various Ambari Views. Only the admin id has access to view or change these roles. You can learn more about the roles from <a href="https://www.cloudera.com/tutorials/learning-the-ropes-of-the-hdp-sandbox.html#login-credentials" target="_blank" rel="noopener">here</a>.</p><h1 id="References"><a class="anchor hidden-xs" href="#References" title="References"><i class="fa fa-link"></i></a>References</h1><p><a href="https://www.cloudera.com/tutorials/learning-the-ropes-of-the-hdp-sandbox.html" target="_blank" rel="noopener">Learning the Ropes of the HDP Sandbox</a><br>
-<a href="https://www.cloudera.com/tutorials/getting-started-with-hdp-sandbox/1.html" target="_blank" rel="noopener">Getting Started with HDP Sandbox</a><br>
-<a href="https://en.wikipedia.org/wiki/Hortonworks" target="_blank" rel="noopener">Hortonworks - Wikipedia</a><br>
-<a href="https://www.ibm.com/downloads/cas/DKWR4KZB" target="_blank" rel="noopener">IBM Analytics - Data Sheet</a><br>
-<a href="https://www.postgresql.org" target="_blank" rel="noopener">PostgreSQL: The World’s Most Advanced Open Source Relational Database</a><br>
-<a href="https://gdancik.github.io/CSC-343/data/notes/HDFS.pdf" target="_blank" rel="noopener">Moving data in HDFS</a><br>
-<a href="https://hadoop.apache.org/docs/r2.7.3/hadoop-project-dist/hadoop-common/FileSystemShell.html" target="_blank" rel="noopener">Hadoop HDFS Command Cheatsheet</a><br>
-<a href="https://docs.cloudera.com/HDPDocuments/Ambari-2.5.1.0/bk_ambari-administration/content/cluster_roles.html" target="_blank" rel="noopener">HDP Cluster Roles</a></p></div>
+</code></pre><h2 id="Ambari-Roles"><a class="anchor hidden-xs" href="#Ambari-Roles" title="Ambari-Roles"><i class="fa fa-link"></i></a>Ambari Roles</h2><p>Ambari 2.4 introduced the notion of Role-Based Access Control(RBAC) for the Ambari web interface. Ambari now includes additional cluster operation roles providing more granular division of control of the Ambari Dashboard and the various Ambari Views. Only the admin id has access to view or change these roles. You can learn more about the roles from <a href="https://www.cloudera.com/tutorials/learning-the-ropes-of-the-hdp-sandbox.html#login-credentials" target="_blank" rel="noopener">here</a>.</p><h1 id="References"><a class="anchor hidden-xs" href="#References" title="References"><i class="fa fa-link"></i></a>References</h1><ul>
+<li><a href="https://www.cloudera.com/tutorials/learning-the-ropes-of-the-hdp-sandbox.html" target="_blank" rel="noopener">Learning the Ropes of the HDP Sandbox</a></li>
+<li><a href="https://www.cloudera.com/tutorials/getting-started-with-hdp-sandbox/1.html" target="_blank" rel="noopener">Getting Started with HDP Sandbox</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Hortonworks" target="_blank" rel="noopener">Hortonworks - Wikipedia</a></li>
+<li><a href="https://www.ibm.com/downloads/cas/DKWR4KZB" target="_blank" rel="noopener">IBM Analytics - Data Sheet</a></li>
+<li><a href="https://www.postgresql.org" target="_blank" rel="noopener">PostgreSQL: The World’s Most Advanced Open Source Relational Database</a></li>
+<li><a href="https://gdancik.github.io/CSC-343/data/notes/HDFS.pdf" target="_blank" rel="noopener">Moving data in HDFS</a></li>
+<li><a href="https://hadoop.apache.org/docs/r2.7.3/hadoop-project-dist/hadoop-common/FileSystemShell.html" target="_blank" rel="noopener">Hadoop HDFS Command Cheatsheet</a></li>
+<li><a href="https://docs.cloudera.com/HDPDocuments/Ambari-2.5.1.0/bk_ambari-administration/content/cluster_roles.html" target="_blank" rel="noopener">HDP Cluster Roles</a></li>
+<li><a href="https://www.trunkdataplatform.io/" target="_blank" rel="noopener">TDP homepage</a></li>
+<li><a href="https://docs.arenadata.io/en/ADH/current/introduction/intro.html" target="_blank" rel="noopener">ADH docs</a></li>
+</ul></div>
     <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
         <div class="pull-right dropdown">
             <a id="tocLabel" class="ui-toc-label btn btn-default" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="Table of content">
@@ -359,39 +365,39 @@ For instance, to transfer the files in <em>data</em> folder from the host machin
 <li><a href="#Prerequisites" title="Prerequisites">Prerequisites</a></li>
 <li><a href="#Objectives" title="Objectives">Objectives</a></li>
 <li><a href="#Introduction" title="Introduction">Introduction</a></li>
-<li><a href="#Hardware-requirements" title="Hardware requirements">Hardware requirements</a></li>
+<li class=""><a href="#Hardware-requirements" title="Hardware requirements">Hardware requirements</a></li>
 <li class=""><a href="#Installing-Hortonworks-Sandbox" title="Installing Hortonworks Sandbox">Installing Hortonworks Sandbox</a><ul class="nav">
 <li class=""><a href="#A-Using-a-Hypervisor" title="A. Using a Hypervisor">A. Using a Hypervisor</a><ul class="nav">
-<li class=""><a href="#1-Installing-a-Hypervisor" title="1. Installing a Hypervisor">1. Installing a Hypervisor</a></li>
-<li class=""><a href="#2-Installing-HDP-Sandbox" title="2. Installing HDP Sandbox">2. Installing HDP Sandbox</a></li>
-<li class=""><a href="#21-Downloading-the-Sandbox" title="2.1. Downloading the Sandbox">2.1. Downloading the Sandbox</a></li>
-<li class=""><a href="#22-Installing-the-Sandbox" title="2.2. Installing the Sandbox">2.2. Installing the Sandbox</a></li>
-<li class=""><a href="#23-Running-the-VM" title="2.3. Running the VM">2.3. Running the VM</a></li>
+<li><a href="#1-Installing-a-Hypervisor" title="1. Installing a Hypervisor">1. Installing a Hypervisor</a></li>
+<li><a href="#2-Installing-HDP-Sandbox" title="2. Installing HDP Sandbox">2. Installing HDP Sandbox</a></li>
+<li><a href="#21-Downloading-the-Sandbox" title="2.1. Downloading the Sandbox">2.1. Downloading the Sandbox</a></li>
+<li><a href="#22-Installing-the-Sandbox" title="2.2. Installing the Sandbox">2.2. Installing the Sandbox</a></li>
+<li><a href="#23-Running-the-VM" title="2.3. Running the VM">2.3. Running the VM</a></li>
 </ul>
 </li>
-<li class=""><a href="#B-Using-Docker" title="B. Using Docker">B. Using Docker</a><ul class="nav">
-<li class=""><a href="#1-Installing-Docker-Desktop-on-Windows" title="1. Installing Docker Desktop on Windows">1. Installing Docker Desktop on Windows</a></li>
-<li class=""><a href="#2-Installing-HDP-Sandbox1" title="2. Installing HDP Sandbox">2. Installing HDP Sandbox</a></li>
+<li><a href="#B-Using-Docker" title="B. Using Docker">B. Using Docker</a><ul class="nav">
+<li><a href="#1-Installing-Docker-Desktop-on-Windows" title="1. Installing Docker Desktop on Windows">1. Installing Docker Desktop on Windows</a></li>
+<li><a href="#2-Installing-HDP-Sandbox1" title="2. Installing HDP Sandbox">2. Installing HDP Sandbox</a></li>
 </ul>
 </li>
-<li class=""><a href="#Configuring-the-resources-for-Docker" title="Configuring the resources for Docker">Configuring the resources for Docker</a></li>
-<li class=""><a href="#StoppingRestarting-the-cluster" title="Stopping/Restarting the cluster">Stopping/Restarting the cluster</a></li>
+<li><a href="#Configuring-the-resources-for-Docker" title="Configuring the resources for Docker">Configuring the resources for Docker</a></li>
+<li><a href="#StoppingRestarting-the-cluster" title="Stopping/Restarting the cluster">Stopping/Restarting the cluster</a></li>
 </ul>
 </li>
-<li class=""><a href="#Access-HDP-Sandbox-cluster" title="Access HDP Sandbox cluster">Access HDP Sandbox cluster</a><ul class="nav">
-<li class=""><a href="#Access-via-SSH" title="Access via SSH">Access via SSH</a></li>
+<li><a href="#Access-HDP-Sandbox-cluster" title="Access HDP Sandbox cluster">Access HDP Sandbox cluster</a><ul class="nav">
+<li><a href="#Access-via-SSH" title="Access via SSH">Access via SSH</a></li>
 </ul>
 </li>
-<li class=""><a href="#Access-HDFS" title="Access HDFS">Access HDFS</a></li>
-<li class=""><a href="#Transfer-data-between-HDFS-and-local-file-systems" title="Transfer data between HDFS and local file systems">Transfer data between HDFS and local file systems</a><ul class="nav">
-<li class=""><a href="#Transfer-data-into-and-out-of-the-cluster-node" title="Transfer data into and out of the cluster node">Transfer data into and out of the cluster node</a></li>
-<li class=""><a href="#Transfer-data-into-and-out-of-HDFS" title="Transfer data into and out of HDFS">Transfer data into and out of HDFS</a></li>
+<li><a href="#Access-HDFS" title="Access HDFS">Access HDFS</a></li>
+<li><a href="#Transfer-data-between-HDFS-and-local-file-systems" title="Transfer data between HDFS and local file systems">Transfer data between HDFS and local file systems</a><ul class="nav">
+<li><a href="#Transfer-data-into-and-out-of-the-cluster-node" title="Transfer data into and out of the cluster node">Transfer data into and out of the cluster node</a></li>
+<li><a href="#Transfer-data-into-and-out-of-HDFS" title="Transfer data into and out of HDFS">Transfer data into and out of HDFS</a></li>
 </ul>
 </li>
-<li class=""><a href="#Common-issues" title="Common issues">Common issues</a></li>
-<li class=""><a href="#Self-check-questions" title="Self-check questions">Self-check questions</a></li>
-<li class=""><a href="#Appendix" title="Appendix">Appendix</a><ul class="nav">
-<li class=""><a href="#Sandbox-Version" title="Sandbox Version">Sandbox Version</a></li>
+<li><a href="#Common-issues" title="Common issues">Common issues</a></li>
+<li><a href="#Self-check-questions" title="Self-check questions">Self-check questions</a></li>
+<li><a href="#Appendix" title="Appendix">Appendix</a><ul class="nav">
+<li><a href="#Sandbox-Version" title="Sandbox Version">Sandbox Version</a></li>
 <li><a href="#Ambari-Roles" title="Ambari Roles">Ambari Roles</a></li>
 </ul>
 </li>
@@ -413,39 +419,39 @@ For instance, to transfer the files in <em>data</em> folder from the host machin
 <li><a href="#Prerequisites" title="Prerequisites">Prerequisites</a></li>
 <li><a href="#Objectives" title="Objectives">Objectives</a></li>
 <li><a href="#Introduction" title="Introduction">Introduction</a></li>
-<li><a href="#Hardware-requirements" title="Hardware requirements">Hardware requirements</a></li>
+<li class=""><a href="#Hardware-requirements" title="Hardware requirements">Hardware requirements</a></li>
 <li class=""><a href="#Installing-Hortonworks-Sandbox" title="Installing Hortonworks Sandbox">Installing Hortonworks Sandbox</a><ul class="nav">
 <li class=""><a href="#A-Using-a-Hypervisor" title="A. Using a Hypervisor">A. Using a Hypervisor</a><ul class="nav">
-<li class=""><a href="#1-Installing-a-Hypervisor" title="1. Installing a Hypervisor">1. Installing a Hypervisor</a></li>
-<li class=""><a href="#2-Installing-HDP-Sandbox" title="2. Installing HDP Sandbox">2. Installing HDP Sandbox</a></li>
-<li class=""><a href="#21-Downloading-the-Sandbox" title="2.1. Downloading the Sandbox">2.1. Downloading the Sandbox</a></li>
-<li class=""><a href="#22-Installing-the-Sandbox" title="2.2. Installing the Sandbox">2.2. Installing the Sandbox</a></li>
-<li class=""><a href="#23-Running-the-VM" title="2.3. Running the VM">2.3. Running the VM</a></li>
+<li><a href="#1-Installing-a-Hypervisor" title="1. Installing a Hypervisor">1. Installing a Hypervisor</a></li>
+<li><a href="#2-Installing-HDP-Sandbox" title="2. Installing HDP Sandbox">2. Installing HDP Sandbox</a></li>
+<li><a href="#21-Downloading-the-Sandbox" title="2.1. Downloading the Sandbox">2.1. Downloading the Sandbox</a></li>
+<li><a href="#22-Installing-the-Sandbox" title="2.2. Installing the Sandbox">2.2. Installing the Sandbox</a></li>
+<li><a href="#23-Running-the-VM" title="2.3. Running the VM">2.3. Running the VM</a></li>
 </ul>
 </li>
-<li class=""><a href="#B-Using-Docker" title="B. Using Docker">B. Using Docker</a><ul class="nav">
-<li class=""><a href="#1-Installing-Docker-Desktop-on-Windows" title="1. Installing Docker Desktop on Windows">1. Installing Docker Desktop on Windows</a></li>
-<li class=""><a href="#2-Installing-HDP-Sandbox1" title="2. Installing HDP Sandbox">2. Installing HDP Sandbox</a></li>
+<li><a href="#B-Using-Docker" title="B. Using Docker">B. Using Docker</a><ul class="nav">
+<li><a href="#1-Installing-Docker-Desktop-on-Windows" title="1. Installing Docker Desktop on Windows">1. Installing Docker Desktop on Windows</a></li>
+<li><a href="#2-Installing-HDP-Sandbox1" title="2. Installing HDP Sandbox">2. Installing HDP Sandbox</a></li>
 </ul>
 </li>
-<li class=""><a href="#Configuring-the-resources-for-Docker" title="Configuring the resources for Docker">Configuring the resources for Docker</a></li>
-<li class=""><a href="#StoppingRestarting-the-cluster" title="Stopping/Restarting the cluster">Stopping/Restarting the cluster</a></li>
+<li><a href="#Configuring-the-resources-for-Docker" title="Configuring the resources for Docker">Configuring the resources for Docker</a></li>
+<li><a href="#StoppingRestarting-the-cluster" title="Stopping/Restarting the cluster">Stopping/Restarting the cluster</a></li>
 </ul>
 </li>
-<li class=""><a href="#Access-HDP-Sandbox-cluster" title="Access HDP Sandbox cluster">Access HDP Sandbox cluster</a><ul class="nav">
-<li class=""><a href="#Access-via-SSH" title="Access via SSH">Access via SSH</a></li>
+<li><a href="#Access-HDP-Sandbox-cluster" title="Access HDP Sandbox cluster">Access HDP Sandbox cluster</a><ul class="nav">
+<li><a href="#Access-via-SSH" title="Access via SSH">Access via SSH</a></li>
 </ul>
 </li>
-<li class=""><a href="#Access-HDFS" title="Access HDFS">Access HDFS</a></li>
-<li class=""><a href="#Transfer-data-between-HDFS-and-local-file-systems" title="Transfer data between HDFS and local file systems">Transfer data between HDFS and local file systems</a><ul class="nav">
-<li class=""><a href="#Transfer-data-into-and-out-of-the-cluster-node" title="Transfer data into and out of the cluster node">Transfer data into and out of the cluster node</a></li>
-<li class=""><a href="#Transfer-data-into-and-out-of-HDFS" title="Transfer data into and out of HDFS">Transfer data into and out of HDFS</a></li>
+<li><a href="#Access-HDFS" title="Access HDFS">Access HDFS</a></li>
+<li><a href="#Transfer-data-between-HDFS-and-local-file-systems" title="Transfer data between HDFS and local file systems">Transfer data between HDFS and local file systems</a><ul class="nav">
+<li><a href="#Transfer-data-into-and-out-of-the-cluster-node" title="Transfer data into and out of the cluster node">Transfer data into and out of the cluster node</a></li>
+<li><a href="#Transfer-data-into-and-out-of-HDFS" title="Transfer data into and out of HDFS">Transfer data into and out of HDFS</a></li>
 </ul>
 </li>
-<li class=""><a href="#Common-issues" title="Common issues">Common issues</a></li>
-<li class=""><a href="#Self-check-questions" title="Self-check questions">Self-check questions</a></li>
-<li class=""><a href="#Appendix" title="Appendix">Appendix</a><ul class="nav">
-<li class=""><a href="#Sandbox-Version" title="Sandbox Version">Sandbox Version</a></li>
+<li><a href="#Common-issues" title="Common issues">Common issues</a></li>
+<li><a href="#Self-check-questions" title="Self-check questions">Self-check questions</a></li>
+<li><a href="#Appendix" title="Appendix">Appendix</a><ul class="nav">
+<li><a href="#Sandbox-Version" title="Sandbox Version">Sandbox Version</a></li>
 <li><a href="#Ambari-Roles" title="Ambari Roles">Ambari Roles</a></li>
 </ul>
 </li>
