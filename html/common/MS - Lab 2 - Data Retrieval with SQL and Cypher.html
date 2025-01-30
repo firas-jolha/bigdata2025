@@ -58,7 +58,10 @@
 </ul>
 </li>
 <li><a href="#Graph-databases" title="Graph databases">Graph databases</a><ul>
-<li><a href="#Download-and-Install-Neo4j" title="Download and Install Neo4j">Download and Install Neo4j</a></li>
+<li><a href="#Download-and-Install-Neo4j" title="Download and Install Neo4j">Download and Install Neo4j</a><ul>
+<li><a href="#Neo4j-docker-image" title="Neo4j docker image">Neo4j docker image</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#Cypher" title="Cypher">Cypher</a><ul>
@@ -244,7 +247,7 @@ friend2 <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</s
 <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> friends2 RENAMT <span class="hljs-keyword">TO</span> friends;
 
 </code></pre><h1 id="Data-Retrieval-using-SQL"><a class="anchor hidden-xs" href="#Data-Retrieval-using-SQL" title="Data-Retrieval-using-SQL"><i class="fa fa-link"></i></a>Data Retrieval using SQL</h1><p>In this part of the lab, we will practice on writing SQL queries to retrieve data from our database.</p><h2 id="Data-Retrieval-from-a-single-table"><a class="anchor hidden-xs" href="#Data-Retrieval-from-a-single-table" title="Data-Retrieval-from-a-single-table"><i class="fa fa-link"></i></a>Data Retrieval from a single table</h2><p>You can return data from a single table by using <code>SELECT</code> command. This kind of data retrieval is the simplest way to get data from a single table.</p><div class="alert alert-success">
-<h3 id="Exercises0"><a class="anchor hidden-xs" href="#Exercises0" title="Exercises0"><i class="fa fa-link"></i></a>Exercises</h3>
+<h3 id="Exercises"><a class="anchor hidden-xs" href="#Exercises" title="Exercises"><i class="fa fa-link"></i></a>Exercises</h3>
 <ol>
 <li>Who are the users who have posts?</li>
 </ol>
@@ -461,7 +464,12 @@ friend2 <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</s
 <img src="https://i.imgur.com/xrZ2Eib.png" alt="" class="md-image md-image"></p>
 </div><div class="alert alert-info">
 <p>You can access the guest machine in VirtualBox by ssh into the <code>HostSSH</code> port specified in the <code>port forwarding rules</code> which can be reached from the network settings of the virtual machine. You can also add your rules to the list.</p>
-</div><p>You can access the Neo4j Browser usually at <a href="http://localhost:7474" target="_blank" rel="noopener">http://localhost:7474</a>.</p><div class="alert alert-danger">
+</div><h3 id="Neo4j-docker-image"><a class="anchor hidden-xs" href="#Neo4j-docker-image" title="Neo4j-docker-image"><i class="fa fa-link"></i></a>Neo4j docker image</h3><p>Neo4j has docker image in dockerhub for the Neo4j database server. You can follow this approach to run the server as a docker container and access the service from the browser. Make sure that you have installed Docker engine and docker daemon is working. You can pull the image as follows:</p><pre><code class="wrap yaml hljs"><span class="hljs-string">docker</span> <span class="hljs-string">pull</span> <span class="hljs-string">neo4j</span>
+</code></pre><p><img src="https://raw.githubusercontent.com/docker-library/docs/56823e63d5b6dd7ddbb9d5d3c4a8947778055d8e/neo4j/logo.png" alt="" class="md-image md-image"></p><p>You can run the Neo4j server as a container:</p><pre><code class="wrap yaml hljs"><span class="hljs-string">docker</span> <span class="hljs-string">run</span> <span class="hljs-bullet">--name</span> <span class="hljs-string">neo4j_server</span>  <span class="hljs-bullet">--publish=7474:7474</span> <span class="hljs-bullet">--publish=7687:7687</span> <span class="hljs-bullet">--volume</span> <span class="hljs-string">/neo4j/logs:/var/lib/neo4j/logs</span> <span class="hljs-bullet">--volume</span> <span class="hljs-string">/neo4j/import:/var/lib/neo4j/import</span> <span class="hljs-bullet">--volume</span> <span class="hljs-string">/neo4j/plugins:/var/lib/neo4j/plugins</span>  <span class="hljs-bullet">--volume</span> <span class="hljs-string">/neo4j/data:/var/lib/neo4j/data</span> <span class="hljs-bullet">--env</span> <span class="hljs-string">NEO4J_AUTH=neo4j/neo4jneo4j</span> <span class="hljs-string">neo4j</span>
+</code></pre><p>The command above will create and run a docker container <code>neo4j</code> with name <code>neo4j_server</code> and publish ports 7474 for http and 7687 for bolt protocols. It will also attach volumes for logs, import, plugins and data folders. The <code>env</code> option will assign the password <code>neo4jneo4j</code> for the default user <code>neo4j</code>. You can use <code>-d</code> or <code>--detach</code> option to let the server run in detached mode in the background.</p><p>You can stop the container when you are done as follow:</p><pre><code class="yaml hljs"><span class="hljs-string">docker</span> <span class="hljs-string">stop</span> <span class="hljs-string">neo4j_server</span>
+</code></pre><p>Where <code>neo4j_server</code> is the container name or id if you did not assign a name.</p><p>You can start the container again as follows:</p><pre><code class="yaml hljs"><span class="hljs-string">docker</span> <span class="hljs-string">start</span> <span class="hljs-string">neo4j_server</span>
+</code></pre><p>Where <code>neo4j_server</code> is the container name or id if you did not assign a name.</p><p>In case you want to change some of the settings in running the container then you can delete the container and create a new one. Your data inside can be stored in local file system by attaching volumes to folders you want to. You can delete the container as follows: (make sure that you stopped it)</p><pre><code>docker rm neo4j_server
+</code></pre><p>Where <code>neo4j_server</code> is the container name or id if you did not assign a name.</p><p>You can access the Neo4j Browser usually at <a href="http://localhost:7474" target="_blank" rel="noopener">http://localhost:7474</a>.</p><div class="alert alert-danger">
 <p>If you can not install Neo4j due to some reason, you can open a free session of Neo4j Sandbox at <a href="https://neo4j.com/sandbox/" target="_blank" rel="noopener">https://neo4j.com/sandbox/</a> but you need proxy.</p>
 </div><h1 id="Cypher"><a class="anchor hidden-xs" href="#Cypher" title="Cypher"><i class="fa fa-link"></i></a>Cypher</h1><p>Cypher is Neo4j’s graph database query language that allows users to store and retrieve data from the graph database. It is a declarative, SQL-inspired language for describing visual patterns in graphs. The syntax provides a visual and logical way to match patterns of nodes and relationships in the graph. Cypher keywords are not case-sensitive but it is case-sensitive for variables.</p><p>All Neo4j servers contain a built-in database called <code>system</code>, which behaves differently than all other databases. The <code>system</code> database stores system data and you can not perform graph queries against it. A fresh installation of Neo4j includes two databases:</p><ul>
 <li><strong>system</strong> - the system database described above, containing meta-data on the DBMS and security configuration.</li>
@@ -556,14 +564,14 @@ Using patterns, you describe the shape of the data you are looking for. For exam
 </code></pre><ol start="2">
 <li>Create nodes and relationships<br>
 Each of the 3 CSV files needs to be loaded into Neo4j using the LOAD CSV command that reads each row of the file and then assigns the imported values to the nodes and edges of the graph.</li>
-</ol><pre><code class="cypher hljs">
-// <span class="hljs-keyword">Create</span> <span class="hljs-keyword">Index</span> <span class="hljs-keyword">for</span> <span class="hljs-keyword">users</span> <span class="hljs-keyword">on</span> userid <span class="hljs-keyword">field</span>
+</ol><pre><code class="sql hljs">
+<span class="hljs-comment">/* Create Index for users on userid field */</span>
 <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">INDEX</span> <span class="hljs-keyword">FOR</span> (u:<span class="hljs-keyword">User</span>) <span class="hljs-keyword">ON</span> (u.userid)
     
-// <span class="hljs-keyword">Create</span> <span class="hljs-keyword">Index</span> <span class="hljs-keyword">for</span> posts <span class="hljs-keyword">on</span> postid <span class="hljs-keyword">field</span>
+<span class="hljs-comment">/* Create Index for posts on postid field */</span>
 <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">INDEX</span> <span class="hljs-keyword">FOR</span> (u:Post) <span class="hljs-keyword">ON</span> (u.postid)
 
-// <span class="hljs-keyword">Load</span> <span class="hljs-keyword">users</span> <span class="hljs-keyword">data</span>
+<span class="hljs-comment">/* Load users data */</span>
 <span class="hljs-keyword">LOAD</span> CSV <span class="hljs-keyword">WITH</span> HEADERS 
 <span class="hljs-keyword">FROM</span> <span class="hljs-string">"file:///users.csv"</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">row</span> 
 FIELDTERMINATOR <span class="hljs-string">','</span>
@@ -577,7 +585,7 @@ FIELDTERMINATOR <span class="hljs-string">','</span>
 );
     
     
-// <span class="hljs-keyword">Load</span> posts <span class="hljs-keyword">data</span>
+<span class="hljs-comment">/* Load posts data */</span>
 <span class="hljs-keyword">LOAD</span> CSV <span class="hljs-keyword">WITH</span> HEADERS 
 <span class="hljs-keyword">FROM</span> <span class="hljs-string">"file:///posts.csv"</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">row</span> 
 FIELDTERMINATOR <span class="hljs-string">','</span>
@@ -591,21 +599,35 @@ FIELDTERMINATOR <span class="hljs-string">','</span>
     posttimestamp: datetime({epochSeconds: toInteger(<span class="hljs-keyword">row</span>[<span class="hljs-string">'posttimestamp'</span>])})
     }]-(u);
 
-// Retrieve some nodes
+<span class="hljs-comment">/* Retrieve some nodes */</span>
 MATCH (n)
 RETURN n
 LIMIT 10;
 
-// <span class="hljs-keyword">Load</span> Friends
-:<span class="hljs-keyword">auto</span> <span class="hljs-keyword">USING</span> PERIODIC <span class="hljs-keyword">COMMIT</span>
-<span class="hljs-keyword">LOAD</span> CSV <span class="hljs-keyword">WITH</span> HEADERS 
+<span class="hljs-comment">/* Load Friends */</span>
+
+:auto <span class="hljs-keyword">LOAD</span> CSV <span class="hljs-keyword">WITH</span> HEADERS 
 <span class="hljs-keyword">FROM</span> <span class="hljs-string">"file:///friends.csv"</span> <span class="hljs-keyword">AS</span> <span class="hljs-keyword">row</span> 
 FIELDTERMINATOR <span class="hljs-string">','</span>
+<span class="hljs-keyword">CALL</span> {
+<span class="hljs-keyword">WITH</span> <span class="hljs-keyword">row</span>
 <span class="hljs-keyword">MATCH</span> (u:<span class="hljs-keyword">User</span>{userid:toInteger(<span class="hljs-keyword">row</span>[<span class="hljs-string">'friend1'</span>])})
 <span class="hljs-keyword">MATCH</span> (v:<span class="hljs-keyword">User</span>{userid:toInteger(<span class="hljs-keyword">row</span>[<span class="hljs-string">'friend2'</span>])})
 <span class="hljs-keyword">MERGE</span> (u)-[:FRIEND]-&gt;(v)-[:FRIEND]-&gt;(u)
+} <span class="hljs-keyword">IN</span> TRANSACTIONS <span class="hljs-keyword">OF</span> <span class="hljs-number">1000</span> <span class="hljs-keyword">ROWS</span>
+
+<span class="hljs-comment">/* IN 3 CONCURRENT TRANSACTIONS OF 1000 ROWS */</span>
+<span class="hljs-comment">/*When a write transaction occurs, 
+Neo4j takes locks to preserve data consistency while updating.
+
+A deadlock happens when two transactions are blocked by 
+each other because they are attempting to concurrently 
+modify a node or a relationship that is locked by the 
+other transaction
+*/</span>
+
 </code></pre><h1 id="Data-Retrieval-with-Cypher"><a class="anchor hidden-xs" href="#Data-Retrieval-with-Cypher" title="Data-Retrieval-with-Cypher"><i class="fa fa-link"></i></a>Data Retrieval with Cypher</h1><p>Cypher is Neo4j’s graph query language that lets you retrieve data from the graph. It is like SQL for graphs, and was inspired by SQL so it lets you focus on what data you want out of the graph (not how to go get it). It is the easiest graph language to learn by far because of its similarity to other languages and intiutiveness.</p><div class="alert alert-success">
-<h2 id="Exercises"><a class="anchor hidden-xs" href="#Exercises" title="Exercises"><i class="fa fa-link"></i></a>Exercises</h2>
+<h2 id="Exercises3"><a class="anchor hidden-xs" href="#Exercises3" title="Exercises3"><i class="fa fa-link"></i></a>Exercises</h2>
 <ol>
 <li>Who are the users who have posts?</li>
 </ol>
@@ -779,46 +801,49 @@ RETURN COUNT(DISTINCT f2.userid) AS c
 <li><a href="#Fix-Friends-table" title="Fix Friends table">Fix Friends table</a></li>
 </ul>
 </li>
-<li class=""><a href="#Data-Retrieval-using-SQL" title="Data Retrieval using SQL">Data Retrieval using SQL</a><ul class="nav">
+<li><a href="#Data-Retrieval-using-SQL" title="Data Retrieval using SQL">Data Retrieval using SQL</a><ul class="nav">
 <li><a href="#Data-Retrieval-from-a-single-table" title="Data Retrieval from a single table">Data Retrieval from a single table</a></li>
 <li><a href="#Data-Retrieval-from-multiple-tables-Joining-tables" title="Data Retrieval from multiple tables (Joining tables)">Data Retrieval from multiple tables (Joining tables)</a></li>
-<li class=""><a href="#Aggregation-and-grouping" title="Aggregation and grouping">Aggregation and grouping</a></li>
+<li><a href="#Aggregation-and-grouping" title="Aggregation and grouping">Aggregation and grouping</a></li>
 </ul>
 </li>
 <li class=""><a href="#Graph-databases" title="Graph databases">Graph databases</a><ul class="nav">
-<li class=""><a href="#Download-and-Install-Neo4j" title="Download and Install Neo4j">Download and Install Neo4j</a></li>
+<li class=""><a href="#Download-and-Install-Neo4j" title="Download and Install Neo4j">Download and Install Neo4j</a><ul class="nav">
+<li class=""><a href="#Neo4j-docker-image" title="Neo4j docker image">Neo4j docker image</a></li>
 </ul>
 </li>
-<li class=""><a href="#Cypher" title="Cypher">Cypher</a><ul class="nav">
-<li class=""><a href="#Property-types" title="Property types">Property types</a></li>
-<li class=""><a href="#Structural-types" title="Structural types">Structural types</a></li>
-<li class=""><a href="#Composite-types" title="Composite types">Composite types</a></li>
-<li class=""><a href="#How-to-define-a-variable" title="How to define a variable">How to define a variable</a></li>
-<li class=""><a href="#Operators" title="Operators">Operators</a><ul class="nav">
-<li class=""><a href="#DISTINCT-aggregation-operator" title="DISTINCT (aggregation operator)">DISTINCT (aggregation operator)</a></li>
-<li class=""><a href="#Property-operators" title="Property operators">Property operators</a></li>
-<li class=""><a href="#Mathemtical-operators" title="Mathemtical operators">Mathemtical operators</a></li>
-<li class=""><a href="#Comparison-operators" title="Comparison operators">Comparison operators</a></li>
-<li class=""><a href="#Boolean-operators" title="Boolean operators">Boolean operators</a></li>
-<li class=""><a href="#String-operators" title="String operators">String operators</a></li>
 </ul>
 </li>
-<li class=""><a href="#Patterns" title="Patterns">Patterns</a><ul class="nav">
-<li class=""><a href="#Patterns-for-nodes" title="Patterns for nodes">Patterns for nodes</a></li>
-<li class=""><a href="#Patterns-for-related-nodes" title="Patterns for related nodes">Patterns for related nodes</a></li>
-<li class=""><a href="#Patterns-for-labels" title="Patterns for labels">Patterns for labels</a></li>
-<li class=""><a href="#Specifying-properties" title="Specifying properties">Specifying properties</a></li>
-<li class=""><a href="#Patterns-for-relationships" title="Patterns for relationships">Patterns for relationships</a></li>
-<li class=""><a href="#Variable-length-pattern-matching" title="Variable-length pattern matching">Variable-length pattern matching</a></li>
-<li class=""><a href="#Assigning-to-path-variables" title="Assigning to path variables">Assigning to path variables</a></li>
+<li><a href="#Cypher" title="Cypher">Cypher</a><ul class="nav">
+<li><a href="#Property-types" title="Property types">Property types</a></li>
+<li><a href="#Structural-types" title="Structural types">Structural types</a></li>
+<li><a href="#Composite-types" title="Composite types">Composite types</a></li>
+<li><a href="#How-to-define-a-variable" title="How to define a variable">How to define a variable</a></li>
+<li><a href="#Operators" title="Operators">Operators</a><ul class="nav">
+<li><a href="#DISTINCT-aggregation-operator" title="DISTINCT (aggregation operator)">DISTINCT (aggregation operator)</a></li>
+<li><a href="#Property-operators" title="Property operators">Property operators</a></li>
+<li><a href="#Mathemtical-operators" title="Mathemtical operators">Mathemtical operators</a></li>
+<li><a href="#Comparison-operators" title="Comparison operators">Comparison operators</a></li>
+<li><a href="#Boolean-operators" title="Boolean operators">Boolean operators</a></li>
+<li><a href="#String-operators" title="String operators">String operators</a></li>
 </ul>
 </li>
-<li class=""><a href="#Build-the-database" title="Build the database">Build the database</a></li>
+<li><a href="#Patterns" title="Patterns">Patterns</a><ul class="nav">
+<li><a href="#Patterns-for-nodes" title="Patterns for nodes">Patterns for nodes</a></li>
+<li><a href="#Patterns-for-related-nodes" title="Patterns for related nodes">Patterns for related nodes</a></li>
+<li><a href="#Patterns-for-labels" title="Patterns for labels">Patterns for labels</a></li>
+<li><a href="#Specifying-properties" title="Specifying properties">Specifying properties</a></li>
+<li><a href="#Patterns-for-relationships" title="Patterns for relationships">Patterns for relationships</a></li>
+<li><a href="#Variable-length-pattern-matching" title="Variable-length pattern matching">Variable-length pattern matching</a></li>
+<li><a href="#Assigning-to-path-variables" title="Assigning to path variables">Assigning to path variables</a></li>
 </ul>
 </li>
-<li class=""><a href="#Data-Retrieval-with-Cypher" title="Data Retrieval with Cypher">Data Retrieval with Cypher</a></li>
-<li class=""><a href="#Common-issues" title="Common issues">Common issues</a></li>
-<li class=""><a href="#References" title="References">References</a></li>
+<li><a href="#Build-the-database" title="Build the database">Build the database</a></li>
+</ul>
+</li>
+<li><a href="#Data-Retrieval-with-Cypher" title="Data Retrieval with Cypher">Data Retrieval with Cypher</a></li>
+<li><a href="#Common-issues" title="Common issues">Common issues</a></li>
+<li><a href="#References" title="References">References</a></li>
 </ul>
 </div><div class="toc-menu" style="">
     <a class="expand-toggle expand-all" href="#">Expand all</a>
@@ -844,46 +869,49 @@ RETURN COUNT(DISTINCT f2.userid) AS c
 <li><a href="#Fix-Friends-table" title="Fix Friends table">Fix Friends table</a></li>
 </ul>
 </li>
-<li class=""><a href="#Data-Retrieval-using-SQL" title="Data Retrieval using SQL">Data Retrieval using SQL</a><ul class="nav">
+<li><a href="#Data-Retrieval-using-SQL" title="Data Retrieval using SQL">Data Retrieval using SQL</a><ul class="nav">
 <li><a href="#Data-Retrieval-from-a-single-table" title="Data Retrieval from a single table">Data Retrieval from a single table</a></li>
 <li><a href="#Data-Retrieval-from-multiple-tables-Joining-tables" title="Data Retrieval from multiple tables (Joining tables)">Data Retrieval from multiple tables (Joining tables)</a></li>
-<li class=""><a href="#Aggregation-and-grouping" title="Aggregation and grouping">Aggregation and grouping</a></li>
+<li><a href="#Aggregation-and-grouping" title="Aggregation and grouping">Aggregation and grouping</a></li>
 </ul>
 </li>
 <li class=""><a href="#Graph-databases" title="Graph databases">Graph databases</a><ul class="nav">
-<li class=""><a href="#Download-and-Install-Neo4j" title="Download and Install Neo4j">Download and Install Neo4j</a></li>
+<li class=""><a href="#Download-and-Install-Neo4j" title="Download and Install Neo4j">Download and Install Neo4j</a><ul class="nav">
+<li class=""><a href="#Neo4j-docker-image" title="Neo4j docker image">Neo4j docker image</a></li>
 </ul>
 </li>
-<li class=""><a href="#Cypher" title="Cypher">Cypher</a><ul class="nav">
-<li class=""><a href="#Property-types" title="Property types">Property types</a></li>
-<li class=""><a href="#Structural-types" title="Structural types">Structural types</a></li>
-<li class=""><a href="#Composite-types" title="Composite types">Composite types</a></li>
-<li class=""><a href="#How-to-define-a-variable" title="How to define a variable">How to define a variable</a></li>
-<li class=""><a href="#Operators" title="Operators">Operators</a><ul class="nav">
-<li class=""><a href="#DISTINCT-aggregation-operator" title="DISTINCT (aggregation operator)">DISTINCT (aggregation operator)</a></li>
-<li class=""><a href="#Property-operators" title="Property operators">Property operators</a></li>
-<li class=""><a href="#Mathemtical-operators" title="Mathemtical operators">Mathemtical operators</a></li>
-<li class=""><a href="#Comparison-operators" title="Comparison operators">Comparison operators</a></li>
-<li class=""><a href="#Boolean-operators" title="Boolean operators">Boolean operators</a></li>
-<li class=""><a href="#String-operators" title="String operators">String operators</a></li>
 </ul>
 </li>
-<li class=""><a href="#Patterns" title="Patterns">Patterns</a><ul class="nav">
-<li class=""><a href="#Patterns-for-nodes" title="Patterns for nodes">Patterns for nodes</a></li>
-<li class=""><a href="#Patterns-for-related-nodes" title="Patterns for related nodes">Patterns for related nodes</a></li>
-<li class=""><a href="#Patterns-for-labels" title="Patterns for labels">Patterns for labels</a></li>
-<li class=""><a href="#Specifying-properties" title="Specifying properties">Specifying properties</a></li>
-<li class=""><a href="#Patterns-for-relationships" title="Patterns for relationships">Patterns for relationships</a></li>
-<li class=""><a href="#Variable-length-pattern-matching" title="Variable-length pattern matching">Variable-length pattern matching</a></li>
-<li class=""><a href="#Assigning-to-path-variables" title="Assigning to path variables">Assigning to path variables</a></li>
+<li><a href="#Cypher" title="Cypher">Cypher</a><ul class="nav">
+<li><a href="#Property-types" title="Property types">Property types</a></li>
+<li><a href="#Structural-types" title="Structural types">Structural types</a></li>
+<li><a href="#Composite-types" title="Composite types">Composite types</a></li>
+<li><a href="#How-to-define-a-variable" title="How to define a variable">How to define a variable</a></li>
+<li><a href="#Operators" title="Operators">Operators</a><ul class="nav">
+<li><a href="#DISTINCT-aggregation-operator" title="DISTINCT (aggregation operator)">DISTINCT (aggregation operator)</a></li>
+<li><a href="#Property-operators" title="Property operators">Property operators</a></li>
+<li><a href="#Mathemtical-operators" title="Mathemtical operators">Mathemtical operators</a></li>
+<li><a href="#Comparison-operators" title="Comparison operators">Comparison operators</a></li>
+<li><a href="#Boolean-operators" title="Boolean operators">Boolean operators</a></li>
+<li><a href="#String-operators" title="String operators">String operators</a></li>
 </ul>
 </li>
-<li class=""><a href="#Build-the-database" title="Build the database">Build the database</a></li>
+<li><a href="#Patterns" title="Patterns">Patterns</a><ul class="nav">
+<li><a href="#Patterns-for-nodes" title="Patterns for nodes">Patterns for nodes</a></li>
+<li><a href="#Patterns-for-related-nodes" title="Patterns for related nodes">Patterns for related nodes</a></li>
+<li><a href="#Patterns-for-labels" title="Patterns for labels">Patterns for labels</a></li>
+<li><a href="#Specifying-properties" title="Specifying properties">Specifying properties</a></li>
+<li><a href="#Patterns-for-relationships" title="Patterns for relationships">Patterns for relationships</a></li>
+<li><a href="#Variable-length-pattern-matching" title="Variable-length pattern matching">Variable-length pattern matching</a></li>
+<li><a href="#Assigning-to-path-variables" title="Assigning to path variables">Assigning to path variables</a></li>
 </ul>
 </li>
-<li class=""><a href="#Data-Retrieval-with-Cypher" title="Data Retrieval with Cypher">Data Retrieval with Cypher</a></li>
-<li class=""><a href="#Common-issues" title="Common issues">Common issues</a></li>
-<li class=""><a href="#References" title="References">References</a></li>
+<li><a href="#Build-the-database" title="Build the database">Build the database</a></li>
+</ul>
+</li>
+<li><a href="#Data-Retrieval-with-Cypher" title="Data Retrieval with Cypher">Data Retrieval with Cypher</a></li>
+<li><a href="#Common-issues" title="Common issues">Common issues</a></li>
+<li><a href="#References" title="References">References</a></li>
 </ul>
 </div><div class="toc-menu" style="">
     <a class="expand-toggle expand-all" href="#">Expand all</a>
