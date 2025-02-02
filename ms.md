@@ -8,12 +8,16 @@ layout: page
 
 ## Labs
 
-### [Lab 1 - Installing HDP Sandbox](html/common/Lab 1 - Installing HDP Sandbox.html)
+### [Lab 1 - Installing HDP Sandbox](html/ms/MS - Lab 1 - Installing HDP Sandbox.html)
 
-### [Lab 2 - Data Retrieval with SQL and Cypher](html/common/MS - Lab 2 - Data Retrieval with SQL and Cypher.html)
+### [Lab 2 - Data Retrieval with SQL and Cypher](html/ms/MS - Lab 2 - Data Retrieval with SQL and Cypher.html)
+
+### [Lab 3 - Data Retrieval with MongoDB](html/ms/MS - Lab 3 - MongoDB.html)
 
 ## Assignments
+<!-- ### [Assignment 2 - Big data storage](html/ms/MS - Lab 3 - MongoDB.html) -->
 
 
 ## Project
+<!-- ### [Project stage 1 - Data Storage](html/ms/MS - Lab 3 - MongoDB.html -->
 
