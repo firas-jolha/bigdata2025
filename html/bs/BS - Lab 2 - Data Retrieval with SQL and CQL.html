@@ -252,7 +252,7 @@ friend2 <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</s
 
 <span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> friends <span class="hljs-keyword">RENAME</span> <span class="hljs-keyword">TO</span> friends_old;
 
-<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> friends2 RENAMT <span class="hljs-keyword">TO</span> friends;
+<span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> friends2 <span class="hljs-keyword">RENAME</span> <span class="hljs-keyword">TO</span> friends;
 
 </code></pre><h1 id="Data-Retrieval-using-SQL"><a class="anchor hidden-xs" href="#Data-Retrieval-using-SQL" title="Data-Retrieval-using-SQL"><i class="fa fa-link"></i></a>Data Retrieval using SQL</h1><p>In this part of the lab, we will practice on writing SQL queries to retrieve data from our database.</p><h2 id="Data-Retrieval-from-a-single-table"><a class="anchor hidden-xs" href="#Data-Retrieval-from-a-single-table" title="Data-Retrieval-from-a-single-table"><i class="fa fa-link"></i></a>Data Retrieval from a single table</h2><p>You can return data from a single table by using <code>SELECT</code> command. This kind of data retrieval is the simplest way to get data from a single table.</p><div class="alert alert-success">
 <h3 id="Exercises"><a class="anchor hidden-xs" href="#Exercises" title="Exercises"><i class="fa fa-link"></i></a>Exercises</h3>
@@ -1036,27 +1036,27 @@ NY229,<span class="hljs-number">2016</span><span class="hljs-number">-01</span><
             </a>
             <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
                 <div class="toc"><ul class="nav">
-<li><a href="#Lab-2---Data-Retrieval-with-SQL-and-CQL" title="Lab 2 - Data Retrieval with SQL and CQL">Lab 2 - Data Retrieval with SQL and CQL</a></li>
-<li><a href="#Dataset" title="Dataset">Dataset</a></li>
-<li><a href="#Agenda" title="Agenda">Agenda</a></li>
-<li><a href="#Prerequisites" title="Prerequisites">Prerequisites</a></li>
-<li><a href="#Objectives" title="Objectives">Objectives</a></li>
-<li><a href="#Introduction" title="Introduction">Introduction</a></li>
-<li><a href="#Dataset-Descripion" title="Dataset Descripion">Dataset Descripion</a></li>
-<li><a href="#Access-PostgreSQL-server" title="Access PostgreSQL server">Access PostgreSQL server</a></li>
-<li><a href="#PostgreSQL-Meta-commands" title="PostgreSQL Meta-commands">PostgreSQL Meta-commands</a></li>
-<li><a href="#Build-the-Database" title="Build the Database">Build the Database</a><ul class="nav">
-<li><a href="#Fix-Friends-table" title="Fix Friends table">Fix Friends table</a></li>
+<li class=""><a href="#Lab-2---Data-Retrieval-with-SQL-and-CQL" title="Lab 2 - Data Retrieval with SQL and CQL">Lab 2 - Data Retrieval with SQL and CQL</a></li>
+<li class=""><a href="#Dataset" title="Dataset">Dataset</a></li>
+<li class=""><a href="#Agenda" title="Agenda">Agenda</a></li>
+<li class=""><a href="#Prerequisites" title="Prerequisites">Prerequisites</a></li>
+<li class=""><a href="#Objectives" title="Objectives">Objectives</a></li>
+<li class=""><a href="#Introduction" title="Introduction">Introduction</a></li>
+<li class=""><a href="#Dataset-Descripion" title="Dataset Descripion">Dataset Descripion</a></li>
+<li class=""><a href="#Access-PostgreSQL-server" title="Access PostgreSQL server">Access PostgreSQL server</a></li>
+<li class=""><a href="#PostgreSQL-Meta-commands" title="PostgreSQL Meta-commands">PostgreSQL Meta-commands</a></li>
+<li class=""><a href="#Build-the-Database" title="Build the Database">Build the Database</a><ul class="nav">
+<li class=""><a href="#Fix-Friends-table" title="Fix Friends table">Fix Friends table</a></li>
 </ul>
 </li>
-<li><a href="#Data-Retrieval-using-SQL" title="Data Retrieval using SQL">Data Retrieval using SQL</a><ul class="nav">
-<li><a href="#Data-Retrieval-from-a-single-table" title="Data Retrieval from a single table">Data Retrieval from a single table</a></li>
-<li><a href="#Data-Retrieval-from-multiple-tables-Joining-tables" title="Data Retrieval from multiple tables (Joining tables)">Data Retrieval from multiple tables (Joining tables)</a></li>
-<li><a href="#Aggregation-and-grouping" title="Aggregation and grouping">Aggregation and grouping</a></li>
-<li><a href="#Citus-Data" title="Citus Data">Citus Data</a></li>
+<li class=""><a href="#Data-Retrieval-using-SQL" title="Data Retrieval using SQL">Data Retrieval using SQL</a><ul class="nav">
+<li class=""><a href="#Data-Retrieval-from-a-single-table" title="Data Retrieval from a single table">Data Retrieval from a single table</a></li>
+<li class=""><a href="#Data-Retrieval-from-multiple-tables-Joining-tables" title="Data Retrieval from multiple tables (Joining tables)">Data Retrieval from multiple tables (Joining tables)</a></li>
+<li class=""><a href="#Aggregation-and-grouping" title="Aggregation and grouping">Aggregation and grouping</a></li>
+<li class=""><a href="#Citus-Data" title="Citus Data">Citus Data</a></li>
 </ul>
 </li>
-<li class=""><a href="#Apache-Cassandra" title="Apache Cassandra">Apache Cassandra</a><ul class="nav">
+<li><a href="#Apache-Cassandra" title="Apache Cassandra">Apache Cassandra</a><ul class="nav">
 <li><a href="#Installing-Cassandra" title="Installing Cassandra">Installing Cassandra</a><ul class="nav">
 <li><a href="#Single-node-Cassandra-server-installation" title="Single-node Cassandra server installation">Single-node Cassandra server installation</a></li>
 <li><a href="#Multi-node-Cassandra-cluster" title="Multi-node Cassandra cluster">Multi-node Cassandra cluster</a></li>
@@ -1073,12 +1073,12 @@ NY229,<span class="hljs-number">2016</span><span class="hljs-number">-01</span><
 <li><a href="#Group-by-clause" title="Group by clause">Group by clause</a></li>
 </ul>
 </li>
-<li class=""><a href="#Example-on-Cassandra-database" title="Example on Cassandra database">Example on Cassandra database</a><ul class="nav">
+<li><a href="#Example-on-Cassandra-database" title="Example on Cassandra database">Example on Cassandra database</a><ul class="nav">
 <li><a href="#Define-application-queries" title="Define application queries">Define application queries</a></li>
 <li><a href="#Define-logical-data-model" title="Define logical data model">Define logical data model</a></li>
 <li><a href="#Physical-data-modeling" title="Physical data modeling">Physical data modeling</a></li>
 <li><a href="#Create-the-database-objects" title="Create the database objects">Create the database objects</a></li>
-<li class=""><a href="#Populate-data-from-csv-file" title="Populate data from csv file">Populate data from csv file</a></li>
+<li><a href="#Populate-data-from-csv-file" title="Populate data from csv file">Populate data from csv file</a></li>
 </ul>
 </li>
 </ul>
@@ -1096,27 +1096,27 @@ NY229,<span class="hljs-number">2016</span><span class="hljs-number">-01</span><
     </div>
     <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;"  >
         <div class="toc"><ul class="nav">
-<li><a href="#Lab-2---Data-Retrieval-with-SQL-and-CQL" title="Lab 2 - Data Retrieval with SQL and CQL">Lab 2 - Data Retrieval with SQL and CQL</a></li>
-<li><a href="#Dataset" title="Dataset">Dataset</a></li>
-<li><a href="#Agenda" title="Agenda">Agenda</a></li>
-<li><a href="#Prerequisites" title="Prerequisites">Prerequisites</a></li>
-<li><a href="#Objectives" title="Objectives">Objectives</a></li>
-<li><a href="#Introduction" title="Introduction">Introduction</a></li>
-<li><a href="#Dataset-Descripion" title="Dataset Descripion">Dataset Descripion</a></li>
-<li><a href="#Access-PostgreSQL-server" title="Access PostgreSQL server">Access PostgreSQL server</a></li>
-<li><a href="#PostgreSQL-Meta-commands" title="PostgreSQL Meta-commands">PostgreSQL Meta-commands</a></li>
-<li><a href="#Build-the-Database" title="Build the Database">Build the Database</a><ul class="nav">
-<li><a href="#Fix-Friends-table" title="Fix Friends table">Fix Friends table</a></li>
+<li class=""><a href="#Lab-2---Data-Retrieval-with-SQL-and-CQL" title="Lab 2 - Data Retrieval with SQL and CQL">Lab 2 - Data Retrieval with SQL and CQL</a></li>
+<li class=""><a href="#Dataset" title="Dataset">Dataset</a></li>
+<li class=""><a href="#Agenda" title="Agenda">Agenda</a></li>
+<li class=""><a href="#Prerequisites" title="Prerequisites">Prerequisites</a></li>
+<li class=""><a href="#Objectives" title="Objectives">Objectives</a></li>
+<li class=""><a href="#Introduction" title="Introduction">Introduction</a></li>
+<li class=""><a href="#Dataset-Descripion" title="Dataset Descripion">Dataset Descripion</a></li>
+<li class=""><a href="#Access-PostgreSQL-server" title="Access PostgreSQL server">Access PostgreSQL server</a></li>
+<li class=""><a href="#PostgreSQL-Meta-commands" title="PostgreSQL Meta-commands">PostgreSQL Meta-commands</a></li>
+<li class=""><a href="#Build-the-Database" title="Build the Database">Build the Database</a><ul class="nav">
+<li class=""><a href="#Fix-Friends-table" title="Fix Friends table">Fix Friends table</a></li>
 </ul>
 </li>
-<li><a href="#Data-Retrieval-using-SQL" title="Data Retrieval using SQL">Data Retrieval using SQL</a><ul class="nav">
-<li><a href="#Data-Retrieval-from-a-single-table" title="Data Retrieval from a single table">Data Retrieval from a single table</a></li>
-<li><a href="#Data-Retrieval-from-multiple-tables-Joining-tables" title="Data Retrieval from multiple tables (Joining tables)">Data Retrieval from multiple tables (Joining tables)</a></li>
-<li><a href="#Aggregation-and-grouping" title="Aggregation and grouping">Aggregation and grouping</a></li>
-<li><a href="#Citus-Data" title="Citus Data">Citus Data</a></li>
+<li class=""><a href="#Data-Retrieval-using-SQL" title="Data Retrieval using SQL">Data Retrieval using SQL</a><ul class="nav">
+<li class=""><a href="#Data-Retrieval-from-a-single-table" title="Data Retrieval from a single table">Data Retrieval from a single table</a></li>
+<li class=""><a href="#Data-Retrieval-from-multiple-tables-Joining-tables" title="Data Retrieval from multiple tables (Joining tables)">Data Retrieval from multiple tables (Joining tables)</a></li>
+<li class=""><a href="#Aggregation-and-grouping" title="Aggregation and grouping">Aggregation and grouping</a></li>
+<li class=""><a href="#Citus-Data" title="Citus Data">Citus Data</a></li>
 </ul>
 </li>
-<li class=""><a href="#Apache-Cassandra" title="Apache Cassandra">Apache Cassandra</a><ul class="nav">
+<li><a href="#Apache-Cassandra" title="Apache Cassandra">Apache Cassandra</a><ul class="nav">
 <li><a href="#Installing-Cassandra" title="Installing Cassandra">Installing Cassandra</a><ul class="nav">
 <li><a href="#Single-node-Cassandra-server-installation" title="Single-node Cassandra server installation">Single-node Cassandra server installation</a></li>
 <li><a href="#Multi-node-Cassandra-cluster" title="Multi-node Cassandra cluster">Multi-node Cassandra cluster</a></li>
@@ -1133,12 +1133,12 @@ NY229,<span class="hljs-number">2016</span><span class="hljs-number">-01</span><
 <li><a href="#Group-by-clause" title="Group by clause">Group by clause</a></li>
 </ul>
 </li>
-<li class=""><a href="#Example-on-Cassandra-database" title="Example on Cassandra database">Example on Cassandra database</a><ul class="nav">
+<li><a href="#Example-on-Cassandra-database" title="Example on Cassandra database">Example on Cassandra database</a><ul class="nav">
 <li><a href="#Define-application-queries" title="Define application queries">Define application queries</a></li>
 <li><a href="#Define-logical-data-model" title="Define logical data model">Define logical data model</a></li>
 <li><a href="#Physical-data-modeling" title="Physical data modeling">Physical data modeling</a></li>
 <li><a href="#Create-the-database-objects" title="Create the database objects">Create the database objects</a></li>
-<li class=""><a href="#Populate-data-from-csv-file" title="Populate data from csv file">Populate data from csv file</a></li>
+<li><a href="#Populate-data-from-csv-file" title="Populate data from csv file">Populate data from csv file</a></li>
 </ul>
 </li>
 </ul>
