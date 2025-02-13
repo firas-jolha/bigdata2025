@@ -19,6 +19,6 @@ layout: page
 
 
 ## Project
-<!-- ### [Project stage 1 - Data Storage](html/ms/MS - Lab 3 - MongoDB.html -->
 ### [Final Project - Description](html/ms/MS - Final Project.html)
+### [Stage I - Data collection and Ingestion](html/ms/MS - Stage I - Data collection and Ingestion.html)
 
