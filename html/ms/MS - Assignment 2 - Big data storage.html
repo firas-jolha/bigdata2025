@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>
+        MS - Assignment 2 - Big data storage - CodiMD
+    </title>
+    <link rel="icon" type="image/png" href="http://localhost:3000/favicon.png">
+    <link rel="apple-touch-icon" href="http://localhost:3000/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.0/css/bootstrap.min.css" integrity="sha256-H0KfTigpUV+0/5tn2HXC0CPwhhDhWgSawJdnFd0CGCo=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fork-awesome/1.1.3/css/fork-awesome.min.css" integrity="sha256-ZhApazu+kejqTYhMF+1DzNKjIzP7KXu6AzyXcC1gMus=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" integrity="sha256-3iu9jgsy9TpTwXKb7bNQzqWekRX7pPK+2OLj3R922fo=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css" integrity="sha256-vtR0hSWRc3Tb26iuN2oZHt3KRUomwTufNIf5/4oeCyg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github-gist.min.css" integrity="sha256-tAflq+ymku3Khs+I/WcAneIlafYgDiOQ9stIHH985Wo=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@hackmd/emojify.js@2.1.0/dist/css/basic/emojify.min.css" integrity="sha256-UOrvMOsSDSrW6szVLe8ZDZezBxh5IoIfgTwdNDgTjiU=" crossorigin="anonymous" />
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,600,600italic,300italic,300|Source+Serif+Pro|Source+Code+Pro:400,300,500&subset=latin,latin-ext);.markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body:after,.markdown-body:before{display:table;content:""}.markdown-body:after{clear:both}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body .absent{color:#c00}.markdown-body .anchor{float:left;padding-right:4px;margin-left:-20px;line-height:1}.markdown-body .anchor:focus{outline:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-top:0;margin-bottom:16px}.markdown-body hr{height:.25em;padding:0;margin:24px 0;background-color:#e7e7e7;border:0}.markdown-body blockquote{padding:0 1em;color:#777;border-left:.25em solid #ddd}.night .markdown-body blockquote{color:#bcbcbc}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body .loweralpha{list-style-type:lower-alpha}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-top:24px;margin-bottom:16px;font-weight:600;line-height:1.25}.night .markdown-body h1,.night .markdown-body h2,.night .markdown-body h3,.night .markdown-body h4,.night .markdown-body h5,.night .markdown-body h6{color:#ddd}.markdown-body h1 .fa-link,.markdown-body h2 .fa-link,.markdown-body h3 .fa-link,.markdown-body h4 .fa-link,.markdown-body h5 .fa-link,.markdown-body h6 .fa-link{color:#000;vertical-align:middle;visibility:hidden;font-size:16px}.night .markdown-body h1 .fa-link,.night .markdown-body h2 .fa-link,.night .markdown-body h3 .fa-link,.night .markdown-body h4 .fa-link,.night .markdown-body h5 .fa-link,.night .markdown-body h6 .fa-link{color:#fff}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .fa-link,.markdown-body h2:hover .anchor .fa-link,.markdown-body h3:hover .anchor .fa-link,.markdown-body h4:hover .anchor .fa-link,.markdown-body h5:hover .anchor .fa-link,.markdown-body h6:hover .anchor .fa-link{visibility:visible}.markdown-body h1 code,.markdown-body h1 tt,.markdown-body h2 code,.markdown-body h2 tt,.markdown-body h3 code,.markdown-body h3 tt,.markdown-body h4 code,.markdown-body h4 tt,.markdown-body h5 code,.markdown-body h5 tt,.markdown-body h6 code,.markdown-body h6 tt{font-size:inherit}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{padding-bottom:.3em;border-bottom:1px solid #eee}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{font-size:.85em;color:#777}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol.no-list,.markdown-body ul.no-list{padding:0;list-style-type:none}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-top:0;margin-bottom:0}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}.markdown-body dl dd{padding:0 16px;margin-bottom:16px}.markdown-body table{display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}.markdown-body table th{font-weight:700}.markdown-body table td,.markdown-body table th{padding:6px 13px;border:1px solid #ddd}.markdown-body table tr{background-color:#fff;border-top:1px solid #ccc}.night .markdown-body table tr{background-color:#5f5f5f}.markdown-body table tr:nth-child(2n){background-color:#f8f8f8}.night .markdown-body table tr:nth-child(2n){background-color:#4f4f4f}.markdown-body img{max-width:100%;box-sizing:content-box;background-color:#fff}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body .emoji{max-width:none;vertical-align:text-top;background-color:transparent}.markdown-body span.frame{display:block;overflow:hidden}.markdown-body span.frame>span{display:block;float:left;width:auto;padding:7px;margin:13px 0 0;overflow:hidden;border:1px solid #ddd}.markdown-body span.frame span img{display:block;float:left}.markdown-body span.frame span span{display:block;padding:5px 0 0;clear:both;color:#333}.markdown-body span.align-center{display:block;overflow:hidden;clear:both}.markdown-body span.align-center>span{display:block;margin:13px auto 0;overflow:hidden;text-align:center}.markdown-body span.align-center span img{margin:0 auto;text-align:center}.markdown-body span.align-right{display:block;overflow:hidden;clear:both}.markdown-body span.align-right>span{display:block;margin:13px 0 0;overflow:hidden;text-align:right}.markdown-body span.align-right span img{margin:0;text-align:right}.markdown-body span.float-left{display:block;float:left;margin-right:13px;overflow:hidden}.markdown-body span.float-left span{margin:13px 0 0}.markdown-body span.float-right{display:block;float:right;margin-left:13px;overflow:hidden}.markdown-body span.float-right>span{display:block;margin:13px auto 0;overflow:hidden;text-align:right}.markdown-body code,.markdown-body tt{padding:.2em 0;margin:0;font-size:85%;background-color:rgba(0,0,0,.04);border-radius:3px}.night .markdown-body code,.night .markdown-body tt{color:#eee;background-color:hsla(0,0%,90.2%,.36)}.markdown-body code:after,.markdown-body code:before,.markdown-body tt:after,.markdown-body tt:before{letter-spacing:-.2em;content:"\A0"}.markdown-body code br,.markdown-body tt br{display:none}.markdown-body del code{text-decoration:inherit}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{padding:0;margin:0;font-size:100%;word-break:normal;white-space:pre;background:transparent;border:0}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{padding:16px;overflow:auto;font-size:85%;line-height:1.45;background-color:#f7f7f7;border-radius:3px}.markdown-body pre code,.markdown-body pre tt{display:inline;max-width:auto;padding:0;margin:0;overflow:visible;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}.markdown-body pre code:after,.markdown-body pre code:before,.markdown-body pre tt:after,.markdown-body pre tt:before{content:normal}.markdown-body .csv-data td,.markdown-body .csv-data th{padding:5px;overflow:hidden;font-size:12px;line-height:1;text-align:left;white-space:nowrap}.markdown-body .csv-data .blob-line-num{padding:10px 8px 9px;text-align:right;background:#fff;border:0}.markdown-body .csv-data tr{border-top:0}.markdown-body .csv-data th{font-weight:700;background:#f8f8f8;border-top:0}.markdown-body kbd{display:inline-block;padding:3px 5px;font-size:11px;line-height:10px;color:#555;vertical-align:middle;background-color:#fcfcfc;border:1px solid;border-color:#ccc #ccc #bbb;border-radius:3px;box-shadow:inset 0 -1px 0 #bbb}.news .alert .markdown-body blockquote{padding:0 0 0 40px;border:0}.activity-tab .news .alert .commits,.activity-tab .news .markdown-body blockquote{padding-left:0}.task-list-item{list-style-type:none}.task-list-item label{font-weight:400}.task-list-item.enabled label{cursor:pointer}.task-list-item+.task-list-item{margin-top:3px}.task-list-item-checkbox{float:left;margin:.31em 0 .2em -1.3em!important;vertical-align:middle;cursor:default!important}.markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;padding-top:40px;padding-bottom:40px;max-width:758px;overflow:visible!important}.markdown-body pre{border:inherit!important}.night .markdown-body pre{filter:invert(100%)}.markdown-body code{color:inherit!important}.markdown-body pre code .wrapper{display:-webkit-inline-flex;display:-moz-inline-flex;display:-ms-inline-flex;display:-o-inline-flex;display:inline-flex}.markdown-body pre code .gutter{float:left;overflow:hidden;-webkit-user-select:none;user-select:none}.markdown-body pre code .gutter.linenumber{text-align:right;position:relative;display:inline-block;cursor:default;z-index:4;padding:0 8px 0 0;min-width:20px;box-sizing:content-box;color:#afafaf!important;border-right:3px solid #6ce26c!important}.markdown-body pre code .gutter.linenumber>span:before{content:attr(data-linenumber)}.markdown-body pre code .code{float:left;margin:0 0 0 16px}.markdown-body .gist .line-numbers{border-left:none;border-top:none;border-bottom:none}.markdown-body .gist .line-data{border:none}.markdown-body .gist table{border-spacing:0;border-collapse:inherit!important}.night .markdown-body .gist table tr:nth-child(2n){background-color:#ddd}.markdown-body code[data-gist-id]{background:none;padding:0;filter:invert(100%)}.markdown-body code[data-gist-id]:after,.markdown-body code[data-gist-id]:before{content:""}.markdown-body code[data-gist-id] .blob-num{border:unset}.markdown-body code[data-gist-id] table{overflow:unset;margin-bottom:unset}.markdown-body code[data-gist-id] table tr{background:unset}.markdown-body[dir=rtl] pre{direction:ltr}.markdown-body[dir=rtl] code{direction:ltr;unicode-bidi:embed}.markdown-body .alert>p{margin-bottom:0}.markdown-body pre.abc,.markdown-body pre.flow-chart,.markdown-body pre.geo,.markdown-body pre.graphviz,.markdown-body pre.mermaid,.markdown-body pre.sequence-diagram,.markdown-body pre.vega{text-align:center;background-color:inherit;border-radius:0;white-space:inherit}.night .markdown-body pre.graphviz .graph>polygon{fill:#333}.night .markdown-body pre.mermaid .sectionTitle,.night .markdown-body pre.mermaid .titleText,.night .markdown-body pre.mermaid text{fill:#fff}.markdown-body pre.abc>code,.markdown-body pre.flow-chart>code,.markdown-body pre.graphviz>code,.markdown-body pre.mermaid>code,.markdown-body pre.sequence-diagram>code,.markdown-body pre.vega>code{text-align:left}.markdown-body pre.abc>svg,.markdown-body pre.flow-chart>svg,.markdown-body pre.graphviz>svg,.markdown-body pre.mermaid>svg,.markdown-body pre.sequence-diagram>svg,.markdown-body pre.vega>svg{max-width:100%;height:100%}.night .markdown-body .abc path{fill:#eee}.night .markdown-body .abc path.note_selected{fill:##4DD0E1}.night tspan{fill:#fefefe}.night pre rect{fill:transparent}.night pre.flow-chart path,.night pre.flow-chart rect{stroke:#fff}.markdown-body pre>code.wrap{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}.markdown-body .alert>p,.markdown-body .alert>ul{margin-bottom:0}.markdown-body summary{display:list-item}.markdown-body summary:focus{outline:none}.markdown-body details summary{cursor:pointer}.markdown-body details:not([open])>:not(summary){display:none}.markdown-body figure{margin:1em 40px}.markdown-body img{background-color:transparent}.vimeo,.youtube{cursor:pointer;display:table;text-align:center;background-position:50%;background-repeat:no-repeat;background-size:contain;background-color:#000;overflow:hidden}.vimeo,.youtube{position:relative;width:100%}.youtube{padding-bottom:56.25%}.vimeo img{width:100%;object-fit:contain;z-index:0}.youtube img{object-fit:cover;z-index:0}.vimeo iframe,.youtube iframe,.youtube img{width:100%;height:100%;position:absolute;top:0;left:0}.vimeo iframe,.youtube iframe{vertical-align:middle;z-index:1}.vimeo .icon,.youtube .icon{position:absolute;height:auto;width:auto;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;opacity:.3;-webkit-transition:opacity .2s;transition:opacity .2s;z-index:0}.vimeo:hover .icon,.youtube:hover .icon{opacity:.6;-webkit-transition:opacity .2s;transition:opacity .2s}.slideshare .inner,.speakerdeck .inner{position:relative;width:100%}.slideshare .inner iframe,.speakerdeck .inner iframe{position:absolute;top:0;bottom:0;left:0;right:0;width:100%;height:100%}.geo-map{width:100%;height:250px}.markmap-container{height:300px}.markmap-container>svg{width:100%;height:100%}.MJX_Assistive_MathML{display:none}.ui-infobar{position:relative;z-index:2;max-width:758px;margin-top:25px;margin-bottom:-25px;color:#777}.toc .invisable-node{list-style-type:none}.ui-toc{position:fixed;bottom:20px;z-index:10000}.ui-toc-label{opacity:.9;background-color:#ccc;border:none}.ui-toc-label,.ui-toc .open .ui-toc-label{-webkit-transition:opacity .2s;transition:opacity .2s}.ui-toc .open .ui-toc-label{opacity:1;color:#5f5f5f}.ui-toc-label:focus{opacity:1;background-color:#ccc;color:#000}.ui-toc-label:hover{opacity:1;background-color:#ccc;-webkit-transition:opacity .2s;transition:opacity .2s}.ui-toc-dropdown{margin-top:23px;margin-bottom:20px;padding-left:10px;padding-right:10px;max-width:45vw;width:25vw;max-height:70vh;overflow:auto;text-align:inherit}.ui-toc-dropdown>.toc{max-height:calc(70vh - 100px);overflow:auto}.ui-toc-dropdown[dir=rtl] .nav{padding-right:0;letter-spacing:.0029em}.ui-toc-dropdown a{overflow:hidden;text-overflow:ellipsis;white-space:pre}.ui-toc-dropdown .nav>li>a{display:block;padding:4px 20px;font-size:13px;font-weight:500;color:#767676}.ui-toc-dropdown .nav>li:first-child:last-child>ul,.ui-toc-dropdown .toc.expand ul{display:block}.ui-toc-dropdown .nav>li>a:focus,.ui-toc-dropdown .nav>li>a:hover{padding-left:19px;color:#000;text-decoration:none;background-color:transparent;border-left:1px solid #000}.night .ui-toc-dropdown .nav>li>a:focus,.night .ui-toc-dropdown .nav>li>a:hover{color:#fff;border-left-color:#fff}.ui-toc-dropdown[dir=rtl] .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav>li>a:hover{padding-right:19px;border-left:none;border-right:1px solid #000}.ui-toc-dropdown .nav>.active:focus>a,.ui-toc-dropdown .nav>.active:hover>a,.ui-toc-dropdown .nav>.active>a{padding-left:18px;font-weight:700;color:#000;background-color:transparent;border-left:2px solid #000}.night .ui-toc-dropdown .nav>.active:focus>a,.night .ui-toc-dropdown .nav>.active:hover>a,.night .ui-toc-dropdown .nav>.active>a{color:#fff;border-left:2px solid #fff}.ui-toc-dropdown[dir=rtl] .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav>.active>a{padding-right:18px;border-left:none;border-right:2px solid #000}.ui-toc-dropdown .nav .nav{display:none;padding-bottom:10px}.ui-toc-dropdown .nav>.active>ul{display:block}.ui-toc-dropdown .nav .nav>li>a{padding-top:1px;padding-bottom:1px;padding-left:30px;font-size:12px;font-weight:400}.night .ui-toc-dropdown .nav>li>a{color:#aaa}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a{padding-right:30px}.ui-toc-dropdown .nav .nav>li>ul>li>a{padding-top:1px;padding-bottom:1px;padding-left:40px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a{padding-right:40px}.ui-toc-dropdown .nav .nav>li>ul>li>ul>li>a{padding-top:1px;padding-bottom:1px;padding-left:50px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>ul>li>a{padding-right:50px}.ui-toc-dropdown .nav .nav>li>ul>li>ul>li>ul>li>a{padding-top:1px;padding-bottom:1px;padding-left:60px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>ul>li>ul>li>a{padding-right:60px}.ui-toc-dropdown .nav .nav>li>a:focus,.ui-toc-dropdown .nav .nav>li>a:hover{padding-left:29px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:hover{padding-right:29px}.ui-toc-dropdown .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown .nav .nav>li>ul>li>a:hover{padding-left:39px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:hover{padding-right:39px}.ui-toc-dropdown .nav .nav>li>ul>li>ul>li>a:focus,.ui-toc-dropdown .nav .nav>li>ul>li>ul>li>a:hover{padding-left:49px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>ul>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>ul>li>a:hover{padding-right:49px}.ui-toc-dropdown .nav .nav>li>ul>li>ul>li>ul>li>a:focus,.ui-toc-dropdown .nav .nav>li>ul>li>ul>li>ul>li>a:hover{padding-left:59px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>ul>li>ul>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>ul>li>ul>li>a:hover{padding-right:59px}.ui-toc-dropdown .nav .nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>a{padding-left:28px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>a{padding-right:28px}.ui-toc-dropdown .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>a{padding-left:38px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>a{padding-right:38px}.ui-toc-dropdown .nav .nav>.active>.nav>.active>.nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>.nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>.nav>.active>a{padding-left:48px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.active>.nav>.nav>.active>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>.nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>.nav>.active:hover>a{padding-right:48px}.ui-toc-dropdown .nav .nav>.active>.nav>.active>.nav>.active>.nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>.nav>.active>.nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>.nav>.active>.nav>.active>a{padding-left:58px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.active>.nav>.nav>.active>.nav>.active>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>.nav>.active>.nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>.nav>.active>.nav>.active:hover>a{padding-right:58px}.markdown-body[lang^=ja]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Helvetica,Arial,Hiragino Kaku Gothic Pro,"\30D2\30E9\30AE\30CE\89D2\30B4   Pro W3",Osaka,Meiryo,"\30E1\30A4\30EA\30AA",MS Gothic,"\FF2D\FF33   \30B4\30B7\30C3\30AF",sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol}.ui-toc-dropdown[lang^=ja]{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,"\FF2D\FF33   \FF30\30B4\30B7\30C3\30AF",sans-serif}.markdown-body[lang=zh-tw]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Helvetica,Arial,PingFang TC,Microsoft JhengHei,"\5FAE\8EDF\6B63\9ED1",sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol}.ui-toc-dropdown[lang=zh-tw]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,"\5FAE\8EDF\6B63\9ED1UI",sans-serif}.markdown-body[lang=zh-cn]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Helvetica,Arial,PingFang SC,Microsoft YaHei,"\5FAE\8F6F\96C5\9ED1",sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol}.ui-toc-dropdown[lang=zh-cn]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,"\5FAE\8F6F\96C5\9ED1UI",sans-serif}.ui-affix-toc{position:fixed;top:0;max-width:15vw;max-height:70vh;overflow:auto}.back-to-top,.expand-toggle,.go-to-bottom{display:block;padding:4px 10px;margin-top:10px;margin-left:10px;font-size:12px;font-weight:500;color:rgba(0,0,0,.85)}.back-to-top:focus,.back-to-top:hover,.expand-toggle:focus,.expand-toggle:hover,.go-to-bottom:focus,.go-to-bottom:hover{color:#563d7c;text-decoration:none}.back-to-top,.go-to-bottom{margin-top:0}.ui-user-icon{width:20px;height:20px;display:block;border-radius:3px;margin-top:2px;margin-bottom:2px;margin-right:5px;background-position:50%;background-repeat:no-repeat;background-size:contain}.ui-user-icon.small{width:18px;height:18px;display:inline-block;vertical-align:middle;margin:0 0 .2em}small span{line-height:22px}small .dropdown{display:inline-block}small .dropdown a:focus,small .dropdown a:hover{text-decoration:none}.unselectable{-moz-user-select:none;-khtml-user-select:none;-webkit-user-select:none;-o-user-select:none;user-select:none}.night .navbar{background:#333;border-bottom-color:#333;color:#eee}.night .navbar a{color:#eee}@media print{blockquote,div,img,pre,table{page-break-inside:avoid!important}a[href]:after{font-size:12px!important}}.markdown-body.slides{position:relative;z-index:1;color:#222}.markdown-body.slides:before{content:"";display:block;position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1;background-color:currentColor;box-shadow:0 0 0 50vw}.markdown-body.slides section[data-markdown]{position:relative;margin-bottom:1.5em;background-color:#fff;text-align:center}.markdown-body.slides section[data-markdown] code{text-align:left}.markdown-body.slides section[data-markdown]:before{content:"";display:block;padding-bottom:56.23%}.markdown-body.slides section[data-markdown]>div:first-child{position:absolute;top:50%;left:1em;right:1em;transform:translateY(-50%);max-height:100%;overflow:hidden}.markdown-body.slides section[data-markdown]>ul{display:inline-block}.markdown-body.slides>section>section+section:after{content:"";position:absolute;top:-1.5em;right:1em;height:1.5em;border:3px solid #777}body{font-smoothing:subpixel-antialiased!important;-webkit-font-smoothing:subpixel-antialiased!important;-moz-osx-font-smoothing:auto!important;text-shadow:0 0 1em transparent,1px 1px 1.2px rgba(0,0,0,.004);-webkit-overflow-scrolling:touch;font-family:Source Sans Pro,Helvetica,Arial,sans-serif;letter-spacing:.025em}.focus,:focus{outline:none!important}::-moz-focus-inner{border:0!important}body.modal-open{overflow-y:auto;padding-right:0!important}
+    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g=" crossorigin="anonymous"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js" integrity="sha256-8E4Is26QH0bD52WoQpcB+R/tcWQtpzlCojrybUd7Mxo=" crossorigin="anonymous"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div id="doc" class="markdown-body container-fluid" lang="en"><h1 id="Assignment-2--Big-data-storage"><a class="anchor hidden-xs" href="#Assignment-2--Big-data-storage" title="Assignment-2--Big-data-storage"><i class="fa fa-link"></i></a>Assignment 2 : Big data storage</h1><p><strong>Course:</strong> Big Data - IU S25<br>
+<strong>Author:</strong> Firas Jolha<br>
+<strong>Due at:</strong> March 3, 23:59</p><h1 id="Agenda"><a class="anchor hidden-xs" href="#Agenda" title="Agenda"><i class="fa fa-link"></i></a>Agenda</h1><p></p><div class="toc"><ul>
+<li><a href="#Assignment-2--Big-data-storage" title="Assignment 2 : Big data storage">Assignment 2 : Big data storage</a></li>
+<li><a href="#Agenda" title="Agenda">Agenda</a></li>
+<li><a href="#Dataset" title="Dataset">Dataset</a></li>
+<li><a href="#Submission-link-to-Moodle" title="Submission link to Moodle">Submission link to Moodle</a></li>
+<li><a href="#ToolsLanguage-to-use" title="Tools/Language to use">Tools/Language to use</a></li>
+<li><a href="#Objectives" title="Objectives">Objectives</a></li>
+<li><a href="#Background" title="Background">Background</a><ul>
+<li><a href="#Problem-statement" title="Problem statement">Problem statement</a></li>
+</ul>
+</li>
+<li><a href="#Dataset-Description" title="Dataset Description">Dataset Description</a><ul>
+<li><a href="#eventscsv" title="events.csv">events.csv</a></li>
+<li><a href="#campaignscsv" title="campaigns.csv">campaigns.csv</a></li>
+<li><a href="#messagescsv" title="messages.csv">messages.csv</a></li>
+<li><a href="#client_first_purchase_datecsv" title="client_first_purchase_date.csv">client_first_purchase_date.csv</a></li>
+<li><a href="#friendscsv" title="friends.csv">friends.csv</a></li>
+</ul>
+</li>
+<li><a href="#Data-Modeling-and-Storage-Tasks-35-points" title="Data Modeling and Storage Tasks (35 points)">Data Modeling and Storage Tasks (35 points)</a></li>
+<li><a href="#Data-Analysis-Tasks-25-points" title="Data Analysis Tasks (25 points)">Data Analysis Tasks (25 points)</a></li>
+<li><a href="#Benchmarking-Tasks-40-points" title="Benchmarking Tasks (40 points)">Benchmarking Tasks (40 points)</a></li>
+<li><a href="#Report-structure" title="Report structure">Report structure</a></li>
+<li><a href="#Submission-instructions" title="Submission instructions">Submission instructions</a></li>
+<li><a href="#Plagiarism-policy" title="Plagiarism policy">Plagiarism policy</a></li>
+<li><a href="#References" title="References">References</a></li>
+</ul>
+</div><p></p><h1 id="Dataset"><a class="anchor hidden-xs" href="#Dataset" title="Dataset"><i class="fa fa-link"></i></a>Dataset</h1><ul>
+<li><a href="https://disk.yandex.com/d/FRPwuu8F9qUIGQ" target="_blank" rel="noopener">Data folder</a></li>
+</ul><div class="alert alert-warning">
+<p><strong>Important:</strong> This data folder contains 30 dataset folders with different dataset files. You should select only one dataset folder (one of the fxx where <span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-222-Frame" tabindex="0" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mn>0</mn><mo>&amp;lt;</mo><mi>x</mi><mi>x</mi><mo>&amp;lt;=</mo><mn>30</mn></math>" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-1625" style="width: 7.061em; display: inline-block;"><span style="display: inline-block; position: relative; width: 6.091em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.565em, 1006.04em, 2.589em, -999.997em); top: -2.368em; left: 0em;"><span class="mrow" id="MathJax-Span-1626"><span class="mn" id="MathJax-Span-1627" style="font-family: MathJax_Main;">0</span><span class="mo" id="MathJax-Span-1628" style="font-family: MathJax_Main; padding-left: 0.272em;">&lt;</span><span class="mi" id="MathJax-Span-1629" style="font-family: MathJax_Math-italic; padding-left: 0.272em;">x</span><span class="mi" id="MathJax-Span-1630" style="font-family: MathJax_Math-italic;">x</span><span class="mo" id="MathJax-Span-1631" style="font-family: MathJax_Main; padding-left: 0.272em;">&lt;<span style="font-family: MathJax_Main;">=</span></span><span class="mn" id="MathJax-Span-1632" style="font-family: MathJax_Main; padding-left: 0.272em;">30</span></span><span style="display: inline-block; width: 0px; height: 2.373em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.122em; border-left: 0px solid; width: 0px; height: 0.941em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>0</mn><mo>&lt;</mo><mi>x</mi><mi>x</mi><mo>&lt;=</mo><mn>30</mn></math></span></span><script type="math/tex" id="MathJax-Element-222">0<xx<=30</script></span>) and use only one dataset folder. Make sure that your dataset folder contains five dataset files (<code>friends.csv</code>, <code>messages.csv</code>, <code>events.csv</code>, <code>client_first_purchase_date.csv</code>, <code>campaigns.csv</code>).</p>
+<p>You can select the data folder by picking the dataset folder name in the <a href="https://docs.google.com/spreadsheets/d/1fqYLrJCdmiMoOX9NTB3Zbo9-ZBee2VQqvHPNHGVB-Og/edit?usp=sharing" target="_blank" rel="noopener">sheet</a>. Note that each dataset can be selected only once by one person.</p>
+</div><h1 id="Submission-link-to-Moodle"><a class="anchor hidden-xs" href="#Submission-link-to-Moodle" title="Submission-link-to-Moodle"><i class="fa fa-link"></i></a>Submission link to Moodle</h1><ul>
+<li><a href="https://moodle.innopolis.university/mod/assign/view.php?id=126179&amp;rownum=0&amp;useridlistid=67b2f51be2a71939079189&amp;action" target="_blank" rel="noopener">Moodle link</a></li>
+</ul><h1 id="ToolsLanguage-to-use"><a class="anchor hidden-xs" href="#ToolsLanguage-to-use" title="ToolsLanguage-to-use"><i class="fa fa-link"></i></a>Tools/Language to use</h1><ul>
+<li>Python</li>
+<li>PostgreSQL</li>
+<li>MongoDB</li>
+<li>Neo4J</li>
+</ul><h1 id="Objectives"><a class="anchor hidden-xs" href="#Objectives" title="Objectives"><i class="fa fa-link"></i></a>Objectives</h1><ul>
+<li>Implement SQL and noSQL data models for an e-commerce company.</li>
+<li>Analyze the performance of SQL and noSQL databases.</li>
+</ul><h1 id="Background"><a class="anchor hidden-xs" href="#Background" title="Background"><i class="fa fa-link"></i></a>Background</h1><p>A global e-commerce company, faces challenges managing exponential data growth from customer transactions, product catalogs, social networks, and inventory systems. The company wants to find an efficient way to store and analyze the data. They want to see which data model they can use to have fast data retrieval and query processing.</p><h2 id="Problem-statement"><a class="anchor hidden-xs" href="#Problem-statement" title="Problem-statement"><i class="fa fa-link"></i></a>Problem statement</h2><p>The company is struggling with three big data issues:</p><ul>
+<li>Volume: large amounts of data per day.</li>
+<li>Variety: Social network data, user behavior events, and campaign messages.</li>
+<li>Value: Analyzing customer social networks for targeted marketing.</li>
+</ul><p>The primary objective of this assignment is to design a big data solution to store petabytes (the provided dataset is only a snapshot) of raw data using effective, optimal and scalabe data models that can handle growth and complexity without compromising quality, efficiency, or usability. The optimal design will enable analytics and transactions for real-time and batch data processing. Your task is to find the best data model for storing the big data and obtaining valuable insights from it by following the tasks below.</p><h1 id="Dataset-Description"><a class="anchor hidden-xs" href="#Dataset-Description" title="Dataset-Description"><i class="fa fa-link"></i></a>Dataset Description</h1><p>The given dataset consists of five csv files. The dataset has different snapshots and you need to select your snapshot of the dataset and work on it. The description of csv files are presented below.</p><div class="alert alert-warning">
+<p><code>client_id</code> in <code>client_first_purchase_date.csv</code> and <code>messages.csv</code> is formulated by adding a unique identifier <code>151591562</code> as a prefix and <code>user_device_id</code> as a postfix to the <code>user_id</code>.</p>
+</div><h2 id="eventscsv"><a class="anchor hidden-xs" href="#eventscsv" title="eventscsv"><i class="fa fa-link"></i></a><code>events.csv</code></h2><p>This file contains behavior data for 3 months (from October 2019 to December 2019). Each row in the file represents an event. All events are related to products and users. Each event may happen multiple times between products and users, for instance, one product can be viewed by multiple users and one user can view multiple products. We can each line in the file as follows.</p><div class="alert alert-info">
+<p>Given the following line of the file:</p>
+<pre><code>event_time,event_type,product_id,category_id,category_code,brand,price,user_id,user_session
+2019-10-01 02:20:02 UTC,view,3701062,2053013565983425517,appliances.environment.vacuum,gorenje,90.07,550067820,b567743b-5fe0-4994-a3bd-949d5462e767
+</code></pre>
+<p>Or as a table.</p>
+<table>
+<thead>
+<tr>
+<th>event_time</th>
+<th>event_type</th>
+<th>product_id</th>
+<th>category_id</th>
+<th>category_code</th>
+<th>brand</th>
+<th>price</th>
+<th>user_id</th>
+<th>user_session</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2019-10-01 02:20:02 UTC</td>
+<td>view</td>
+<td>3701062</td>
+<td>2053013565983425517</td>
+<td>appliances.environment.vacuum</td>
+<td>gorenje</td>
+<td>90.07</td>
+<td>550067820</td>
+<td>b567743b-5fe0-4994-a3bd-949d5462e767</td>
+</tr>
+</tbody>
+</table>
+<p>We can read it as follows:</p>
+<pre><code class="wrap hljs">A user (*user_id=550067820*) during session (*user_session=b567743b-5fe0-4994-a3bd-949d5462e767*) viewed (property (*event_type*) is *view*) the product (*product_id=3701062*) of brand (*brand=gorenje*) of category (*category_id=2053013565983425517* and *category_code=appliances.environment.vacuum*) with price (*price=90.07*) at (*event_time=2019-10-01 02:20:02*)
+</code></pre>
+</div><h2 id="campaignscsv"><a class="anchor hidden-xs" href="#campaignscsv" title="campaignscsv"><i class="fa fa-link"></i></a><code>campaigns.csv</code></h2><p>This file contains information about marketing campaigns. Campaigns are messaging activities to a group of recipients. Channel is a kind of campaign like email, mobile push, web push and SMS. Campaign’s properties and metadata depends on the channel type. Emails<br>
+have subject, body (usually HTML with a lot of info, offers and personalization) and a lot of metrics like: click, spam complaint, hard bounce, unsubscribe. Mobile push and web push also have subject (first line of a message) and optional body (some browsers display it, some browsers don’t) and this channel don’t have some events like spam complaint, soft bounce or unsubscribe. SMS doesn’t have subject, only have body (text message) and has least number of events: deliver, click, purchase, hard bounce. Multichannel is a kind of transactional campaign when a retailer tries to deliver important information from the cheapest channel to the more expensive, depending on which channels recipient uses. For example the sequence can be like this:</p><ol>
+<li>Try email</li>
+<li>If don’t have email, then mobile push</li>
+<li>If don’t have mobile push, then web push</li>
+<li>If don’t have web push, then SMS</li>
+</ol><p>There are 3 campaign types in dataset:</p><ol>
+<li>Bulk campaign. These campaigns are usually sent to several segments (lists of recipients) grouped by some conditions. For example “visitors, who did’t receive any bulk campaign for the last 3 months” or any other business criteria.</li>
+<li>Trigger campaigns. It’s 1:1 messages which are sent as a reaction on user’s activity. The most famous example is abandoned cart: if user put something to a shopping card and didn’t make a purchase during 2 hours after the last add to cart event, trigger campaign abandoned cart tries to send a message through the channels recipient subscribed to.</li>
+<li>Transactional campaigns. Its informational messages like one-time password, email confirmation, bonuses added to your account, etc. It can be multichannel or any other channel like email, web push, etc. That’s why dataset has a lot of bulk campaigns and small number of other types,</li>
+</ol><p>The difference between bulk and two other types is that Bulk campaign can be sent once whereas triggers and transactionals works forever.</p><p>Subject is the title of a message. In email it’s the bold line of text in your inbox. In push campaigns it’s the main line of text in push notification. SMS doesn’t have subject. Pre-header is the preview text in your inbox. Usually it’s have no accent. And it works for email only. Topic is the meaning (main goal) of a bulk campaign.</p><p><img src="https://storage.yandexcloud.net/r46-data/pictures-for-datasets/subject.png" alt="" class="md-image md-image"></p><p>Other properties of campaigns are:</p><ul>
+<li><code>subject_length</code> - the lenght of subject in symbols (sometimes open rate depends on subject length)</li>
+<li><code>subject_with_personalization</code> - subject includes personalization. Example: “Hello, John Wick, there is the special delivery for you!”</li>
+<li><code>subject_with_deadline</code> - subject includes some kind of deadline. Example: “Hey, John Wick! Only 4 days left when you can get your special delivery!”</li>
+<li><code>subject_with_emoji</code> - subject includes emoji. Example: “Hello, John Wick, there is the special delivery for you 😵🍺”</li>
+<li><code>subject_with_bonuses</code> - subject includes information about bonuses. Example: “Hey, John Wick! We added 300 gold coins to your bonus account!”</li>
+<li><code>subject_with_discount</code> - subject includes information about discount. Example: “Hey, John Wick! 40% discount in Continental for a low season!”</li>
+<li><code>subject_with_saleout</code> - subject announces some kind of saleout. Example: “Hey, John Wick! Black Friday is coming!”</li>
+</ul><p>Only bulk campaigns have start date and finish date. Start date is the date/time in local timezone when a campaign was launched by marketing specialist. Finish date is the date/time when campaign did sent the final message.</p><p>Usually it takes from 30 minutes to 4 hours to send small to large campaigns. But some campaigns (warmup campaigns) can work days or weeks. Usually it’s done when retailer gets new recipients database and don’t want to be blocked by email providers due to high hard bounce or spam complaints rate (see Messages). In this case campaign has <code>warmup_mode=True</code> and <code>hour_limit</code> value which says how many messages can be sent every hour. The usual value of a hour limit is 500 or 1000. But sometimes when <code>mailing domain</code> is warmed up (got trust from email providers), limit can be increased to large values to finish the campaign. The column <code>total_recipients</code> says how many recipients was in bulk campaign when it was sent. Trigger and transactional campaigns don’t have this value.</p><p>Other service info including <code>is_test</code> - says it’s test campaign to a limited audience, and <code>position</code> - a position of trigger campaigns (only). Because different events can trigger different trigger campaigns, it’s important to prevent uncontrolled sending of trigger messages without limits (recipient will mark campaign as spam or unsubscribe from retailer). So there is an important sequence from most important triggers (less position is more important) to the less important (larger position number). If trigger with the smaller number can be sent, all other triggers are ignored. If can’t, next trigger is checked. If all triggers are checked and not match trigger conditions, trigger message is not sent.</p><p>An example line from <code>campaigns.csv</code>.</p><pre><code>id,campaign_type,channel,topic,started_at,finished_at,total_count,ab_test,warmup_mode,hour_limit,subject_length,subject_with_personalization,subject_with_deadline,subject_with_emoji,subject_with_bonuses,subject_with_discount,subject_with_saleout,is_test,position
+63,bulk,mobile_push,sale out,2021-04-30 07:22:36.615023,2021-04-30 07:23:41,48211,,False,,146.0,False,False,True,False,False,False,,
+</code></pre><p>Or as a table:</p><table>
+<thead>
+<tr>
+<th>id</th>
+<th>campaign_type</th>
+<th>channel</th>
+<th>topic</th>
+<th>started_at</th>
+<th>finished_at</th>
+<th>total_count</th>
+<th>ab_test</th>
+<th>warmup_mode</th>
+<th>hour_limit</th>
+<th>subject_length</th>
+<th>subject_with_personalization</th>
+<th>subject_with_deadline</th>
+<th>subject_with_emoji</th>
+<th>subject_with_bonuses</th>
+<th>subject_with_discount</th>
+<th>subject_with_saleout</th>
+<th>is_test</th>
+<th>position</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>63</td>
+<td>bulk</td>
+<td>mobile_push</td>
+<td>sale out</td>
+<td>2021-04-30 07:22:36.615023</td>
+<td>2021-04-30 07:23:41</td>
+<td>48211</td>
+<td></td>
+<td>False</td>
+<td></td>
+<td>146.0</td>
+<td>False</td>
+<td>False</td>
+<td>True</td>
+<td>False</td>
+<td>False</td>
+<td>False</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table><p>The description of the columns in <code>campaigns.csv</code> file are described in the table below.</p><table>
+<thead>
+<tr>
+<th>Column title</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Campaign ID</td>
+<td>64</td>
+</tr>
+<tr>
+<td>campaign_type</td>
+<td>Campaign type (bulk, trigger, transactional)</td>
+<td>bulk</td>
+</tr>
+<tr>
+<td>channel</td>
+<td>Channel (email, mobile_push, web_push, sms)</td>
+<td>email</td>
+</tr>
+<tr>
+<td>topic</td>
+<td>Meaning of a campaign</td>
+<td>happy birthday</td>
+</tr>
+<tr>
+<td>started_at</td>
+<td>Bulk campaign start datetime</td>
+<td>2021-04-30 07:22:36.615023</td>
+</tr>
+<tr>
+<td>finished_at</td>
+<td>Bulk campaign finish datetime</td>
+<td>2021-04-30 07:23:41</td>
+</tr>
+<tr>
+<td>total_count</td>
+<td>Total recipients in bulk campaign</td>
+<td>48211</td>
+</tr>
+<tr>
+<td>ab_test</td>
+<td>Bulk campaign with A/B test mode</td>
+<td>false/true</td>
+</tr>
+<tr>
+<td>warmup_mode</td>
+<td>Bulk campaign with warmup mode</td>
+<td>false/true</td>
+</tr>
+<tr>
+<td>hour_limit</td>
+<td>Hour limit for a bulk campaign with warmup mode</td>
+<td>300.00</td>
+</tr>
+<tr>
+<td>subject_length</td>
+<td>Email subject length</td>
+<td>97.0</td>
+</tr>
+<tr>
+<td>subject_with_personalization</td>
+<td>Subject contains recipient’s name</td>
+<td>false/true</td>
+</tr>
+<tr>
+<td>subject_with_deadline</td>
+<td>Subject has deadline meaning (like “4 days left for…”)</td>
+<td>false/true</td>
+</tr>
+<tr>
+<td>subject_with_emoji</td>
+<td>Subject has emoji symbols</td>
+<td>false/true</td>
+</tr>
+<tr>
+<td>subject_with_bonuses</td>
+<td>Subject mentions bonuses for actions</td>
+<td>false/true</td>
+</tr>
+<tr>
+<td>subject_with_discount</td>
+<td>Subject mentions a discount</td>
+<td>false/true</td>
+</tr>
+<tr>
+<td>subject_with_saleout</td>
+<td>Subject mentions a sale out</td>
+<td>false/true</td>
+</tr>
+<tr>
+<td>is_test</td>
+<td>It’s a test campaign (bulk campaigns only)</td>
+<td>false/true</td>
+</tr>
+<tr>
+<td>position</td>
+<td>Priority of trigger campaigns</td>
+<td>4</td>
+</tr>
+</tbody>
+</table><h2 id="messagescsv"><a class="anchor hidden-xs" href="#messagescsv" title="messagescsv"><i class="fa fa-link"></i></a><code>messages.csv</code></h2><p>Here the information about messages of campaigns are stored. All messages are related to some kind of campaigns:</p><ol>
+<li>Bulk campaigns are sent for sale outs and before holidays to stimulate sales and bring back customers.</li>
+<li>Trigger messages (like abandoned cart) are sent automatically based on user’s behavior. More users visited website/app – more trigger messages are sent.</li>
+<li>Transactional messages are used for some kind of information delivery process: bonuses added, order delivery status changed, etc.</li>
+</ol><p>Note that <code>campaign_id</code> is unique only for a specific <code>campaign_type</code>, so two campaigns with different <code>campaign_type</code> can have the same <code>campaign_id</code>. Message row is an individual message sent to a single recipient. It contains type, channel, recipient and some attributess, described below.</p><ul>
+<li>
+<p>Campaign related info:</p>
+<ul>
+<li><code>campaign_id</code> - identifier from campaigns dataframe.</li>
+<li><code>message_type</code> - Message type (bulk, trigger, transactional).</li>
+<li><code>channel</code> - Message channel. Keep in mind: there is no multichannel message type as it was in campaigns dataframe, becase campaign can be multichannel (can send messages to different channels), but message belongs to a single channel.</li>
+</ul>
+</li>
+<li>
+<p>Recipient info:</p>
+<ul>
+<li><code>client_id</code> - recipients ID in REES46 database (unique per user).</li>
+<li><code>email_provider</code> - a domain part of email (for email messages) like <a href="http://gmail.com" target="_blank" rel="noopener">gmail.com</a> or <a href="http://hotmail.com" target="_blank" rel="noopener">hotmail.com</a>. Can be NA: data removed for unique personal or corporate domains with small number of messages which could cause person identification.</li>
+</ul>
+</li>
+<li>
+<p>Device related info</p>
+<ul>
+<li><code>platform</code> - platform type where a message was opened (if it was opened). This is defined automatically according to user-agent or other service info. For example smartphone, tablet, phablet.</li>
+<li><code>stream</code> - string value of a device type (desktop, ios, android, etc) where a message was opened (if it was opened). This is defined by app developer on retailer side, when they integrate SDK.</li>
+</ul>
+</li>
+<li>
+<p>Behavior related info:</p>
+<ul>
+<li><code>date</code> - date in YYYY-MM-DD when a message was sent. It’s part of sent_at datetime property, helps to group messages by days.</li>
+<li><code>sent_at</code> - Datetime when a message was sent.</li>
+<li><code>is_opened</code> - Boolean flag if a message was opened by a recipient.</li>
+<li><code>opened_first_time_at</code> - First time when a message was opened.</li>
+<li><code>opened_last_time_at</code> - Last time when a message was opened (can be equal to opened_first_time_at, if the message was opened only once).</li>
+<li><code>is_clicked</code> - Boolean flag if a message was clicked by a recipient.</li>
+<li><code>clicked_first_time_at</code> - First time when a message was clicked.</li>
+<li><code>clicked_last_time_at</code> - Last time when a message was clicked (can be equal to clicked_first_time_at, if the message was clicked only once).</li>
+<li><code>is_unsubscribed</code> - Boolean flag if a recipient clicked unsubscribe link in a message.</li>
+<li><code>unsubscribed_at</code> - Datetime when a recipient clicked unsubscribe link in a message.</li>
+<li><code>is_hard_bounced</code> - Datetime when a message was “hard bounced”: permanent failure to deliver a message if recipient’s address does not exist (email is not exist or mobile push token is invalid).</li>
+<li><code>hard_bounced_at</code> - Datetime when a message was hard bounced.</li>
+<li><code>is_soft_bounced</code> - Datetime when a message was “soft bounced”: temporary failure to deliver a message if recipient’s address temporary can’t receive emails (for example mailbox is full, but exists and possibly can receive messages in the future).</li>
+<li><code>soft_bounced_at</code> - Datetime when a message was soft bounced.</li>
+<li><code>is_complained</code> - Boolean flag if a recipient clicked SPAM button in email client.</li>
+<li><code>complained_at</code> - Datetime when a recipient clicked SPAM button in email client.</li>
+<li><code>is_blocked</code> - Boolean flag if a delivery attempt was temporarily blocked by email provider (postmaster says "you act like spammer, I won’t deliver your email). It’s not permanent ban.</li>
+<li><code>blocked_at</code> - Datetime when a delivery attempt was temporarily blocked by email provider</li>
+<li><code>is_purchased</code> - Boolean flag if a recipient clicked any link in a message, opened a website or mobile app and made a purchase</li>
+<li><code>purchased_at</code> - Datetime when a recipient made a purchase after click on email or other message.</li>
+</ul>
+</li>
+</ul><h2 id="client_first_purchase_datecsv"><a class="anchor hidden-xs" href="#client_first_purchase_datecsv" title="client_first_purchase_datecsv"><i class="fa fa-link"></i></a><code>client_first_purchase_date.csv</code></h2><p>This file contains the date of the first purchase for the client.</p><h2 id="friendscsv"><a class="anchor hidden-xs" href="#friendscsv" title="friendscsv"><i class="fa fa-link"></i></a><code>friends.csv</code></h2><p>This file stores the mutual friendship between users. Both columns contain ids belong to the <code>user_id</code> in other files.</p><h1 id="Data-Modeling-and-Storage-Tasks-35-points"><a class="anchor hidden-xs" href="#Data-Modeling-and-Storage-Tasks-35-points" title="Data-Modeling-and-Storage-Tasks-35-points"><i class="fa fa-link"></i></a>Data Modeling and Storage Tasks (35 points)</h1><div class="alert alert-warning">
+<p><strong>Important:</strong> The reference paper for the report of this assignment is <a href="https://ieeexplore.ieee.org/document/9919589" target="_blank" rel="noopener">here</a>. Download the paper and read it before starting the assignment.</p>
+</div><div class="alert alert-danger">
+<p><strong>Important:</strong> Before you start solving the tasks, create a new repository on Github for this assignment and submit only the repository link to Moodle. You can add the TA (firas-jolha) as contributor if your repository is private. There is no specific structure for the repository but you should minimally have:</p>
+<ul>
+<li><code>/scripts</code> folder to store all types of scripts and queries. SQL queries should have <code>.sql</code> extension, MongoDB queries should have <code>.js</code> extension, and Neo4J queries should have <code>.cypher</code> extension.</li>
+<li><code>/screenshots</code> folder to store the screenshots.</li>
+<li><code>/output</code> folder to put the results of the experiments.</li>
+<li><code>report.pdf</code> is your final report.</li>
+</ul>
+</div><div class="alert alert-warning">
+<p><strong>Hackolade</strong> is a data modeling tool for SQL and NoSQL databases, APIs, and storage formats. It is a graphical design tool for building data models. You can access the freemium <a href="https://studio.hackolade.com/" target="_blank" rel="noopener">Hackolade Studio</a> on the browser and use it for building your data models. You can also download the software and run it on your machine using the links below. Use the community edition of the software.</p>
+<ul>
+<li><a href="https://s3-eu-west-1.amazonaws.com/hackolade/current/Hackolade-win64-setup-signed.exe" target="_blank" rel="noopener">Windows 64</a>
+<ul>
+<li>Minimum requirement: Windows 10 or above</li>
+</ul>
+</li>
+<li><a href="https://s3-eu-west-1.amazonaws.com/hackolade/current/Hackolade-mac-setup-signed.pkg" target="_blank" rel="noopener">MacOS Intel</a>
+<ul>
+<li>Minimum requirement: Mac OS X 10.11 (El Capitan) or higher</li>
+</ul>
+</li>
+<li><a href="https://s3-eu-west-1.amazonaws.com/hackolade/current/Hackolade-macARM64-setup-signed.pkg" target="_blank" rel="noopener">MacOS ARM (M1/M2)</a>
+<ul>
+<li>Minimum requirement: Mac OS X 11 (Big Sur) or higher</li>
+</ul>
+</li>
+<li><a href="https://s3-eu-west-1.amazonaws.com/hackolade/current/Hackolade-linux-x64.zip" target="_blank" rel="noopener">Linux</a>
+<ul>
+<li>Minimum requirement: Kernel v3.2 or above</li>
+</ul>
+</li>
+</ul>
+</div><div class="alert alert-success">
+<ol>
+<li>Download the dataset from the given link.</li>
+<li>Use Hackolade to build the data models below.</li>
+<li>Build a data model to store the data in PSQL database. Add the model to the report. Try to build an optimal data model. A random or incomplete model will not get any points.</li>
+<li>Build a data model to store the data in MongoDB database. Add the model to the report. Try to build an optimal data model. A random or incomplete model will not get any points.</li>
+<li>Build a data model to store the data in Neo4J database. Add the model to the report. Try to build an optimal data model. A random or incomplete model will not get any points.</li>
+<li>Do any data cleaning needed for the datasets and put the code in <code>scripts/clean_data.py</code> file.</li>
+<li>Implement the data model for PSQL database and load all data. Add the database creation and data loading instructions to a file <code>/scripts/load_data_psql.sql</code> in your repository. The script will be executed from the command line as <code>sudo psql -d ecommerce -f scripts/load_data_psql.sql</code> (You can assume that there is an empty database <code>ecommerce</code> already created). Do not worry about authentication issues.</li>
+<li>Implement the data model for MongoDB database and load all data. Add the database creation and data loading instructions to a file <code>/scripts/load_data_mongodb.js</code> in your repository. The script will be executed from the command line as <code>sudo mongosh --file scripts/load_data_mongodb.js</code>. Do not worry about authentication issues.</li>
+<li>Implement the data model for Neo4J database and load all data. Add the database creation and data loading instructions to a file <code>/scripts/load_data_neo4j.cypher</code> in your repository. The script will be executed from the command line as <code>sudo cat scripts/load_data_neo4j.cypher | cypher-shell</code>. Do not worry about authentication issues. You do not create a new database here but use the default database <code>neo4j</code>.</li>
+<li>Design and implement your own best scalable data model that may be better than all data models above. Discuss the advantages and disadvantages of your data model with respect to the pervious ones. Add the data model and the discussion to the report. Add the database creation and data loading instructions to the folder <code>/scripts</code>.</li>
+</ol>
+<!-- 7. Write `.sh` scripts to store the data in the database. -->
+</div><h1 id="Data-Analysis-Tasks-25-points"><a class="anchor hidden-xs" href="#Data-Analysis-Tasks-25-points" title="Data-Analysis-Tasks-25-points"><i class="fa fa-link"></i></a>Data Analysis Tasks (25 points)</h1><div class="alert alert-success">
+<ol>
+<li>Build a Python program to analyze the stored data. The program should have access to the databases via Python clients/drivers. You can use <a href="https://pypi.org/project/psycopg2-binary/" target="_blank" rel="noopener">psycopg2-binary</a> for PSQL, <a href="https://pypi.org/project/pymongo/" target="_blank" rel="noopener">pymongo</a> for MongoDB, and <a href="https://pypi.org/project/neo4j/" target="_blank" rel="noopener">neo4j</a> for Neo4J. Put your Python scripts in the folder <code>/scripts</code>.</li>
+<li>For each of first three data modeling solutions, perform the following analysis below.</li>
+<li>Anlyze the data to find out whether campaigns attracted the customers to purchase products. The business aims to engage more customers in next campaigns by leveraging the social network info. Suggest your approach to achieve this goal supported by queries. Write the queries in scripts in files <code>/scripts/q1.sql</code>, <code>/scripts/q1.js</code>, <code>/scripts/q1.cypher</code>. Add the analysis results to the report including the queries and your analysis approach.</li>
+<li>The business has logged behavior of customers on the platform. Use this information to find out which top personalized recommended products we can display in the home page of the user. Write the queries in scripts in files <code>/scripts/q2.sql</code>, <code>/scripts/q2.js</code>, <code>/scripts/q2.cypher</code>. Add the analysis results to the report including the queries and your analysis approach.</li>
+<li>Based on the top products you obtained above, find out which products can be retrieved by full text search for products based on keywords from the <code>category_code</code> of the products. Add the analysis results to the report including the queries and your analysis approach. Write the queries in scripts in files <code>/scripts/q3.sql</code>, <code>/scripts/q3.js</code>, <code>/scripts/q3.cypher</code>.</li>
+</ol>
+<!-- 6. erform the analysis on PSQL and add the queries in `q1.sql` The analysis should be to: -->
+</div><h1 id="Benchmarking-Tasks-40-points"><a class="anchor hidden-xs" href="#Benchmarking-Tasks-40-points" title="Benchmarking-Tasks-40-points"><i class="fa fa-link"></i></a>Benchmarking Tasks (40 points)</h1><div class="alert alert-success">
+<ol>
+<li>Add the specifications of your test machine (OS, RAM, CPU, CPU clock).</li>
+<li>Add the specifications of your software (PSQL version, Neo4J version, MongoDB version). Add the details of your setup like which software you used and whether you used virtualization and containerization (Docker or Virtualbox or …etc). If you used a virtual machine (VM), add the specifications of the VM.</li>
+<li>Make sure that you have built all databases and tested the database connection.</li>
+<li>Run all queries 5 times per database. Add screenshots for all results per database. You can use <code>time</code> command here for Linux systems.</li>
+<li>Build a table of the results and add it to the report.</li>
+<li>Calculate the average and standard deviation of the execution times per database and add it to the report. Organize all results in a table and draw a chart <code>query execution times</code> similar to <code>fig. 7</code> in the referece paper.</li>
+</ol>
+</div><div class="alert alert-warning">
+<p>For benchamarking, you can use <a href="https://github.com/sharkdp/hyperfine" target="_blank" rel="noopener">hyperfine</a> but do not forget to export the results in a specific format to add to the report.</p>
+</div><h1 id="Report-structure"><a class="anchor hidden-xs" href="#Report-structure" title="Report-structure"><i class="fa fa-link"></i></a>Report structure</h1><div class="alert alert-success">
+<p>The report should have a similar sturucture to the reference paper. Ensure that you have minimaly the following sections:</p>
+<ol>
+<li><strong>Abstract</strong>: provides a summary of your report</li>
+<li><strong>Data Modeling</strong>: includes details related to data models you built for all databases</li>
+<li><strong>Experimental Results</strong>: includes the analysis results and the queries with benchmarking results</li>
+<li><strong>Discussion</strong>: A critical discussion and comparison of the analysis results and reflections on your findings</li>
+</ol>
+</div><h1 id="Submission-instructions"><a class="anchor hidden-xs" href="#Submission-instructions" title="Submission-instructions"><i class="fa fa-link"></i></a>Submission instructions</h1><div class="alert alert-warning">
+<ul>
+<li>You need to submit only the link to your repository (public or private). Do not forget to add the TA (firas-jolha) if your repository is private.</li>
+<li>The repository should be organized.</li>
+<li>The repository should include all scripts and source code files in addition to the report as <code>.pdf</code> (<code>docx</code>, <code>doc</code> or any other formats are not accepted).</li>
+<li>Repository documentation is not required but good to do it.</li>
+<li>The assignment is <strong>individual</strong> and the student should submit only their own original code and report.</li>
+<li>The link to Moodle submission is <a href="https://moodle.innopolis.university/mod/assign/view.php?id=126179&amp;rownum=0&amp;useridlistid=67b2f51be2a71939079189&amp;action" target="_blank" rel="noopener">here</a>.</li>
+</ul>
+</div><h1 id="Plagiarism-policy"><a class="anchor hidden-xs" href="#Plagiarism-policy" title="Plagiarism-policy"><i class="fa fa-link"></i></a>Plagiarism policy</h1><p>It is <strong>allowed</strong> to use any support tools but not recommended to us GenAI tools for generating text or code. You can use these generative tools to proofread your report or check the syntax of the code. All solutions must be submitted individually. We will perform a plagiarism check on the code and report and you will be penalized if your submission is found to be plagiarized.</p><h1 id="References"><a class="anchor hidden-xs" href="#References" title="References"><i class="fa fa-link"></i></a>References</h1><ul>
+<li><a href="https://ieeexplore.ieee.org/document/9919589" target="_blank" rel="noopener">S. Uzunbayir, “Relational Database and NoSQL Inspections using MongoDB and Neo4j on a Big Data Application,” 2022 7th International Conference on Computer Science and Engineering (UBMK), Diyarbakir, Turkey, 2022, pp. 148-153, doi: 10.1109/UBMK55850.2022.9919589.</a></li>
+<li><a href="https://www.mongodb.com/resources/basics/databases/data-modeling" target="_blank" rel="noopener">Data modeling in MongoDB</a></li>
+<li><a href="https://neo4j.com/docs/getting-started/data-modeling/guide-data-modeling/" target="_blank" rel="noopener">Data modeling in Neo4J</a></li>
+<li><a href="https://hackolade.com" target="_blank" rel="noopener">Hackolade</a></li>
+<li><a href="https://www.kaggle.com/datasets/mkechinov/direct-messaging" target="_blank" rel="noopener">Dataset reference</a></li>
+<li><a href="https://rees46.com/" target="_blank" rel="noopener">REES46 Marketing Platform</a></li>
+</ul></div>
+    <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
+        <div class="pull-right dropdown">
+            <a id="tocLabel" class="ui-toc-label btn btn-default" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="Table of content">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
+                <div class="toc"><ul class="nav">
+<li><a href="#Assignment-2--Big-data-storage" title="Assignment 2 : Big data storage">Assignment 2 : Big data storage</a></li>
+<li><a href="#Agenda" title="Agenda">Agenda</a></li>
+<li><a href="#Dataset" title="Dataset">Dataset</a></li>
+<li><a href="#Submission-link-to-Moodle" title="Submission link to Moodle">Submission link to Moodle</a></li>
+<li><a href="#ToolsLanguage-to-use" title="Tools/Language to use">Tools/Language to use</a></li>
+<li><a href="#Objectives" title="Objectives">Objectives</a></li>
+<li><a href="#Background" title="Background">Background</a><ul class="nav">
+<li><a href="#Problem-statement" title="Problem statement">Problem statement</a></li>
+</ul>
+</li>
+<li><a href="#Dataset-Description" title="Dataset Description">Dataset Description</a><ul class="nav">
+<li><a href="#eventscsv" title="events.csv">events.csv</a></li>
+<li><a href="#campaignscsv" title="campaigns.csv">campaigns.csv</a></li>
+<li><a href="#messagescsv" title="messages.csv">messages.csv</a></li>
+<li><a href="#client_first_purchase_datecsv" title="client_first_purchase_date.csv">client_first_purchase_date.csv</a></li>
+<li><a href="#friendscsv" title="friends.csv">friends.csv</a></li>
+</ul>
+</li>
+<li><a href="#Data-Modeling-and-Storage-Tasks-35-points" title="Data Modeling and Storage Tasks (35 points)">Data Modeling and Storage Tasks (35 points)</a></li>
+<li class=""><a href="#Data-Analysis-Tasks-25-points" title="Data Analysis Tasks (25 points)">Data Analysis Tasks (25 points)</a></li>
+<li><a href="#Benchmarking-Tasks-40-points" title="Benchmarking Tasks (40 points)">Benchmarking Tasks (40 points)</a></li>
+<li><a href="#Report-structure" title="Report structure">Report structure</a></li>
+<li><a href="#Submission-instructions" title="Submission instructions">Submission instructions</a></li>
+<li><a href="#Plagiarism-policy" title="Plagiarism policy">Plagiarism policy</a></li>
+<li><a href="#References" title="References">References</a></li>
+</ul>
+</div><div class="toc-menu" style="">
+    <a class="expand-toggle expand-all" href="#">Expand all</a>
+    <a class="expand-toggle collapse-all" href="#" style="display: none;">Collapse all</a>
+    <a class="back-to-top" href="#">Back to top</a>
+    <a class="go-to-bottom" href="#">Go to bottom</a>
+</div>
+            </ul>
+        </div>
+    </div>
+    <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;"  >
+        <div class="toc"><ul class="nav">
+<li><a href="#Assignment-2--Big-data-storage" title="Assignment 2 : Big data storage">Assignment 2 : Big data storage</a></li>
+<li><a href="#Agenda" title="Agenda">Agenda</a></li>
+<li><a href="#Dataset" title="Dataset">Dataset</a></li>
+<li><a href="#Submission-link-to-Moodle" title="Submission link to Moodle">Submission link to Moodle</a></li>
+<li><a href="#ToolsLanguage-to-use" title="Tools/Language to use">Tools/Language to use</a></li>
+<li><a href="#Objectives" title="Objectives">Objectives</a></li>
+<li><a href="#Background" title="Background">Background</a><ul class="nav">
+<li><a href="#Problem-statement" title="Problem statement">Problem statement</a></li>
+</ul>
+</li>
+<li><a href="#Dataset-Description" title="Dataset Description">Dataset Description</a><ul class="nav">
+<li><a href="#eventscsv" title="events.csv">events.csv</a></li>
+<li><a href="#campaignscsv" title="campaigns.csv">campaigns.csv</a></li>
+<li><a href="#messagescsv" title="messages.csv">messages.csv</a></li>
+<li><a href="#client_first_purchase_datecsv" title="client_first_purchase_date.csv">client_first_purchase_date.csv</a></li>
+<li><a href="#friendscsv" title="friends.csv">friends.csv</a></li>
+</ul>
+</li>
+<li><a href="#Data-Modeling-and-Storage-Tasks-35-points" title="Data Modeling and Storage Tasks (35 points)">Data Modeling and Storage Tasks (35 points)</a></li>
+<li class=""><a href="#Data-Analysis-Tasks-25-points" title="Data Analysis Tasks (25 points)">Data Analysis Tasks (25 points)</a></li>
+<li><a href="#Benchmarking-Tasks-40-points" title="Benchmarking Tasks (40 points)">Benchmarking Tasks (40 points)</a></li>
+<li><a href="#Report-structure" title="Report structure">Report structure</a></li>
+<li><a href="#Submission-instructions" title="Submission instructions">Submission instructions</a></li>
+<li><a href="#Plagiarism-policy" title="Plagiarism policy">Plagiarism policy</a></li>
+<li><a href="#References" title="References">References</a></li>
+</ul>
+</div><div class="toc-menu" style="">
+    <a class="expand-toggle expand-all" href="#">Expand all</a>
+    <a class="expand-toggle collapse-all" href="#" style="display: none;">Collapse all</a>
+    <a class="back-to-top" href="#">Back to top</a>
+    <a class="go-to-bottom" href="#">Go to bottom</a>
+</div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.0/js/bootstrap.min.js" integrity="sha256-kJrlY+s09+QoWjpkOrXXwhxeaoDz9FW5SaxF8I0DibQ=" crossorigin="anonymous" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gist-embed/2.6.0/gist-embed.min.js" integrity="sha256-KyF2D6xPIJUW5sUDSs93vWyZm+1RzIpKCexxElmxl8g=" crossorigin="anonymous" defer></script>
+    <script>
+        var markdown = $(".markdown-body");
+        //smooth all hash trigger scrolling
+        function smoothHashScroll() {
+            var hashElements = $("a[href^='#']").toArray();
+            for (var i = 0; i < hashElements.length; i++) {
+                var element = hashElements[i];
+                var $element = $(element);
+                var hash = element.hash;
+                if (hash) {
+                    $element.on('click', function (e) {
+                        // store hash
+                        var hash = this.hash;
+                        if ($(hash).length <= 0) return;
+                        // prevent default anchor click behavior
+                        e.preventDefault();
+                        // animate
+                        $('body, html').stop(true, true).animate({
+                            scrollTop: $(hash).offset().top
+                        }, 100, "linear", function () {
+                            // when done, add hash to url
+                            // (default click behaviour)
+                            window.location.hash = hash;
+                        });
+                    });
+                }
+            }
+        }
+
+        smoothHashScroll();
+        var toc = $('.ui-toc');
+        var tocAffix = $('.ui-affix-toc');
+        var tocDropdown = $('.ui-toc-dropdown');
+        //toc
+        tocDropdown.click(function (e) {
+            e.stopPropagation();
+        });
+
+        var enoughForAffixToc = true;
+
+        function generateScrollspy() {
+            $(document.body).scrollspy({
+                target: ''
+            });
+            $(document.body).scrollspy('refresh');
+            if (enoughForAffixToc) {
+                toc.hide();
+                tocAffix.show();
+            } else {
+                tocAffix.hide();
+                toc.show();
+            }
+            $(document.body).scroll();
+        }
+
+        function windowResize() {
+            //toc right
+            var paddingRight = parseFloat(markdown.css('padding-right'));
+            var right = ($(window).width() - (markdown.offset().left + markdown.outerWidth() - paddingRight));
+            toc.css('right', right + 'px');
+            //affix toc left
+            var newbool;
+            var rightMargin = (markdown.parent().outerWidth() - markdown.outerWidth()) / 2;
+            //for ipad or wider device
+            if (rightMargin >= 133) {
+                newbool = true;
+                var affixLeftMargin = (tocAffix.outerWidth() - tocAffix.width()) / 2;
+                var left = markdown.offset().left + markdown.outerWidth() - affixLeftMargin;
+                tocAffix.css('left', left + 'px');
+            } else {
+                newbool = false;
+            }
+            if (newbool != enoughForAffixToc) {
+                enoughForAffixToc = newbool;
+                generateScrollspy();
+            }
+        }
+        $(window).resize(function () {
+            windowResize();
+        });
+        $(document).ready(function () {
+            windowResize();
+            generateScrollspy();
+        });
+
+        //remove hash
+        function removeHash() {
+            window.location.hash = '';
+        }
+
+        var backtotop = $('.back-to-top');
+        var gotobottom = $('.go-to-bottom');
+
+        backtotop.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToTop)
+                scrollToTop();
+            removeHash();
+        });
+        gotobottom.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToBottom)
+                scrollToBottom();
+            removeHash();
+        });
+
+        var toggle = $('.expand-toggle');
+        var tocExpand = false;
+
+        checkExpandToggle();
+        toggle.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            tocExpand = !tocExpand;
+            checkExpandToggle();
+        })
+
+        function checkExpandToggle () {
+            var toc = $('.ui-toc-dropdown .toc');
+            var toggle = $('.expand-toggle');
+            if (!tocExpand) {
+                toc.removeClass('expand');
+                toggle.text('Expand all');
+            } else {
+                toc.addClass('expand');
+                toggle.text('Collapse all');
+            }
+        }
+
+        function scrollToTop() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: 0
+            }, 100, "linear");
+        }
+
+        function scrollToBottom() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: $(document.body)[0].scrollHeight
+            }, 100, "linear");
+        }
+    </script>
+</body>
+
+</html>

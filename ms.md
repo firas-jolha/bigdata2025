@@ -15,8 +15,7 @@ layout: page
 ### [Lab 3 - Data Retrieval with MongoDB](html/ms/MS - Lab 3 - MongoDB.html)
 
 ## Assignments
-<!-- ### [Assignment 2 - Big data storage](html/ms/MS - Lab 3 - MongoDB.html) -->
-
+### [Assignment 2 - Big data storage](html/ms/MS - Assignment 2 - Big data storage.html)
 
 ## Project
 ### [Final Project - Description](html/ms/MS - Final Project.html)
