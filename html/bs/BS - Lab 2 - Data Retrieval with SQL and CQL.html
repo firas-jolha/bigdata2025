@@ -73,6 +73,7 @@
 <li><a href="#Conditional-queries" title="Conditional queries">Conditional queries</a></li>
 <li><a href="#Clustering-columns" title="Clustering columns">Clustering columns</a></li>
 <li><a href="#Group-by-clause" title="Group by clause">Group by clause</a></li>
+<li><a href="#Distinct" title="Distinct">Distinct</a></li>
 </ul>
 </li>
 <li><a href="#Example-on-Cassandra-database" title="Example on Cassandra database">Example on Cassandra database</a><ul>
@@ -461,7 +462,7 @@ friend2 <span class="hljs-built_in">INT</span> <span class="hljs-keyword">NOT</s
 </ol><pre><code class="yaml hljs"><span class="hljs-string">docker</span> <span class="hljs-string">pull</span> <span class="hljs-attr">cassandra:latest</span>
 </code></pre><ol start="2">
 <li>Create a Cassandra container and run it in detached mode:</li>
-</ol><pre><code class="yaml hljs"><span class="hljs-string">docker</span> <span class="hljs-string">run</span> <span class="hljs-bullet">--name</span> <span class="hljs-string">cass_server</span> <span class="hljs-bullet">--network</span> <span class="hljs-string">cass_net</span> <span class="hljs-bullet">--detach</span>  <span class="hljs-attr">cassandra:latest</span>
+</ol><pre><code class="yaml hljs"><span class="hljs-string">docker</span> <span class="hljs-string">run</span> <span class="hljs-bullet">--name</span> <span class="hljs-string">cass_server</span> <span class="hljs-bullet">--detach</span>  <span class="hljs-attr">cassandra:latest</span>
 </code></pre><div class="alert alert-warning">
 <p>For the first time, before running the command above, ensure that the container is stopped and does not exist.</p>
 <pre><code class="yaml hljs"><span class="hljs-string">docker</span> <span class="hljs-string">stop</span> <span class="hljs-string">cass_server</span>
@@ -485,8 +486,9 @@ Connection <span class="hljs-symbol">error:</span> (<span class="hljs-string">'U
 <li>Pull the Cassandra image.</li>
 </ol><pre><code class="wrap yaml hljs"><span class="hljs-string">docker</span> <span class="hljs-string">pull</span> <span class="hljs-attr">cassandra:latest</span>
 </code></pre><ol start="2">
-<li>Run the first node. We assume that the first node is the client node too.</li>
-</ol><pre><code class="wrap yaml hljs"><span class="hljs-string">docker</span> <span class="hljs-string">run</span> <span class="hljs-bullet">--name</span> <span class="hljs-string">cassandra-1</span> <span class="hljs-bullet">--network</span> <span class="hljs-string">cassandra_net</span> <span class="hljs-bullet">-d</span> <span class="hljs-attr">cassandra:latest</span>
+<li>Create a docker network then run the first node on this network. We assume that the first node is the client node too.</li>
+</ol><pre><code class="wrap yaml hljs"><span class="hljs-string">docker</span> <span class="hljs-string">network</span> <span class="hljs-string">create</span> <span class="hljs-string">cassandra_net</span>
+<span class="hljs-string">docker</span> <span class="hljs-string">run</span> <span class="hljs-bullet">--name</span> <span class="hljs-string">cassandra-1</span> <span class="hljs-bullet">--network</span> <span class="hljs-string">cassandra_net</span> <span class="hljs-bullet">-d</span> <span class="hljs-attr">cassandra:latest</span>
 </code></pre><p>To start other instances, just tell each new node where the first is (set the environment variable <code>CASSANDRA_SEEDS</code>).<br>
 3. Run the second node.</p><pre><code class="wrap yaml hljs"><span class="hljs-string">docker</span> <span class="hljs-string">run</span> <span class="hljs-bullet">--name</span> <span class="hljs-string">cassandra-2</span> <span class="hljs-bullet">--network</span> <span class="hljs-string">cassandra_net</span> <span class="hljs-bullet">-d</span>  <span class="hljs-bullet">-e</span> <span class="hljs-string">CASSANDRA_SEEDS=cassandra-1</span> <span class="hljs-attr">cassandra:latest</span>
 </code></pre><ol start="4">
@@ -630,7 +632,10 @@ volumes:
 </code></pre><ul>
 <li>Learn the client, server, and protocol versions in use</li>
 </ul><pre><code class="wrap shell hljs"><span class="hljs-meta">cqlsh&gt;</span><span class="bash"> SHOW VERSION;</span>
-</code></pre><h3 id="Some-CRUD-operations"><a class="anchor hidden-xs" href="#Some-CRUD-operations" title="Some-CRUD-operations"><i class="fa fa-link"></i></a>Some CRUD operations</h3><ul>
+</code></pre><ul>
+<li>View the default paging settings that will be used on reads</li>
+</ul><pre><code class="wrap shell hljs"><span class="hljs-meta">cqlsh&gt;</span><span class="bash"> PAGING;</span>
+</code></pre><p>Enables paging, disables paging, or sets the page size for read queries. When paging is enabled, only one page of data will be fetched at a time and a prompt will appear to fetch the next page. Generally, it’s a good idea to leave paging enabled in an interactive session to avoid fetching and printing large amounts of data at once.</p><h3 id="Some-CRUD-operations"><a class="anchor hidden-xs" href="#Some-CRUD-operations" title="Some-CRUD-operations"><i class="fa fa-link"></i></a>Some CRUD operations</h3><ul>
 <li>Create your own keyspace. Try using tab completion as you enter this command</li>
 </ul><pre><code class="sql hljs"><span class="hljs-keyword">CREATE</span> KEYSPACE my_keyspace <span class="hljs-keyword">WITH</span> <span class="hljs-keyword">replication</span> = {<span class="hljs-string">'class'</span>: <span class="hljs-string">'SimpleStrategy'</span>, <span class="hljs-string">'replication_factor'</span>: <span class="hljs-number">1</span>};
 </code></pre><ul>
@@ -819,7 +824,7 @@ volumes:
 <img src="https://i.imgur.com/IhKUvb6.png" alt="" class="md-image md-image"></p><div class="alert alert-warning">
 <p>Some facts about the <code>WHERE</code> and <code>ORDER BY</code> clauses:</p>
 <ul>
-<li>The partition keys always use <code>=</code> operator.</li>
+<li>The first partition keys always use <code>=</code> operator.</li>
 </ul>
 <pre><code class="wrap sql hljs"><span class="hljs-keyword">SELECT</span> first_name <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">WHERE</span> first_name=<span class="hljs-string">'Bill'</span>;
 </code></pre>
@@ -829,9 +834,10 @@ volumes:
 <pre><code class="wrap sql hljs"><span class="hljs-keyword">SELECT</span> first_name <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">WHERE</span> first_name <span class="hljs-keyword">IN</span> (<span class="hljs-string">'Bill'</span>, <span class="hljs-string">'Mary'</span>);
 </code></pre>
 <ul>
+<li>You cannot use a regular column in <code>WHERE</code> clause without allowing filtering.</li>
 <li><code>ORDER BY</code> can be applied only on clustered columns and is only supported when the partition key is restricted by an EQ or an IN in <code>WHERE</code> clause.</li>
 </ul>
-<pre><code class="sql hljs"><span class="hljs-keyword">SELECT</span> first_name <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">WHERE</span> first_name <span class="hljs-keyword">IN</span> (<span class="hljs-string">'Bill'</span>, <span class="hljs-string">'Mary'</span>);
+<pre><code class="sql hljs"><span class="hljs-keyword">SELECT</span> first_name <span class="hljs-keyword">FROM</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">WHERE</span> first_name <span class="hljs-keyword">IN</span> (<span class="hljs-string">'Bill'</span>, <span class="hljs-string">'Mary'</span>) <span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> last_name;
 </code></pre>
 </div><h3 id="Clustering-columns"><a class="anchor hidden-xs" href="#Clustering-columns" title="Clustering-columns"><i class="fa fa-link"></i></a>Clustering columns</h3><p>The clustering columns are used to <strong>sort</strong> the data within a partition, and the data is <strong>stored</strong> in the sorted order. This quality means that slices, where a range of rows are retrieved, can be very efficient. A particular row can be found using the clustering columns in the order that they are defined in the primary key. The rows that come before or after that row can be retrieved quickly. In fact, even a slice of a slice can be retrieved, by narrowing down the range of rows with conditions on the first clustering columns. A tuple can be handy for sorting on multiple clustering columns.</p><p>Because the database uses the clustering columns to determine the location of the data on the partition, you must identify the higher level clustering columns definitively using the equals (=) or <code>IN</code> operators. In a query, you can only restrict the lowest level using the range operators (&gt;, &gt;=, &lt;, or &lt;=).</p><p>When a query contains no restrictions on clustering or index columns, all the data from the partition is returned.</p><h4 id="How-order-impacts-clustering-restrictions"><a class="anchor hidden-xs" href="#How-order-impacts-clustering-restrictions" title="How-order-impacts-clustering-restrictions"><i class="fa fa-link"></i></a>How order impacts clustering restrictions</h4><p>Because the database uses the clustering columns to determine the location of the data on the partition, you must identify the higher level clustering columns definitively using the equals (=) or IN operators. In a query, you can only restrict the lowest level using the range operators (&gt;, &gt;=, &lt;, or &lt;=).</p><p>The following table is used to illustrate how clustering works:</p><pre><code class="sql hljs"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> my_keyspace.numbers (
    <span class="hljs-keyword">key</span> <span class="hljs-built_in">int</span>,
@@ -841,9 +847,27 @@ volumes:
    col_4 <span class="hljs-built_in">int</span>,
    PRIMARY <span class="hljs-keyword">KEY</span> ((<span class="hljs-keyword">key</span>), col_1, col_2, col_3, col_4)
 );
-</code></pre><p>The database stores and locates the data using a nested sort order. The data is stored in hierarchy that the query must traverse:</p><p>To avoid full scans of the partition and to make queries more efficient, the database requires that the higher level columns in the sort order (col_1, col_2, and col_3) are identified using the equals or IN operators. Ranges are allowed on the last column (col_4). For example, to find only values in column 4 that are less than or equal to 2:</p><pre><code class="sql hljs"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> my_keyspace.numbers
+</code></pre><p>Let’s insert some data…</p><pre><code class="wrap sql hljs"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> my_keyspace.numbers(<span class="hljs-keyword">key</span>, col_1, col_2, col_3, col_4) <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">100</span>, <span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>);
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> my_keyspace.numbers(<span class="hljs-keyword">key</span>, col_1, col_2, col_3, col_4) <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">100</span>, <span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>);
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> my_keyspace.numbers(<span class="hljs-keyword">key</span>, col_1, col_2, col_3, col_4) <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">100</span>, <span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">3</span>);
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> my_keyspace.numbers(<span class="hljs-keyword">key</span>, col_1, col_2, col_3, col_4) <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">100</span>, <span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>);
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> my_keyspace.numbers(<span class="hljs-keyword">key</span>, col_1, col_2, col_3, col_4) <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">100</span>, <span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>);
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> my_keyspace.numbers(<span class="hljs-keyword">key</span>, col_1, col_2, col_3, col_4) <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">100</span>, <span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>);
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> my_keyspace.numbers(<span class="hljs-keyword">key</span>, col_1, col_2, col_3, col_4) <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">100</span>, <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>);
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> my_keyspace.numbers(<span class="hljs-keyword">key</span>, col_1, col_2, col_3, col_4) <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">100</span>, <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>);
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> my_keyspace.numbers(<span class="hljs-keyword">key</span>, col_1, col_2, col_3, col_4) <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">100</span>, <span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>);
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> my_keyspace.numbers(<span class="hljs-keyword">key</span>, col_1, col_2, col_3, col_4) <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">100</span>, <span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>);
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> my_keyspace.numbers(<span class="hljs-keyword">key</span>, col_1, col_2, col_3, col_4) <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">100</span>, <span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>);
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> my_keyspace.numbers(<span class="hljs-keyword">key</span>, col_1, col_2, col_3, col_4) <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">100</span>, <span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">3</span>);
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> my_keyspace.numbers(<span class="hljs-keyword">key</span>, col_1, col_2, col_3, col_4) <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">100</span>, <span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>);
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> my_keyspace.numbers(<span class="hljs-keyword">key</span>, col_1, col_2, col_3, col_4) <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">100</span>, <span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>);
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> my_keyspace.numbers(<span class="hljs-keyword">key</span>, col_1, col_2, col_3, col_4) <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">100</span>, <span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>);
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> my_keyspace.numbers(<span class="hljs-keyword">key</span>, col_1, col_2, col_3, col_4) <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">100</span>, <span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>);
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> my_keyspace.numbers(<span class="hljs-keyword">key</span>, col_1, col_2, col_3, col_4) <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">100</span>, <span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>);
+<span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> my_keyspace.numbers(<span class="hljs-keyword">key</span>, col_1, col_2, col_3, col_4) <span class="hljs-keyword">VALUES</span>(<span class="hljs-number">100</span>, <span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>);
+</code></pre><p>The database stores and locates the data using a nested sort order. The data is stored in hierarchy that the query must traverse.</p><p>To avoid full scans of the partition and to make queries more efficient, the database requires that the higher level columns in the sort order (col_1, col_2, and col_3) are identified using the equals or <code>IN</code> operators. Ranges are allowed on the last column (col_4). For example, to find only values in column 4 that are less than or equal to 2:</p><pre><code class="sql hljs"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> my_keyspace.numbers
   <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">key</span> = <span class="hljs-number">100</span> <span class="hljs-keyword">AND</span> col_1 = <span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> col_2 = <span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> col_3 = <span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> col_4 &lt;= <span class="hljs-number">2</span>;
-</code></pre><p>The IN operator can impact performance on medium-large datasets. When selecting multiple segments, the database loads and filters all the specified segments. For example, to find all values less than or equal to 2 in both col_1 segments 1 and 2:</p><pre><code class="sql hljs"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> my_keyspace.numbers <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">key</span> = <span class="hljs-number">100</span> <span class="hljs-keyword">AND</span> col_1 = <span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> col_2 &gt; <span class="hljs-number">1</span>
+</code></pre><p>The IN operator can impact performance on medium-large datasets. When selecting multiple segments, the database loads and filters all the specified segments. For example, to find all values less than or equal to 2 in both col_1 segments 1 and 2:</p><pre><code class="sql hljs"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> my_keyspace.numbers <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">key</span> = <span class="hljs-number">100</span> <span class="hljs-keyword">AND</span> col_1 = <span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> col_2 &gt; <span class="hljs-number">1</span>;
 </code></pre><p>You can see below how the data are stored.<br>
 <img src="https://docs.datastax.com/en/cql/hcd/develop/_images/cqlQueryClusteringColumnSegments.png" alt="" class="md-image md-image"></p><h4 id="Invalid-restrictions"><a class="anchor hidden-xs" href="#Invalid-restrictions" title="Invalid-restrictions"><i class="fa fa-link"></i></a>Invalid restrictions</h4><p>Queries that attempt to return ranges without identifying any of the higher level segments are rejected:</p><pre><code class="wrap sql hljs"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> my_keyspace.numbers <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">key</span> = <span class="hljs-number">100</span> <span class="hljs-keyword">AND</span> col_4 &lt;= <span class="hljs-number">2</span>;
 
@@ -851,24 +875,31 @@ volumes:
 </code></pre><div class="alert alert-warning">
 <p>You can force the query using the ALLOW FILTERING option; however, this loads the entire partition and negatively impacts performance by causing long READ latencies.</p>
 <p>By default, CQL only allows select queries that don’t involve a full scan of all partitions. If all partitions are scanned, then returning the results may experience a significant latency proportional to the amount of data in the table. The ALLOW FILTERING option explicitly executes a full scan. Thus, the performance of the query can be unpredictable.</p>
-</div><h4 id="Only-restricting-top-level-clustering-columns"><a class="anchor hidden-xs" href="#Only-restricting-top-level-clustering-columns" title="Only-restricting-top-level-clustering-columns"><i class="fa fa-link"></i></a>Only restricting top level clustering columns</h4><pre><code class="wrap sql hljs"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> my_keyspace.numbers <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">key</span> = <span class="hljs-number">100</span> <span class="hljs-keyword">AND</span> col_1 = <span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> col_2 &gt; <span class="hljs-number">1</span>
+</div><h4 id="Only-restricting-top-level-clustering-columns"><a class="anchor hidden-xs" href="#Only-restricting-top-level-clustering-columns" title="Only-restricting-top-level-clustering-columns"><i class="fa fa-link"></i></a>Only restricting top level clustering columns</h4><pre><code class="wrap sql hljs"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> my_keyspace.numbers <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">key</span> = <span class="hljs-number">100</span> <span class="hljs-keyword">AND</span> col_1 = <span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> col_2 &gt; <span class="hljs-number">1</span>;
 </code></pre><h4 id="Returning-ranges-that-span-clustering-segments"><a class="anchor hidden-xs" href="#Returning-ranges-that-span-clustering-segments" title="Returning-ranges-that-span-clustering-segments"><i class="fa fa-link"></i></a>Returning ranges that span clustering segments</h4><pre><code class="wrap sql hljs"><span class="hljs-comment"># Slices across full partition</span>
-<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> cycling.numbers
+<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> my_keyspace.numbers
   <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">key</span> = <span class="hljs-number">100</span> <span class="hljs-keyword">AND</span> (col_1, col_2, col_3, col_4) &lt;= (<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>);
-</code></pre><p><img src="https://docs.datastax.com/en/cql/hcd/develop/_images/cqlQuerySlicePartition1.png" alt="" class="md-image md-image"></p><pre><code class="wrap sql hljs"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> cycling.numbers
+</code></pre><p><img src="https://docs.datastax.com/en/cql/hcd/develop/_images/cqlQuerySlicePartition1.png" alt="" class="md-image md-image"></p><pre><code class="wrap sql hljs"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> my_keyspace.numbers
   <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">key</span> = <span class="hljs-number">100</span> <span class="hljs-keyword">AND</span> (col_1, col_2, col_3, col_4) &lt;= (<span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">4</span>);
-</code></pre><p><img src="https://docs.datastax.com/en/cql/hcd/develop/_images/cqlQuerySlicePartition2.png" alt="" class="md-image md-image"></p><h4 id="Slices-of-clustering-segments"><a class="anchor hidden-xs" href="#Slices-of-clustering-segments" title="Slices-of-clustering-segments"><i class="fa fa-link"></i></a>Slices of clustering segments</h4><pre><code class="wrap sql hljs"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> cycling.numbers <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">key</span> = <span class="hljs-number">100</span> <span class="hljs-keyword">AND</span> col_1 = <span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> col_2 = <span class="hljs-number">1</span>
+</code></pre><p><img src="https://docs.datastax.com/en/cql/hcd/develop/_images/cqlQuerySlicePartition2.png" alt="" class="md-image md-image"></p><h4 id="Slices-of-clustering-segments"><a class="anchor hidden-xs" href="#Slices-of-clustering-segments" title="Slices-of-clustering-segments"><i class="fa fa-link"></i></a>Slices of clustering segments</h4><pre><code class="wrap sql hljs"><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> my_keyspace.numbers <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">key</span> = <span class="hljs-number">100</span> <span class="hljs-keyword">AND</span> col_1 = <span class="hljs-number">1</span> <span class="hljs-keyword">AND</span> col_2 = <span class="hljs-number">1</span>
   <span class="hljs-keyword">AND</span> (col_3, col_4) &gt;= (<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-keyword">AND</span> (col_3, col_4) &lt; (<span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
 </code></pre><p><img src="https://docs.datastax.com/en/cql/hcd/develop/_images/cqlQuerySliceClusteringSegments.png" alt="" class="md-image md-image"></p><pre><code class="wrap sql hljs"><span class="hljs-comment"># Invalid queries</span>
 
-<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> cycling.numbers <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">key</span> = <span class="hljs-number">100</span> <span class="hljs-keyword">AND</span> col_1 = <span class="hljs-number">1</span>
+<span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> my_keyspace.numbers <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">key</span> = <span class="hljs-number">100</span> <span class="hljs-keyword">AND</span> col_1 = <span class="hljs-number">1</span>
   <span class="hljs-keyword">AND</span> (col_2, col_3, col_4) &gt;= (<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>)  <span class="hljs-keyword">AND</span> (col_3, col_4) &lt; (<span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
-</code></pre><h3 id="Group-by-clause"><a class="anchor hidden-xs" href="#Group-by-clause" title="Group-by-clause"><i class="fa fa-link"></i></a>Group by clause</h3><p>Either one or more primary key columns or a deterministic function or aggregate can be used in the GROUP BY clause.</p><h2 id="Example-on-Cassandra-database"><a class="anchor hidden-xs" href="#Example-on-Cassandra-database" title="Example-on-Cassandra-database"><i class="fa fa-link"></i></a>Example on Cassandra database</h2><p>Let’s create a simple domain model that is easy to understand in the relational world, and then see how we might map it from a relational to a distributed model in Cassandra. The domain is making hotel reservations.</p><p>The conceptual domain includes hotels, guests that stay in the hotels, a collection of rooms for each hotel, the rates and availability of those rooms, and a record of reservations booked for guests. Hotels typically also maintain a collection of “points of interest,” which are parks, museums, shopping galleries, monuments, or other places near the hotel that guests might want to visit during their stay. Both hotels and points of interest need to maintain geolocation data so that they can be found on maps for mashups, and to calculate distances.<br>
+</code></pre><h3 id="Group-by-clause"><a class="anchor hidden-xs" href="#Group-by-clause" title="Group-by-clause"><i class="fa fa-link"></i></a>Group by clause</h3><p>Either one or more primary key columns or a deterministic function or aggregate can be used in the GROUP BY clause.</p><pre><code class="wrap sql hljs">
+<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">key</span>, col_1, <span class="hljs-keyword">count</span>(*) <span class="hljs-keyword">FROM</span> my_keyspace.numbers <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> <span class="hljs-keyword">key</span>, col_1;
+
+<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">key</span>, col_1, <span class="hljs-keyword">count</span>(*) <span class="hljs-keyword">FROM</span> my_keyspace.numbers <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">key</span>=<span class="hljs-number">100</span> <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> <span class="hljs-keyword">key</span>, col_1;
+
+<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">key</span>, col_1, <span class="hljs-keyword">count</span>(*) <span class="hljs-keyword">FROM</span> my_keyspace.numbers <span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">key</span>=<span class="hljs-number">100</span> <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> col_1;
+</code></pre><h3 id="Distinct"><a class="anchor hidden-xs" href="#Distinct" title="Distinct"><i class="fa fa-link"></i></a>Distinct</h3><p>This operator can be applied only on partition keys and static keys.</p><pre><code class="wrap sql hljs"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">DISTINCT</span> <span class="hljs-keyword">key</span> <span class="hljs-keyword">from</span> my_keyspace.numbers;
+</code></pre><h2 id="Example-on-Cassandra-database"><a class="anchor hidden-xs" href="#Example-on-Cassandra-database" title="Example-on-Cassandra-database"><i class="fa fa-link"></i></a>Example on Cassandra database</h2><p>Let’s create a simple domain model that is easy to understand in the relational world, and then see how we might map it from a relational to a distributed model in Cassandra. The domain is making hotel reservations.</p><p>The conceptual domain includes hotels, guests that stay in the hotels, a collection of rooms for each hotel, the rates and availability of those rooms, and a record of reservations booked for guests. Hotels typically also maintain a collection of “points of interest,” which are parks, museums, shopping galleries, monuments, or other places near the hotel that guests might want to visit during their stay. Both hotels and points of interest need to maintain geolocation data so that they can be found on maps for mashups, and to calculate distances.<br>
 The conceptual domain is depicted below using the entity–relationship model.<br>
 <img src="https://cassandra.apache.org/doc/stable/cassandra/_images/data_modeling_hotel_erd.png" alt="" class="md-image md-image"></p><p>The ER-diagram consists of entities, relationships and attributes. This conceptual domain can be modeled in relational databases as tables and relationships (using foreign keys) as shown below.<br>
 <img src="https://cassandra.apache.org/doc/stable/cassandra/_images/data_modeling_hotel_relational.png" alt="" class="md-image md-image"></p><p><em>Cassandra also stores the data in tables but there are no joins between the tables and the tables are denormalized. Tables have query-first design.</em></p><p>The queries in the relational world are very much secondary. It is assumed that you can always get the data you want as long as you have your tables modeled properly. Even if you have to use several complex subqueries or join statements, this is usually true.</p><p>By contrast, in Cassandra you don’t start with the data model; you start with the <strong>query model</strong>. Instead of modeling the data first and then writing queries, with Cassandra you model the queries and let the data be organized around them. Think of the most common query paths your application will use, and then create the tables that you need to support them.</p><div class="alert alert-info">
-<p><strong>Sorting</strong> is a design decision in Cassandra where the CQL <code>SELECT</code> statement  does not support <code>ORDER BY</code>. The sort order available on queries is fixed, and is determined entirely by the selection of clustering columns you supply in the <code>CREATE TABLE</code> command.</p>
-</div><p>Here we present the steps to create Cassandra database for the application  making hotel reservations.</p><h3 id="Define-application-queries"><a class="anchor hidden-xs" href="#Define-application-queries" title="Define-application-queries"><i class="fa fa-link"></i></a>Define application queries</h3><p>We need to understand the application requirements and data workflow in the application to define the required queries. While we design queries, we need to know where the data comes from for each query. This should be taken into consideration when following query-first design approach. Under this consideration, we eneded up with the following queries in this order:</p><pre><code class="wrap hljs">Q1. Find hotels near a given point of interest.
+<p><strong>Sorting</strong> is a design decision in Cassandra where the sort order available on queries is fixed, and is determined entirely by the selection of clustering columns you supply in the <code>CREATE TABLE</code> command.</p>
+</div><p>Here we present the steps to create Cassandra database for the typical application  “making hotel reservations”.</p><h3 id="Define-application-queries"><a class="anchor hidden-xs" href="#Define-application-queries" title="Define-application-queries"><i class="fa fa-link"></i></a>Define application queries</h3><p>We need to understand the application requirements and data workflow in the application to define the required queries. While we design queries, we need to know where the data comes from for each query. This should be taken into consideration when following query-first design approach. Under this consideration, we eneded up with the following queries in this order:</p><pre><code class="wrap hljs">Q1. Find hotels near a given point of interest.
 Q2. Find information about a given hotel, such as its name and location.
 Q3. Find points of interest near a given hotel.
 Q6. Lookup a reservation by confirmation number.
@@ -935,7 +966,7 @@ Q9. View guest details.
     description <span class="hljs-built_in">text</span>,
     PRIMARY <span class="hljs-keyword">KEY</span> ((hotel_id, room_number), amenity_name)
 ) <span class="hljs-keyword">WITH</span> <span class="hljs-keyword">comment</span> = <span class="hljs-string">'Q5. Find amenities for a room'</span>;
-</code></pre><h3 id="Populate-data-from-csv-file"><a class="anchor hidden-xs" href="#Populate-data-from-csv-file" title="Populate-data-from-csv-file"><i class="fa fa-link"></i></a>Populate data from csv file</h3><p>Here we will run some queries on data populated from an external datset file. Given the following <code>data.csv</code> csv file.</p><pre><code class="csv hljs">hotel_id,date,room_number,is_available
+</code></pre><h3 id="Populate-data-from-csv-file"><a class="anchor hidden-xs" href="#Populate-data-from-csv-file" title="Populate-data-from-csv-file"><i class="fa fa-link"></i></a>Populate data from csv file</h3><p>Here we will run some queries on data populated from an external dataset file. Given the following <code>data.csv</code> csv file.</p><pre><code class="csv hljs">hotel_id,date,room_number,is_available
 AZ123,<span class="hljs-number">2016</span><span class="hljs-number">-01</span><span class="hljs-number">-01</span>,<span class="hljs-number">101</span>,<span class="hljs-literal">TRUE</span>
 AZ123,<span class="hljs-number">2016</span><span class="hljs-number">-01</span><span class="hljs-number">-02</span>,<span class="hljs-number">101</span>,<span class="hljs-literal">TRUE</span>
 AZ123,<span class="hljs-number">2016</span><span class="hljs-number">-01</span><span class="hljs-number">-21</span>,<span class="hljs-number">101</span>,<span class="hljs-literal">TRUE</span>
@@ -1037,26 +1068,26 @@ NY229,<span class="hljs-number">2016</span><span class="hljs-number">-01</span><
             <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
                 <div class="toc"><ul class="nav">
 <li class=""><a href="#Lab-2---Data-Retrieval-with-SQL-and-CQL" title="Lab 2 - Data Retrieval with SQL and CQL">Lab 2 - Data Retrieval with SQL and CQL</a></li>
-<li class=""><a href="#Dataset" title="Dataset">Dataset</a></li>
-<li class=""><a href="#Agenda" title="Agenda">Agenda</a></li>
-<li class=""><a href="#Prerequisites" title="Prerequisites">Prerequisites</a></li>
-<li class=""><a href="#Objectives" title="Objectives">Objectives</a></li>
-<li class=""><a href="#Introduction" title="Introduction">Introduction</a></li>
-<li class=""><a href="#Dataset-Descripion" title="Dataset Descripion">Dataset Descripion</a></li>
-<li class=""><a href="#Access-PostgreSQL-server" title="Access PostgreSQL server">Access PostgreSQL server</a></li>
-<li class=""><a href="#PostgreSQL-Meta-commands" title="PostgreSQL Meta-commands">PostgreSQL Meta-commands</a></li>
-<li class=""><a href="#Build-the-Database" title="Build the Database">Build the Database</a><ul class="nav">
-<li class=""><a href="#Fix-Friends-table" title="Fix Friends table">Fix Friends table</a></li>
+<li><a href="#Dataset" title="Dataset">Dataset</a></li>
+<li><a href="#Agenda" title="Agenda">Agenda</a></li>
+<li><a href="#Prerequisites" title="Prerequisites">Prerequisites</a></li>
+<li><a href="#Objectives" title="Objectives">Objectives</a></li>
+<li><a href="#Introduction" title="Introduction">Introduction</a></li>
+<li><a href="#Dataset-Descripion" title="Dataset Descripion">Dataset Descripion</a></li>
+<li><a href="#Access-PostgreSQL-server" title="Access PostgreSQL server">Access PostgreSQL server</a></li>
+<li><a href="#PostgreSQL-Meta-commands" title="PostgreSQL Meta-commands">PostgreSQL Meta-commands</a></li>
+<li><a href="#Build-the-Database" title="Build the Database">Build the Database</a><ul class="nav">
+<li><a href="#Fix-Friends-table" title="Fix Friends table">Fix Friends table</a></li>
 </ul>
 </li>
-<li class=""><a href="#Data-Retrieval-using-SQL" title="Data Retrieval using SQL">Data Retrieval using SQL</a><ul class="nav">
-<li class=""><a href="#Data-Retrieval-from-a-single-table" title="Data Retrieval from a single table">Data Retrieval from a single table</a></li>
-<li class=""><a href="#Data-Retrieval-from-multiple-tables-Joining-tables" title="Data Retrieval from multiple tables (Joining tables)">Data Retrieval from multiple tables (Joining tables)</a></li>
-<li class=""><a href="#Aggregation-and-grouping" title="Aggregation and grouping">Aggregation and grouping</a></li>
-<li class=""><a href="#Citus-Data" title="Citus Data">Citus Data</a></li>
+<li><a href="#Data-Retrieval-using-SQL" title="Data Retrieval using SQL">Data Retrieval using SQL</a><ul class="nav">
+<li><a href="#Data-Retrieval-from-a-single-table" title="Data Retrieval from a single table">Data Retrieval from a single table</a></li>
+<li><a href="#Data-Retrieval-from-multiple-tables-Joining-tables" title="Data Retrieval from multiple tables (Joining tables)">Data Retrieval from multiple tables (Joining tables)</a></li>
+<li><a href="#Aggregation-and-grouping" title="Aggregation and grouping">Aggregation and grouping</a></li>
+<li><a href="#Citus-Data" title="Citus Data">Citus Data</a></li>
 </ul>
 </li>
-<li><a href="#Apache-Cassandra" title="Apache Cassandra">Apache Cassandra</a><ul class="nav">
+<li class=""><a href="#Apache-Cassandra" title="Apache Cassandra">Apache Cassandra</a><ul class="nav">
 <li><a href="#Installing-Cassandra" title="Installing Cassandra">Installing Cassandra</a><ul class="nav">
 <li><a href="#Single-node-Cassandra-server-installation" title="Single-node Cassandra server installation">Single-node Cassandra server installation</a></li>
 <li><a href="#Multi-node-Cassandra-cluster" title="Multi-node Cassandra cluster">Multi-node Cassandra cluster</a></li>
@@ -1071,19 +1102,20 @@ NY229,<span class="hljs-number">2016</span><span class="hljs-number">-01</span><
 <li><a href="#Conditional-queries" title="Conditional queries">Conditional queries</a></li>
 <li><a href="#Clustering-columns" title="Clustering columns">Clustering columns</a></li>
 <li><a href="#Group-by-clause" title="Group by clause">Group by clause</a></li>
+<li><a href="#Distinct" title="Distinct">Distinct</a></li>
 </ul>
 </li>
-<li><a href="#Example-on-Cassandra-database" title="Example on Cassandra database">Example on Cassandra database</a><ul class="nav">
+<li class=""><a href="#Example-on-Cassandra-database" title="Example on Cassandra database">Example on Cassandra database</a><ul class="nav">
 <li><a href="#Define-application-queries" title="Define application queries">Define application queries</a></li>
 <li><a href="#Define-logical-data-model" title="Define logical data model">Define logical data model</a></li>
 <li><a href="#Physical-data-modeling" title="Physical data modeling">Physical data modeling</a></li>
-<li><a href="#Create-the-database-objects" title="Create the database objects">Create the database objects</a></li>
-<li><a href="#Populate-data-from-csv-file" title="Populate data from csv file">Populate data from csv file</a></li>
+<li class=""><a href="#Create-the-database-objects" title="Create the database objects">Create the database objects</a></li>
+<li class=""><a href="#Populate-data-from-csv-file" title="Populate data from csv file">Populate data from csv file</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#References" title="References">References</a></li>
+<li class=""><a href="#References" title="References">References</a></li>
 </ul>
 </div><div class="toc-menu" style="">
     <a class="expand-toggle expand-all" href="#">Expand all</a>
@@ -1096,27 +1128,27 @@ NY229,<span class="hljs-number">2016</span><span class="hljs-number">-01</span><
     </div>
     <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;"  >
         <div class="toc"><ul class="nav">
-<li class=""><a href="#Lab-2---Data-Retrieval-with-SQL-and-CQL" title="Lab 2 - Data Retrieval with SQL and CQL">Lab 2 - Data Retrieval with SQL and CQL</a></li>
-<li class=""><a href="#Dataset" title="Dataset">Dataset</a></li>
-<li class=""><a href="#Agenda" title="Agenda">Agenda</a></li>
-<li class=""><a href="#Prerequisites" title="Prerequisites">Prerequisites</a></li>
-<li class=""><a href="#Objectives" title="Objectives">Objectives</a></li>
-<li class=""><a href="#Introduction" title="Introduction">Introduction</a></li>
-<li class=""><a href="#Dataset-Descripion" title="Dataset Descripion">Dataset Descripion</a></li>
-<li class=""><a href="#Access-PostgreSQL-server" title="Access PostgreSQL server">Access PostgreSQL server</a></li>
-<li class=""><a href="#PostgreSQL-Meta-commands" title="PostgreSQL Meta-commands">PostgreSQL Meta-commands</a></li>
-<li class=""><a href="#Build-the-Database" title="Build the Database">Build the Database</a><ul class="nav">
-<li class=""><a href="#Fix-Friends-table" title="Fix Friends table">Fix Friends table</a></li>
+<li><a href="#Lab-2---Data-Retrieval-with-SQL-and-CQL" title="Lab 2 - Data Retrieval with SQL and CQL">Lab 2 - Data Retrieval with SQL and CQL</a></li>
+<li><a href="#Dataset" title="Dataset">Dataset</a></li>
+<li><a href="#Agenda" title="Agenda">Agenda</a></li>
+<li><a href="#Prerequisites" title="Prerequisites">Prerequisites</a></li>
+<li><a href="#Objectives" title="Objectives">Objectives</a></li>
+<li><a href="#Introduction" title="Introduction">Introduction</a></li>
+<li><a href="#Dataset-Descripion" title="Dataset Descripion">Dataset Descripion</a></li>
+<li><a href="#Access-PostgreSQL-server" title="Access PostgreSQL server">Access PostgreSQL server</a></li>
+<li><a href="#PostgreSQL-Meta-commands" title="PostgreSQL Meta-commands">PostgreSQL Meta-commands</a></li>
+<li><a href="#Build-the-Database" title="Build the Database">Build the Database</a><ul class="nav">
+<li><a href="#Fix-Friends-table" title="Fix Friends table">Fix Friends table</a></li>
 </ul>
 </li>
-<li class=""><a href="#Data-Retrieval-using-SQL" title="Data Retrieval using SQL">Data Retrieval using SQL</a><ul class="nav">
-<li class=""><a href="#Data-Retrieval-from-a-single-table" title="Data Retrieval from a single table">Data Retrieval from a single table</a></li>
-<li class=""><a href="#Data-Retrieval-from-multiple-tables-Joining-tables" title="Data Retrieval from multiple tables (Joining tables)">Data Retrieval from multiple tables (Joining tables)</a></li>
-<li class=""><a href="#Aggregation-and-grouping" title="Aggregation and grouping">Aggregation and grouping</a></li>
-<li class=""><a href="#Citus-Data" title="Citus Data">Citus Data</a></li>
+<li><a href="#Data-Retrieval-using-SQL" title="Data Retrieval using SQL">Data Retrieval using SQL</a><ul class="nav">
+<li><a href="#Data-Retrieval-from-a-single-table" title="Data Retrieval from a single table">Data Retrieval from a single table</a></li>
+<li><a href="#Data-Retrieval-from-multiple-tables-Joining-tables" title="Data Retrieval from multiple tables (Joining tables)">Data Retrieval from multiple tables (Joining tables)</a></li>
+<li><a href="#Aggregation-and-grouping" title="Aggregation and grouping">Aggregation and grouping</a></li>
+<li><a href="#Citus-Data" title="Citus Data">Citus Data</a></li>
 </ul>
 </li>
-<li><a href="#Apache-Cassandra" title="Apache Cassandra">Apache Cassandra</a><ul class="nav">
+<li class=""><a href="#Apache-Cassandra" title="Apache Cassandra">Apache Cassandra</a><ul class="nav">
 <li><a href="#Installing-Cassandra" title="Installing Cassandra">Installing Cassandra</a><ul class="nav">
 <li><a href="#Single-node-Cassandra-server-installation" title="Single-node Cassandra server installation">Single-node Cassandra server installation</a></li>
 <li><a href="#Multi-node-Cassandra-cluster" title="Multi-node Cassandra cluster">Multi-node Cassandra cluster</a></li>
@@ -1131,19 +1163,20 @@ NY229,<span class="hljs-number">2016</span><span class="hljs-number">-01</span><
 <li><a href="#Conditional-queries" title="Conditional queries">Conditional queries</a></li>
 <li><a href="#Clustering-columns" title="Clustering columns">Clustering columns</a></li>
 <li><a href="#Group-by-clause" title="Group by clause">Group by clause</a></li>
+<li><a href="#Distinct" title="Distinct">Distinct</a></li>
 </ul>
 </li>
-<li><a href="#Example-on-Cassandra-database" title="Example on Cassandra database">Example on Cassandra database</a><ul class="nav">
+<li class=""><a href="#Example-on-Cassandra-database" title="Example on Cassandra database">Example on Cassandra database</a><ul class="nav">
 <li><a href="#Define-application-queries" title="Define application queries">Define application queries</a></li>
 <li><a href="#Define-logical-data-model" title="Define logical data model">Define logical data model</a></li>
 <li><a href="#Physical-data-modeling" title="Physical data modeling">Physical data modeling</a></li>
-<li><a href="#Create-the-database-objects" title="Create the database objects">Create the database objects</a></li>
-<li><a href="#Populate-data-from-csv-file" title="Populate data from csv file">Populate data from csv file</a></li>
+<li class=""><a href="#Create-the-database-objects" title="Create the database objects">Create the database objects</a></li>
+<li class=""><a href="#Populate-data-from-csv-file" title="Populate data from csv file">Populate data from csv file</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#References" title="References">References</a></li>
+<li class=""><a href="#References" title="References">References</a></li>
 </ul>
 </div><div class="toc-menu" style="">
     <a class="expand-toggle expand-all" href="#">Expand all</a>
