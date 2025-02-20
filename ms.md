@@ -13,6 +13,7 @@ layout: page
 ### [Lab 2 - Data Retrieval with SQL and Cypher](html/ms/MS - Lab 2 - Data Retrieval with SQL and Cypher.html)
 
 ### [Lab 3 - Data Retrieval with MongoDB](html/ms/MS - Lab 3 - MongoDB.html)
+### [Lab 4 - Apache Spark Core & SQL](html/ms/MS - Lab 4 - Apache Spark Core & SQL.html)
 
 ## Assignments
 ### [Assignment 2 - Big data storage](html/ms/MS - Assignment 2 - Big data storage.html)
