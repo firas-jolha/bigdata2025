@@ -14,7 +14,7 @@ layout: page
 ### [Extra Lab - Memgraph/Neo4j](html/bs/BS - Lab - Memgraph_Neo4j.html)
 
 ## Assignments
-<!-- ### [Assignment 1 - SQL and NoSQL databases](html/bs/BS - Assignment 1 - SQL and NoSQL databases.html) -->
+### [Assignment 1 - SQL and NoSQL databases](html/bs/BS - Assignment 1 - SQL and NoSQL databases.html)
 
 
 
