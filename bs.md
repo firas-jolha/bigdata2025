@@ -12,6 +12,7 @@ layout: page
 ### [Lab 2 - Data Retrieval with SQL and CQL](html/bs/BS - Lab 2 - Data Retrieval with SQL and CQL.html)
 ### [Lab 3 - MongoDB](html/bs/BS - Lab 3 - MongoDB.html)
 ### [Extra Lab - Memgraph/Neo4j](html/bs/BS - Lab - Memgraph_Neo4j.html)
+### [Lab 4 - Apache Hadoop HDFS](html/bs/BS - Lab 4 - Apache Hadoop HDFS.html)
 
 ## Assignments
 ### [Assignment 1 - SQL and NoSQL databases](html/bs/BS%20-%20Assignment%201%20-%20SQL%20%26%20NoSQL%20Databases.html)
