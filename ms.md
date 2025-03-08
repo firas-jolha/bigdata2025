@@ -15,8 +15,15 @@ layout: page
 ### [Lab 3 - Data Retrieval with MongoDB](html/ms/MS - Lab 3 - MongoDB.html)
 ### [Lab 4 - Apache Spark Core & SQL](html/ms/MS - Lab 4 - Apache Spark Core & SQL.html)
 
+## Midterm
+### [MS - Midterm Prerequisites](html/ms/MS - Midterm Prerequisites 2025.html)
+
 ## Assignments
 ### [Assignment 2 - Big data storage](html/ms/MS - Assignment 2 - Big data storage.html)
+
+
+
+
 
 ## Project
 ### [Final Project - Description](html/ms/MS - Final Project.html)
