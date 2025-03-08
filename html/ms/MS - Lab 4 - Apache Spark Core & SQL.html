@@ -332,7 +332,7 @@
 <span class="hljs-string">git</span> <span class="hljs-string">clone</span> <span class="hljs-string">git@github.com:firas-jolha/docker-spark-yarn-cluster.git</span>
 <span class="hljs-string">cd</span> <span class="hljs-string">docker-spark-yarn-cluster</span>
 </code></pre><ol start="2">
-<li>Run the script <code>startHadoopCluster.sh</code> passing the number of slaves <span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-27-Frame" tabindex="0" style="position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>N</mi></math>" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-94" style="width: 1.08em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.919em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.511em, 1000.92em, 2.535em, -999.997em); top: -2.368em; left: 0em;"><span class="mrow" id="MathJax-Span-95"><span class="mi" id="MathJax-Span-96" style="font-family: MathJax_Math-italic;">N<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.11em;"></span></span></span><span style="display: inline-block; width: 0px; height: 2.373em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.059em; border-left: 0px solid; width: 0px; height: 0.941em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>N</mi></math></span></span><script type="math/tex" id="MathJax-Element-27">N</script></span> (default value is 2).</li>
+<li>Run the script <code>startHadoopCluster.sh</code> passing the number of slaves <span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-1-Frame" tabindex="0" style="position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>N</mi></math>" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-1" style="width: 1.08em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.919em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.457em, 1000.92em, 2.481em, -999.997em); top: -2.314em; left: 0em;"><span class="mrow" id="MathJax-Span-2"><span class="mi" id="MathJax-Span-3" style="font-family: MathJax_Math-italic;">N<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.11em;"></span></span></span><span style="display: inline-block; width: 0px; height: 2.32em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.059em; border-left: 0px solid; width: 0px; height: 0.941em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>N</mi></math></span></span><script type="math/tex" id="MathJax-Element-1">N</script></span> (default value is 2).</li>
 </ol><pre><code class="wrap yaml hljs"><span class="hljs-string">N=5</span>
 <span class="hljs-string">bash</span> <span class="hljs-string">startHadoopCluster.sh</span> <span class="hljs-string">$N</span>
 </code></pre><p>Here I am running a cluster of one master node and 5 slave nodes. In HDFS, the master node will run the namenode and seconadry namenodes and the slave nodes will run the datanodes. In YARN, the master node will run the resource manager and the slave nodes will run the node managers. In Spark, the master node will run the Spark Cluster master and the slave nodes will run the workers.</p><ol start="3">
@@ -546,44 +546,44 @@ some_f(spark)
     print(<span class="hljs-string">f"hello from backend where df.shape is <span class="hljs-subst">{df.shape}</span>"</span>)
     print(pandas.__version__)
     session.createDataFrame(df).show()
-</code></pre><p>PySpark allows to upload Python files (.py), zipped Python packages (.zip), and Egg files (.egg) to the executors by one of the following:</p><ol>
-<li>Setting the configuration setting <code>spark.submit.pyFiles</code></li>
-</ol><pre><code class="wrap python hljs"><span class="hljs-keyword">from</span> pyspark.sql <span class="hljs-keyword">import</span> SparkSession
-<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
-
-
-spark = SparkSession\
-    .builder\
-    .appName(<span class="hljs-string">"PythonPackageManagementPySparkApp"</span>)\
-    .config(<span class="hljs-string">'spark.submit.pyFiles'</span>, <span class="hljs-string">'/app/backend.py'</span>) \
-    .getOrCreate()    
-
-sc = spark.sparkContext
-sc.setLogLevel(<span class="hljs-string">"OFF"</span>) <span class="hljs-comment"># WARN, FATAL, INFO</span>
-
-print(spark.conf.get(<span class="hljs-string">'spark.submit.pyFiles'</span>))
-data = [(<span class="hljs-string">'hello'</span>, <span class="hljs-number">1</span>), (<span class="hljs-string">'world'</span>, <span class="hljs-number">2</span>)]
-print(pd.DataFrame(data))
-
-
-spark.createDataFrame(data).show()
-
-
-rdd = sc.parallelize(data)
-print(rdd.collect())
-
-<span class="hljs-keyword">from</span> backend <span class="hljs-keyword">import</span> some_f
-some_f(spark)
-
+</code></pre><p>PySpark allows to upload Python files (.py), zipped Python packages (.zip), and Egg files (.egg) to the executors by setting the configuration setting <code>spark.submit.pyFiles</code>, setting the option <code>--py-files</code> in <code>spark-submit</code>, or directly calling <code>pyspark.SparkContext.addPyFile()</code> in the application. This is the case for custom modules/files but what about packages and virtual environments. You can actually use the python package <code>venv-pack</code> to package your virtual environment and pass it to <code>spark-submit</code> using the option <code>archives</code>.</p><p>Here I have a demo on using a <code>backend.py</code> custom module and <code>pandas</code> package in my application.</p><ol>
+<li>Create a virtual environment.</li>
+</ol><pre><code class="wrap yaml hljs"><span class="hljs-string">python3</span> <span class="hljs-bullet">-m</span> <span class="hljs-string">venv</span> <span class="hljs-string">.venv</span>
+<span class="hljs-string">source</span> <span class="hljs-string">.venv/bin/activate</span>
 </code></pre><ol start="2">
-<li>Setting the option <code>--py-files</code> in <code>spark-submit</code></li>
-<li>Directly calling <code>pyspark.SparkContext.addPyFile()</code> in applications</li>
-</ol><div class="alert alert-warning">
-<p>If your Spark app is using a virtual environment then you need to set the variable <code>PYSPARK_PYTHON</code> to the path of <code>python</code> in the virtual environment as follows.</p>
-<pre><code class="wrap yaml hljs"><span class="hljs-string">export</span> <span class="hljs-string">PYSPARK_PYTHON=/app/.venv/bin/python</span>
-</code></pre>
-<p>Here I have the</p>
-</div><h1 id="Spark-Web-UI"><a class="anchor hidden-xs" href="#Spark-Web-UI" title="Spark-Web-UI"><i class="fa fa-link"></i></a>Spark Web UI</h1><p>Apache Spark provides a suite of web user interfaces (UIs) that you can use to monitor the status and resource consumption of your Spark cluster.</p><h2 id="Jobs-Tab"><a class="anchor hidden-xs" href="#Jobs-Tab" title="Jobs-Tab"><i class="fa fa-link"></i></a>Jobs Tab</h2><p>The Jobs tab displays a summary page of all jobs in the Spark application and a details page for each job. The summary page shows high-level information, such as the status, duration, and progress of all jobs and the overall event timeline. When you click on a job on the summary page, you see the details page for that job. The details page further shows the event timeline, DAG visualization, and all stages of the job.</p><p>The information that is displayed in this section is:</p><ul>
+<li>Add the packages that you want to the virtual environment.</li>
+</ol><pre><code class="wrap yaml hljs"><span class="hljs-string">pip</span> <span class="hljs-string">install</span> <span class="hljs-string">pandas</span>
+<span class="hljs-string">pip</span> <span class="hljs-string">install</span> <span class="hljs-string">venv-pack</span>
+</code></pre><ol start="3">
+<li>Package the environment using <code>venv-pack</code></li>
+</ol><pre><code class="wrap yaml hljs"><span class="hljs-comment"># make sure that you </span>
+<span class="hljs-string">venv-pack</span> <span class="hljs-bullet">-o</span> <span class="hljs-string">/app/.venv.tar.gz</span>
+</code></pre><ol start="4">
+<li>Configure the environment variables for PySpark driver and excutors.</li>
+</ol><pre><code class="wrap yaml hljs"><span class="hljs-comment"># Python of the driver (/app/.venv/bin/python)</span>
+<span class="hljs-string">export</span> <span class="hljs-string">PYSPARK_DRIVER_PYTHON=$(which</span> <span class="hljs-string">python)</span> 
+
+<span class="hljs-comment"># Python of the excutor (./.venv/bin/python)</span>
+<span class="hljs-string">export</span> <span class="hljs-string">PYSPARK_PYTHON=./.venv/bin/python</span>
+</code></pre><ol start="5">
+<li>Run the application via <code>spark-submit</code> in client mode.</li>
+</ol><pre><code class="wrap yaml hljs"><span class="hljs-string">spark-submit</span> <span class="hljs-bullet">--master</span> <span class="hljs-string">yarn</span> <span class="hljs-string">\</span>
+<span class="hljs-bullet">-</span><span class="hljs-bullet">-conf</span> <span class="hljs-string">spark.yarn.appMasterEnv.PYSPARK_PYTHON=./.venv/bin/python</span> <span class="hljs-string">\</span>
+<span class="hljs-bullet">-</span><span class="hljs-bullet">-deploy-mode</span> <span class="hljs-string">client</span> <span class="hljs-string">\</span>
+<span class="hljs-bullet">-</span><span class="hljs-bullet">-archives</span> <span class="hljs-string">/app/.venv.tar.gz#.venv</span> <span class="hljs-string">\</span>
+<span class="hljs-bullet">-</span><span class="hljs-bullet">-py-files</span> <span class="hljs-string">/app/backend.py</span> <span class="hljs-string">\</span>
+<span class="hljs-string">/app/app.py</span>
+</code></pre><ol start="6">
+<li>You can also run the application in cluster mode as follows:</li>
+</ol><pre><code class="wrap yaml hljs"><span class="hljs-string">unset</span> <span class="hljs-string">PYSPARK_DRIVER_PYTHON</span>
+
+<span class="hljs-string">spark-submit</span> <span class="hljs-bullet">--master</span> <span class="hljs-string">yarn</span> <span class="hljs-string">\</span>
+<span class="hljs-bullet">-</span><span class="hljs-bullet">-conf</span> <span class="hljs-string">spark.yarn.appMasterEnv.PYSPARK_PYTHON=./.venv/bin/python</span> <span class="hljs-string">\</span>
+<span class="hljs-bullet">-</span><span class="hljs-bullet">-deploy-mode</span> <span class="hljs-string">cluster</span> <span class="hljs-string">\</span>
+<span class="hljs-bullet">-</span><span class="hljs-bullet">-archives</span> <span class="hljs-string">/app/.venv.tar.gz#.venv</span> <span class="hljs-string">\</span>
+<span class="hljs-bullet">-</span><span class="hljs-bullet">-py-files</span> <span class="hljs-string">/app/backend.py</span> <span class="hljs-string">\</span>
+<span class="hljs-string">/app/app.py</span>
+</code></pre><h1 id="Spark-Web-UI"><a class="anchor hidden-xs" href="#Spark-Web-UI" title="Spark-Web-UI"><i class="fa fa-link"></i></a>Spark Web UI</h1><p>Apache Spark provides a suite of web user interfaces (UIs) that you can use to monitor the status and resource consumption of your Spark cluster.</p><h2 id="Jobs-Tab"><a class="anchor hidden-xs" href="#Jobs-Tab" title="Jobs-Tab"><i class="fa fa-link"></i></a>Jobs Tab</h2><p>The Jobs tab displays a summary page of all jobs in the Spark application and a details page for each job. The summary page shows high-level information, such as the status, duration, and progress of all jobs and the overall event timeline. When you click on a job on the summary page, you see the details page for that job. The details page further shows the event timeline, DAG visualization, and all stages of the job.</p><p>The information that is displayed in this section is:</p><ul>
 <li>User: Current Spark user</li>
 <li>Total uptime: Time since Spark application started</li>
 <li>Scheduling mode: See job scheduling</li>
@@ -785,7 +785,7 @@ rdd2.take(<span class="hljs-number">10</span>)
 rdd3 = rdd2.map(<span class="hljs-keyword">lambda</span> x : x.strip())
 rdd3.take(<span class="hljs-number">10</span>)
 </code></pre><div class="alert alert-info">
-<p><code>take(k)</code> is a Spark action and returns the first <span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-35-Frame" tabindex="0" style="position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>k</mi></math>" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-139" style="width: 0.649em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.541em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.511em, 1000.54em, 2.535em, -999.997em); top: -2.368em; left: 0em;"><span class="mrow" id="MathJax-Span-140"><span class="mi" id="MathJax-Span-141" style="font-family: MathJax_Math-italic;">k</span></span><span style="display: inline-block; width: 0px; height: 2.373em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.059em; border-left: 0px solid; width: 0px; height: 0.941em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>k</mi></math></span></span><script type="math/tex" id="MathJax-Element-35">k</script></span> elements of the RDD.</p>
+<p><code>take(k)</code> is a Spark action and returns the first <span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-2-Frame" tabindex="0" style="position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>k</mi></math>" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-4" style="width: 0.649em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.541em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.457em, 1000.54em, 2.481em, -999.997em); top: -2.314em; left: 0em;"><span class="mrow" id="MathJax-Span-5"><span class="mi" id="MathJax-Span-6" style="font-family: MathJax_Math-italic;">k</span></span><span style="display: inline-block; width: 0px; height: 2.32em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.059em; border-left: 0px solid; width: 0px; height: 0.941em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>k</mi></math></span></span><script type="math/tex" id="MathJax-Element-2">k</script></span> elements of the RDD.</p>
 </div><h3 id="filter"><a class="anchor hidden-xs" href="#filter" title="filter"><i class="fa fa-link"></i></a>filter</h3><p>Returns a new RDD after applying filter function on source dataset.</p><pre><code class="wrap python hljs"><span class="hljs-comment"># Returns only values which are digits</span>
 rdd4 = rdd3.filter(<span class="hljs-keyword">lambda</span> x : str(x).isdigit())
 
@@ -1225,7 +1225,7 @@ df.write.format(<span class="hljs-string">"csv"</span>) \
     .option(<span class="hljs-string">"mode"</span>,<span class="hljs-string">"append"</span>) \
     .option(<span class="hljs-string">"delimiter"</span>, <span class="hljs-string">"|"</span>) \
     .save(<span class="hljs-string">"/tmp/spark_output/datacsv"</span>)
-</code></pre><h1 id="Spark-Dataset"><a class="anchor hidden-xs" href="#Spark-Dataset" title="Spark-Dataset"><i class="fa fa-link"></i></a>Spark Dataset</h1><p>Spark Dataset is an interface added in Spark 1.6 that provides the benefits of RDDs (strong typing, ability to use powerful lambda functions) with the benefits of Spark SQL’s optimized execution engine. Spark Dataset API is supported in statically typed languages like Java and Scala since Spark Datasets rely heavily on static typing. A DataFrame is a Dataset organized into named columns. Python is a dynamically typed language, it still has access to Spark’s DataFrame API, which offers similar functionality as Datasets.</p><h1 id="Spark-SQL"><a class="anchor hidden-xs" href="#Spark-SQL" title="Spark-SQL"><i class="fa fa-link"></i></a>Spark SQL</h1><p>It is a module used for structured data processing. Spark SQL allows you to query structured data using either SQL or DataFrame API.</p><p>The <code>pyspark.sql</code> is a module in Spark that is used to perform SQL-like operations on the data stored in memory. You can either leverage using programming API to query the data or use the ANSI SQL queries similar to RDBMS. You can also mix both, for example, use API on the result of an SQL query.</p><p><strong>Spark SQL</strong> is one of the most used Spark modules for processing structured columnar data format. Once you have a DataFrame created, you can interact with the data by using SQL syntax. In other words, Spark SQL brings native RAW SQL queries on Spark meaning you can run traditional ANSI SQL on Spark Dataframe.</p><p>In order to use SQL, first, register a <strong>temporary table/view on DataFrame</strong> using the <code>createOrReplaceTempView()</code> function. Once created, this table can be accessed throughout the SparkSession using <code>sql()</code> and it will be dropped along with your SparkContext termination. Use <code>sql()</code> method of the SparkSession object to run the query and this method returns a new DataFrame</p><h2 id="Data-Description"><a class="anchor hidden-xs" href="#Data-Description" title="Data-Description"><i class="fa fa-link"></i></a>Data Description</h2><p>This dataset includes <span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-36-Frame" tabindex="0" style="position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mn>44</mn><mo>,</mo><mn>341</mn></math>" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-142" style="width: 3.451em; display: inline-block;"><span style="display: inline-block; position: relative; width: 2.966em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.511em, 1002.91em, 2.751em, -999.997em); top: -2.368em; left: 0em;"><span class="mrow" id="MathJax-Span-143"><span class="mn" id="MathJax-Span-144" style="font-family: MathJax_Main;">44</span><span class="mo" id="MathJax-Span-145" style="font-family: MathJax_Main;">,</span><span class="mn" id="MathJax-Span-146" style="font-family: MathJax_Main; padding-left: 0.164em;">341</span></span><span style="display: inline-block; width: 0px; height: 2.373em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.309em; border-left: 0px solid; width: 0px; height: 1.128em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>44</mn><mo>,</mo><mn>341</mn></math></span></span><script type="math/tex" id="MathJax-Element-36">44,341</script></span> results of international football matches starting from the very first official match in <span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-37-Frame" tabindex="0" style="position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mn>1872</mn></math>" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-147" style="width: 2.32em; display: inline-block;"><span style="display: inline-block; position: relative; width: 1.996em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.511em, 1001.94em, 2.535em, -999.997em); top: -2.368em; left: 0em;"><span class="mrow" id="MathJax-Span-148"><span class="mn" id="MathJax-Span-149" style="font-family: MathJax_Main;">1872</span></span><span style="display: inline-block; width: 0px; height: 2.373em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.059em; border-left: 0px solid; width: 0px; height: 0.941em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1872</mn></math></span></span><script type="math/tex" id="MathJax-Element-37">1872</script></span> up to <span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-38-Frame" tabindex="0" style="position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mn>2022</mn></math>" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-150" style="width: 2.32em; display: inline-block;"><span style="display: inline-block; position: relative; width: 1.996em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.565em, 1001.94em, 2.535em, -999.997em); top: -2.368em; left: 0em;"><span class="mrow" id="MathJax-Span-151"><span class="mn" id="MathJax-Span-152" style="font-family: MathJax_Main;">2022</span></span><span style="display: inline-block; width: 0px; height: 2.373em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.059em; border-left: 0px solid; width: 0px; height: 0.941em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>2022</mn></math></span></span><script type="math/tex" id="MathJax-Element-38">2022</script></span>. The matches range from FIFA World Cup to FIFI Wild Cup to regular friendly matches. The matches are strictly men’s full internationals and the data does not include Olympic Games or matches where at least one of the teams was the nation’s B-team, U-23 or a league select team.</p><p><strong>results.csv</strong> includes the following columns:</p><ul>
+</code></pre><h1 id="Spark-Dataset"><a class="anchor hidden-xs" href="#Spark-Dataset" title="Spark-Dataset"><i class="fa fa-link"></i></a>Spark Dataset</h1><p>Spark Dataset is an interface added in Spark 1.6 that provides the benefits of RDDs (strong typing, ability to use powerful lambda functions) with the benefits of Spark SQL’s optimized execution engine. Spark Dataset API is supported in statically typed languages like Java and Scala since Spark Datasets rely heavily on static typing. A DataFrame is a Dataset organized into named columns. Python is a dynamically typed language, it still has access to Spark’s DataFrame API, which offers similar functionality as Datasets.</p><h1 id="Spark-SQL"><a class="anchor hidden-xs" href="#Spark-SQL" title="Spark-SQL"><i class="fa fa-link"></i></a>Spark SQL</h1><p>It is a module used for structured data processing. Spark SQL allows you to query structured data using either SQL or DataFrame API.</p><p>The <code>pyspark.sql</code> is a module in Spark that is used to perform SQL-like operations on the data stored in memory. You can either leverage using programming API to query the data or use the ANSI SQL queries similar to RDBMS. You can also mix both, for example, use API on the result of an SQL query.</p><p><strong>Spark SQL</strong> is one of the most used Spark modules for processing structured columnar data format. Once you have a DataFrame created, you can interact with the data by using SQL syntax. In other words, Spark SQL brings native RAW SQL queries on Spark meaning you can run traditional ANSI SQL on Spark Dataframe.</p><p>In order to use SQL, first, register a <strong>temporary table/view on DataFrame</strong> using the <code>createOrReplaceTempView()</code> function. Once created, this table can be accessed throughout the SparkSession using <code>sql()</code> and it will be dropped along with your SparkContext termination. Use <code>sql()</code> method of the SparkSession object to run the query and this method returns a new DataFrame</p><h2 id="Data-Description"><a class="anchor hidden-xs" href="#Data-Description" title="Data-Description"><i class="fa fa-link"></i></a>Data Description</h2><p>This dataset includes <span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-3-Frame" tabindex="0" style="position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mn>44</mn><mo>,</mo><mn>341</mn></math>" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-7" style="width: 3.451em; display: inline-block;"><span style="display: inline-block; position: relative; width: 2.966em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.511em, 1002.91em, 2.751em, -999.997em); top: -2.368em; left: 0em;"><span class="mrow" id="MathJax-Span-8"><span class="mn" id="MathJax-Span-9" style="font-family: MathJax_Main;">44</span><span class="mo" id="MathJax-Span-10" style="font-family: MathJax_Main;">,</span><span class="mn" id="MathJax-Span-11" style="font-family: MathJax_Main; padding-left: 0.164em;">341</span></span><span style="display: inline-block; width: 0px; height: 2.373em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.309em; border-left: 0px solid; width: 0px; height: 1.128em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>44</mn><mo>,</mo><mn>341</mn></math></span></span><script type="math/tex" id="MathJax-Element-3">44,341</script></span> results of international football matches starting from the very first official match in <span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-4-Frame" tabindex="0" style="position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mn>1872</mn></math>" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-12" style="width: 2.32em; display: inline-block;"><span style="display: inline-block; position: relative; width: 1.996em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.511em, 1001.94em, 2.535em, -999.997em); top: -2.368em; left: 0em;"><span class="mrow" id="MathJax-Span-13"><span class="mn" id="MathJax-Span-14" style="font-family: MathJax_Main;">1872</span></span><span style="display: inline-block; width: 0px; height: 2.373em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.059em; border-left: 0px solid; width: 0px; height: 0.941em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>1872</mn></math></span></span><script type="math/tex" id="MathJax-Element-4">1872</script></span> up to <span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-5-Frame" tabindex="0" style="position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mn>2022</mn></math>" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-15" style="width: 2.32em; display: inline-block;"><span style="display: inline-block; position: relative; width: 1.996em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.565em, 1001.94em, 2.535em, -999.997em); top: -2.368em; left: 0em;"><span class="mrow" id="MathJax-Span-16"><span class="mn" id="MathJax-Span-17" style="font-family: MathJax_Main;">2022</span></span><span style="display: inline-block; width: 0px; height: 2.373em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.059em; border-left: 0px solid; width: 0px; height: 0.941em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mn>2022</mn></math></span></span><script type="math/tex" id="MathJax-Element-5">2022</script></span>. The matches range from FIFA World Cup to FIFI Wild Cup to regular friendly matches. The matches are strictly men’s full internationals and the data does not include Olympic Games or matches where at least one of the teams was the nation’s B-team, U-23 or a league select team.</p><p><strong>results.csv</strong> includes the following columns:</p><ul>
 <li><strong>date</strong> - date of the match</li>
 <li><strong>home_team</strong> - the name of the home team</li>
 <li><strong>away_team</strong> - the name of the away team</li>
@@ -1276,7 +1276,7 @@ spark.sql(<span class="hljs-string">"SELECT home_team, city, country, tournament
 </li>
 <li>
 <p>Filter Rows<br>
-To filter the rows from the data, you can use <span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-39-Frame" tabindex="0" style="position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>w</mi><mi>h</mi><mi>e</mi><mi>r</mi><mi>e</mi><mo stretchy=&quot;false&quot;>(</mo><mo stretchy=&quot;false&quot;>)</mo></math>" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-153" style="width: 4.044em; display: inline-block;"><span style="display: inline-block; position: relative; width: 3.451em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.457em, 1003.34em, 2.804em, -999.997em); top: -2.368em; left: 0em;"><span class="mrow" id="MathJax-Span-154"><span class="mi" id="MathJax-Span-155" style="font-family: MathJax_Math-italic;">w</span><span class="mi" id="MathJax-Span-156" style="font-family: MathJax_Math-italic;">h</span><span class="mi" id="MathJax-Span-157" style="font-family: MathJax_Math-italic;">e</span><span class="mi" id="MathJax-Span-158" style="font-family: MathJax_Math-italic;">r</span><span class="mi" id="MathJax-Span-159" style="font-family: MathJax_Math-italic;">e</span><span class="mo" id="MathJax-Span-160" style="font-family: MathJax_Main;">(</span><span class="mo" id="MathJax-Span-161" style="font-family: MathJax_Main;">)</span></span><span style="display: inline-block; width: 0px; height: 2.373em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.372em; border-left: 0px solid; width: 0px; height: 1.316em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>w</mi><mi>h</mi><mi>e</mi><mi>r</mi><mi>e</mi><mo stretchy="false">(</mo><mo stretchy="false">)</mo></math></span></span><script type="math/tex" id="MathJax-Element-39">where()</script></span> function from the DataFrame API.</p>
+To filter the rows from the data, you can use <span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-6-Frame" tabindex="0" style="position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>w</mi><mi>h</mi><mi>e</mi><mi>r</mi><mi>e</mi><mo stretchy=&quot;false&quot;>(</mo><mo stretchy=&quot;false&quot;>)</mo></math>" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-18" style="width: 4.044em; display: inline-block;"><span style="display: inline-block; position: relative; width: 3.451em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.457em, 1003.34em, 2.804em, -999.997em); top: -2.368em; left: 0em;"><span class="mrow" id="MathJax-Span-19"><span class="mi" id="MathJax-Span-20" style="font-family: MathJax_Math-italic;">w</span><span class="mi" id="MathJax-Span-21" style="font-family: MathJax_Math-italic;">h</span><span class="mi" id="MathJax-Span-22" style="font-family: MathJax_Math-italic;">e</span><span class="mi" id="MathJax-Span-23" style="font-family: MathJax_Math-italic;">r</span><span class="mi" id="MathJax-Span-24" style="font-family: MathJax_Math-italic;">e</span><span class="mo" id="MathJax-Span-25" style="font-family: MathJax_Main;">(</span><span class="mo" id="MathJax-Span-26" style="font-family: MathJax_Main;">)</span></span><span style="display: inline-block; width: 0px; height: 2.373em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.372em; border-left: 0px solid; width: 0px; height: 1.316em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>w</mi><mi>h</mi><mi>e</mi><mi>r</mi><mi>e</mi><mo stretchy="false">(</mo><mo stretchy="false">)</mo></math></span></span><script type="math/tex" id="MathJax-Element-6">where()</script></span> function from the DataFrame API.</p>
 <pre><code class="wrap python hljs">// DataFrame API where()
 df.select(<span class="hljs-string">"country"</span>,<span class="hljs-string">"city"</span>,<span class="hljs-string">"home_team"</span>,<span class="hljs-string">"tournament"</span>) 
   .where(<span class="hljs-string">"city == 'Moscow'"</span>) 
@@ -1324,7 +1324,7 @@ spark.sql(<span class="hljs-string">""" SELECT city, count(*) as count FROM RESU
 <li>param <em>other</em>: Right side of the join</li>
 <li>param <em>on</em>: a string for the join column name</li>
 <li>param <em>how</em>: default inner. Must be one of inner, cross, outer,full, full_outer, left, left_outer, right, right_outer,left_semi, and left_anti.</li>
-</ul><p>You can also write Join expression by adding <span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-40-Frame" tabindex="0" style="position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>w</mi><mi>h</mi><mi>e</mi><mi>r</mi><mi>e</mi><mo stretchy=&quot;false&quot;>(</mo><mo stretchy=&quot;false&quot;>)</mo></math>" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-162" style="width: 4.044em; display: inline-block;"><span style="display: inline-block; position: relative; width: 3.451em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.457em, 1003.34em, 2.804em, -999.997em); top: -2.368em; left: 0em;"><span class="mrow" id="MathJax-Span-163"><span class="mi" id="MathJax-Span-164" style="font-family: MathJax_Math-italic;">w</span><span class="mi" id="MathJax-Span-165" style="font-family: MathJax_Math-italic;">h</span><span class="mi" id="MathJax-Span-166" style="font-family: MathJax_Math-italic;">e</span><span class="mi" id="MathJax-Span-167" style="font-family: MathJax_Math-italic;">r</span><span class="mi" id="MathJax-Span-168" style="font-family: MathJax_Math-italic;">e</span><span class="mo" id="MathJax-Span-169" style="font-family: MathJax_Main;">(</span><span class="mo" id="MathJax-Span-170" style="font-family: MathJax_Main;">)</span></span><span style="display: inline-block; width: 0px; height: 2.373em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.372em; border-left: 0px solid; width: 0px; height: 1.316em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>w</mi><mi>h</mi><mi>e</mi><mi>r</mi><mi>e</mi><mo stretchy="false">(</mo><mo stretchy="false">)</mo></math></span></span><script type="math/tex" id="MathJax-Element-40">where()</script></span> and <span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-41-Frame" tabindex="0" style="position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>f</mi><mi>i</mi><mi>l</mi><mi>t</mi><mi>e</mi><mi>r</mi><mo stretchy=&quot;false&quot;>(</mo><mo stretchy=&quot;false&quot;>)</mo></math>" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-171" style="width: 3.774em; display: inline-block;"><span style="display: inline-block; position: relative; width: 3.235em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.457em, 1003.13em, 2.804em, -999.997em); top: -2.368em; left: 0em;"><span class="mrow" id="MathJax-Span-172"><span class="mi" id="MathJax-Span-173" style="font-family: MathJax_Math-italic;">f<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.057em;"></span></span><span class="mi" id="MathJax-Span-174" style="font-family: MathJax_Math-italic;">i</span><span class="mi" id="MathJax-Span-175" style="font-family: MathJax_Math-italic;">l</span><span class="mi" id="MathJax-Span-176" style="font-family: MathJax_Math-italic;">t</span><span class="mi" id="MathJax-Span-177" style="font-family: MathJax_Math-italic;">e</span><span class="mi" id="MathJax-Span-178" style="font-family: MathJax_Math-italic;">r</span><span class="mo" id="MathJax-Span-179" style="font-family: MathJax_Main;">(</span><span class="mo" id="MathJax-Span-180" style="font-family: MathJax_Main;">)</span></span><span style="display: inline-block; width: 0px; height: 2.373em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.372em; border-left: 0px solid; width: 0px; height: 1.316em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi><mi>i</mi><mi>l</mi><mi>t</mi><mi>e</mi><mi>r</mi><mo stretchy="false">(</mo><mo stretchy="false">)</mo></math></span></span><script type="math/tex" id="MathJax-Element-41">filter()</script></span> methods on DataFrame and can have Join on multiple columns.</p><ul>
+</ul><p>You can also write Join expression by adding <span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-7-Frame" tabindex="0" style="position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>w</mi><mi>h</mi><mi>e</mi><mi>r</mi><mi>e</mi><mo stretchy=&quot;false&quot;>(</mo><mo stretchy=&quot;false&quot;>)</mo></math>" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-27" style="width: 4.044em; display: inline-block;"><span style="display: inline-block; position: relative; width: 3.451em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.457em, 1003.34em, 2.804em, -999.997em); top: -2.368em; left: 0em;"><span class="mrow" id="MathJax-Span-28"><span class="mi" id="MathJax-Span-29" style="font-family: MathJax_Math-italic;">w</span><span class="mi" id="MathJax-Span-30" style="font-family: MathJax_Math-italic;">h</span><span class="mi" id="MathJax-Span-31" style="font-family: MathJax_Math-italic;">e</span><span class="mi" id="MathJax-Span-32" style="font-family: MathJax_Math-italic;">r</span><span class="mi" id="MathJax-Span-33" style="font-family: MathJax_Math-italic;">e</span><span class="mo" id="MathJax-Span-34" style="font-family: MathJax_Main;">(</span><span class="mo" id="MathJax-Span-35" style="font-family: MathJax_Main;">)</span></span><span style="display: inline-block; width: 0px; height: 2.373em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.372em; border-left: 0px solid; width: 0px; height: 1.316em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>w</mi><mi>h</mi><mi>e</mi><mi>r</mi><mi>e</mi><mo stretchy="false">(</mo><mo stretchy="false">)</mo></math></span></span><script type="math/tex" id="MathJax-Element-7">where()</script></span> and <span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-8-Frame" tabindex="0" style="position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>f</mi><mi>i</mi><mi>l</mi><mi>t</mi><mi>e</mi><mi>r</mi><mo stretchy=&quot;false&quot;>(</mo><mo stretchy=&quot;false&quot;>)</mo></math>" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-36" style="width: 3.774em; display: inline-block;"><span style="display: inline-block; position: relative; width: 3.235em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.457em, 1003.13em, 2.804em, -999.997em); top: -2.368em; left: 0em;"><span class="mrow" id="MathJax-Span-37"><span class="mi" id="MathJax-Span-38" style="font-family: MathJax_Math-italic;">f<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.057em;"></span></span><span class="mi" id="MathJax-Span-39" style="font-family: MathJax_Math-italic;">i</span><span class="mi" id="MathJax-Span-40" style="font-family: MathJax_Math-italic;">l</span><span class="mi" id="MathJax-Span-41" style="font-family: MathJax_Math-italic;">t</span><span class="mi" id="MathJax-Span-42" style="font-family: MathJax_Math-italic;">e</span><span class="mi" id="MathJax-Span-43" style="font-family: MathJax_Math-italic;">r</span><span class="mo" id="MathJax-Span-44" style="font-family: MathJax_Main;">(</span><span class="mo" id="MathJax-Span-45" style="font-family: MathJax_Main;">)</span></span><span style="display: inline-block; width: 0px; height: 2.373em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.372em; border-left: 0px solid; width: 0px; height: 1.316em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>f</mi><mi>i</mi><mi>l</mi><mi>t</mi><mi>e</mi><mi>r</mi><mo stretchy="false">(</mo><mo stretchy="false">)</mo></math></span></span><script type="math/tex" id="MathJax-Element-8">filter()</script></span> methods on DataFrame and can have Join on multiple columns.</p><ul>
 <li>Create two Spark dataframes</li>
 </ul><pre><code class="wrap python hljs">emp = [(<span class="hljs-number">1</span>,<span class="hljs-string">"Smith"</span>,<span class="hljs-number">-1</span>,<span class="hljs-string">"2018"</span>,<span class="hljs-string">"10"</span>,<span class="hljs-string">"M"</span>,<span class="hljs-number">3000</span>), \
     (<span class="hljs-number">2</span>,<span class="hljs-string">"Rose"</span>,<span class="hljs-number">1</span>,<span class="hljs-string">"2010"</span>,<span class="hljs-string">"20"</span>,<span class="hljs-string">"M"</span>,<span class="hljs-number">4000</span>), \
@@ -1439,7 +1439,7 @@ joinDF = spark.sql(<span class="hljs-string">"select * from EMP e FULL OUTER JOI
 <li><a href="#Supported-Cluster-Managers" title="Supported Cluster Managers">Supported Cluster Managers</a></li>
 </ul>
 </li>
-<li><a href="#PySpark" title="PySpark">PySpark</a><ul class="nav">
+<li class=""><a href="#PySpark" title="PySpark">PySpark</a><ul class="nav">
 <li><a href="#PySpark-Modules-amp-Packages" title="PySpark Modules &amp; Packages">PySpark Modules &amp; Packages</a></li>
 <li><a href="#Install-PySpark" title="Install PySpark">Install PySpark</a><ul class="nav">
 <li><a href="#On-Colab" title="On Colab">On Colab</a></li>
@@ -1449,16 +1449,16 @@ joinDF = spark.sql(<span class="hljs-string">"select * from EMP e FULL OUTER JOI
 <li><a href="#Optional-Install-PySpark-on-HDP-Sandbox" title="[Optional] Install PySpark on HDP Sandbox">[Optional] Install PySpark on HDP Sandbox</a></li>
 </ul>
 </li>
-<li><a href="#Running-Spark-applications" title="Running Spark applications">Running Spark applications</a><ul class="nav">
+<li class=""><a href="#Running-Spark-applications" title="Running Spark applications">Running Spark applications</a><ul class="nav">
 <li><a href="#pyspark-shell" title="pyspark shell">pyspark shell</a></li>
-<li><a href="#spark-submit" title="spark-submit">spark-submit</a></li>
+<li class=""><a href="#spark-submit" title="spark-submit">spark-submit</a></li>
 </ul>
 </li>
-<li><a href="#Python-Package-Management-in-PySpark-apps" title="Python Package Management in PySpark apps">Python Package Management in PySpark apps</a></li>
+<li class=""><a href="#Python-Package-Management-in-PySpark-apps" title="Python Package Management in PySpark apps">Python Package Management in PySpark apps</a></li>
 </ul>
 </li>
-<li><a href="#Spark-Web-UI" title="Spark Web UI">Spark Web UI</a><ul class="nav">
-<li><a href="#Jobs-Tab" title="Jobs Tab">Jobs Tab</a><ul class="nav">
+<li class=""><a href="#Spark-Web-UI" title="Spark Web UI">Spark Web UI</a><ul class="nav">
+<li class=""><a href="#Jobs-Tab" title="Jobs Tab">Jobs Tab</a><ul class="nav">
 <li><a href="#Job-details" title="Job details">Job details</a></li>
 </ul>
 </li>
@@ -1468,34 +1468,34 @@ joinDF = spark.sql(<span class="hljs-string">"select * from EMP e FULL OUTER JOI
 </li>
 </ul>
 </li>
-<li class=""><a href="#Spark-Core" title="Spark Core">Spark Core</a><ul class="nav">
+<li><a href="#Spark-Core" title="Spark Core">Spark Core</a><ul class="nav">
 <li><a href="#Spark-RDD-Operations" title="Spark RDD Operations">Spark RDD Operations</a></li>
-<li class=""><a href="#Spark-RDD-Transformations" title="Spark RDD Transformations">Spark RDD Transformations</a></li>
-<li class=""><a href="#Spark-RDD-Actions" title="Spark RDD Actions">Spark RDD Actions</a></li>
+<li><a href="#Spark-RDD-Transformations" title="Spark RDD Transformations">Spark RDD Transformations</a></li>
+<li><a href="#Spark-RDD-Actions" title="Spark RDD Actions">Spark RDD Actions</a></li>
 </ul>
 </li>
-<li class=""><a href="#Spark-Context" title="Spark Context">Spark Context</a><ul class="nav">
-<li class=""><a href="#Import-required-packages" title="Import required packages">Import required packages</a></li>
-<li class=""><a href="#Create-a-SparkContext" title="Create a SparkContext">Create a SparkContext</a></li>
+<li><a href="#Spark-Context" title="Spark Context">Spark Context</a><ul class="nav">
+<li><a href="#Import-required-packages" title="Import required packages">Import required packages</a></li>
+<li><a href="#Create-a-SparkContext" title="Create a SparkContext">Create a SparkContext</a></li>
 </ul>
 </li>
-<li class=""><a href="#Spark-RDD" title="Spark RDD">Spark RDD</a><ul class="nav">
+<li><a href="#Spark-RDD" title="Spark RDD">Spark RDD</a><ul class="nav">
 <li class="invisable-node"><ul class="nav">
-<li class=""><a href="#1-using-parallelize-function" title="1. using parallelize() function">1. using parallelize() function</a></li>
-<li class=""><a href="#2-using-textFile-or-wholeTextFiles-functions" title="2. using textFile or wholeTextFiles functions">2. using textFile or wholeTextFiles functions</a></li>
+<li><a href="#1-using-parallelize-function" title="1. using parallelize() function">1. using parallelize() function</a></li>
+<li><a href="#2-using-textFile-or-wholeTextFiles-functions" title="2. using textFile or wholeTextFiles functions">2. using textFile or wholeTextFiles functions</a></li>
 </ul>
 </li>
-<li class=""><a href="#Create-empty-RDD" title="Create empty RDD">Create empty RDD</a></li>
-<li class=""><a href="#Repartition-and-Coalesce" title="Repartition and Coalesce">Repartition and Coalesce</a></li>
-<li class=""><a href="#PySpark-RDD-Transformations" title="PySpark RDD Transformations">PySpark RDD Transformations</a><ul class="nav">
-<li class=""><a href="#map-and-flatMap" title="map and flatMap">map and flatMap</a></li>
-<li class=""><a href="#filter" title="filter">filter</a></li>
-<li class=""><a href="#distinct" title="distinct">distinct</a></li>
-<li class=""><a href="#sample" title="sample">sample</a></li>
-<li class=""><a href="#randomSplit" title="randomSplit">randomSplit</a></li>
-<li class=""><a href="#mapPartitions-and-mapPartitionsWithIndex" title="mapPartitions and mapPartitionsWithIndex">mapPartitions and mapPartitionsWithIndex</a></li>
-<li class=""><a href="#sortBy-and-groupBy" title="sortBy and groupBy">sortBy and groupBy</a></li>
-<li class=""><a href="#sortByKey-and-reduceByKey" title="sortByKey and reduceByKey">sortByKey and reduceByKey</a></li>
+<li><a href="#Create-empty-RDD" title="Create empty RDD">Create empty RDD</a></li>
+<li><a href="#Repartition-and-Coalesce" title="Repartition and Coalesce">Repartition and Coalesce</a></li>
+<li><a href="#PySpark-RDD-Transformations" title="PySpark RDD Transformations">PySpark RDD Transformations</a><ul class="nav">
+<li><a href="#map-and-flatMap" title="map and flatMap">map and flatMap</a></li>
+<li><a href="#filter" title="filter">filter</a></li>
+<li><a href="#distinct" title="distinct">distinct</a></li>
+<li><a href="#sample" title="sample">sample</a></li>
+<li><a href="#randomSplit" title="randomSplit">randomSplit</a></li>
+<li><a href="#mapPartitions-and-mapPartitionsWithIndex" title="mapPartitions and mapPartitionsWithIndex">mapPartitions and mapPartitionsWithIndex</a></li>
+<li><a href="#sortBy-and-groupBy" title="sortBy and groupBy">sortBy and groupBy</a></li>
+<li><a href="#sortByKey-and-reduceByKey" title="sortByKey and reduceByKey">sortByKey and reduceByKey</a></li>
 </ul>
 </li>
 <li><a href="#PySpark-RDD-Actions" title="PySpark RDD Actions">PySpark RDD Actions</a><ul class="nav">
@@ -1582,7 +1582,7 @@ joinDF = spark.sql(<span class="hljs-string">"select * from EMP e FULL OUTER JOI
 <li><a href="#Supported-Cluster-Managers" title="Supported Cluster Managers">Supported Cluster Managers</a></li>
 </ul>
 </li>
-<li><a href="#PySpark" title="PySpark">PySpark</a><ul class="nav">
+<li class=""><a href="#PySpark" title="PySpark">PySpark</a><ul class="nav">
 <li><a href="#PySpark-Modules-amp-Packages" title="PySpark Modules &amp; Packages">PySpark Modules &amp; Packages</a></li>
 <li><a href="#Install-PySpark" title="Install PySpark">Install PySpark</a><ul class="nav">
 <li><a href="#On-Colab" title="On Colab">On Colab</a></li>
@@ -1592,16 +1592,16 @@ joinDF = spark.sql(<span class="hljs-string">"select * from EMP e FULL OUTER JOI
 <li><a href="#Optional-Install-PySpark-on-HDP-Sandbox" title="[Optional] Install PySpark on HDP Sandbox">[Optional] Install PySpark on HDP Sandbox</a></li>
 </ul>
 </li>
-<li><a href="#Running-Spark-applications" title="Running Spark applications">Running Spark applications</a><ul class="nav">
+<li class=""><a href="#Running-Spark-applications" title="Running Spark applications">Running Spark applications</a><ul class="nav">
 <li><a href="#pyspark-shell" title="pyspark shell">pyspark shell</a></li>
-<li><a href="#spark-submit" title="spark-submit">spark-submit</a></li>
+<li class=""><a href="#spark-submit" title="spark-submit">spark-submit</a></li>
 </ul>
 </li>
-<li><a href="#Python-Package-Management-in-PySpark-apps" title="Python Package Management in PySpark apps">Python Package Management in PySpark apps</a></li>
+<li class=""><a href="#Python-Package-Management-in-PySpark-apps" title="Python Package Management in PySpark apps">Python Package Management in PySpark apps</a></li>
 </ul>
 </li>
-<li><a href="#Spark-Web-UI" title="Spark Web UI">Spark Web UI</a><ul class="nav">
-<li><a href="#Jobs-Tab" title="Jobs Tab">Jobs Tab</a><ul class="nav">
+<li class=""><a href="#Spark-Web-UI" title="Spark Web UI">Spark Web UI</a><ul class="nav">
+<li class=""><a href="#Jobs-Tab" title="Jobs Tab">Jobs Tab</a><ul class="nav">
 <li><a href="#Job-details" title="Job details">Job details</a></li>
 </ul>
 </li>
@@ -1611,34 +1611,34 @@ joinDF = spark.sql(<span class="hljs-string">"select * from EMP e FULL OUTER JOI
 </li>
 </ul>
 </li>
-<li class=""><a href="#Spark-Core" title="Spark Core">Spark Core</a><ul class="nav">
+<li><a href="#Spark-Core" title="Spark Core">Spark Core</a><ul class="nav">
 <li><a href="#Spark-RDD-Operations" title="Spark RDD Operations">Spark RDD Operations</a></li>
-<li class=""><a href="#Spark-RDD-Transformations" title="Spark RDD Transformations">Spark RDD Transformations</a></li>
-<li class=""><a href="#Spark-RDD-Actions" title="Spark RDD Actions">Spark RDD Actions</a></li>
+<li><a href="#Spark-RDD-Transformations" title="Spark RDD Transformations">Spark RDD Transformations</a></li>
+<li><a href="#Spark-RDD-Actions" title="Spark RDD Actions">Spark RDD Actions</a></li>
 </ul>
 </li>
-<li class=""><a href="#Spark-Context" title="Spark Context">Spark Context</a><ul class="nav">
-<li class=""><a href="#Import-required-packages" title="Import required packages">Import required packages</a></li>
-<li class=""><a href="#Create-a-SparkContext" title="Create a SparkContext">Create a SparkContext</a></li>
+<li><a href="#Spark-Context" title="Spark Context">Spark Context</a><ul class="nav">
+<li><a href="#Import-required-packages" title="Import required packages">Import required packages</a></li>
+<li><a href="#Create-a-SparkContext" title="Create a SparkContext">Create a SparkContext</a></li>
 </ul>
 </li>
-<li class=""><a href="#Spark-RDD" title="Spark RDD">Spark RDD</a><ul class="nav">
+<li><a href="#Spark-RDD" title="Spark RDD">Spark RDD</a><ul class="nav">
 <li class="invisable-node"><ul class="nav">
-<li class=""><a href="#1-using-parallelize-function" title="1. using parallelize() function">1. using parallelize() function</a></li>
-<li class=""><a href="#2-using-textFile-or-wholeTextFiles-functions" title="2. using textFile or wholeTextFiles functions">2. using textFile or wholeTextFiles functions</a></li>
+<li><a href="#1-using-parallelize-function" title="1. using parallelize() function">1. using parallelize() function</a></li>
+<li><a href="#2-using-textFile-or-wholeTextFiles-functions" title="2. using textFile or wholeTextFiles functions">2. using textFile or wholeTextFiles functions</a></li>
 </ul>
 </li>
-<li class=""><a href="#Create-empty-RDD" title="Create empty RDD">Create empty RDD</a></li>
-<li class=""><a href="#Repartition-and-Coalesce" title="Repartition and Coalesce">Repartition and Coalesce</a></li>
-<li class=""><a href="#PySpark-RDD-Transformations" title="PySpark RDD Transformations">PySpark RDD Transformations</a><ul class="nav">
-<li class=""><a href="#map-and-flatMap" title="map and flatMap">map and flatMap</a></li>
-<li class=""><a href="#filter" title="filter">filter</a></li>
-<li class=""><a href="#distinct" title="distinct">distinct</a></li>
-<li class=""><a href="#sample" title="sample">sample</a></li>
-<li class=""><a href="#randomSplit" title="randomSplit">randomSplit</a></li>
-<li class=""><a href="#mapPartitions-and-mapPartitionsWithIndex" title="mapPartitions and mapPartitionsWithIndex">mapPartitions and mapPartitionsWithIndex</a></li>
-<li class=""><a href="#sortBy-and-groupBy" title="sortBy and groupBy">sortBy and groupBy</a></li>
-<li class=""><a href="#sortByKey-and-reduceByKey" title="sortByKey and reduceByKey">sortByKey and reduceByKey</a></li>
+<li><a href="#Create-empty-RDD" title="Create empty RDD">Create empty RDD</a></li>
+<li><a href="#Repartition-and-Coalesce" title="Repartition and Coalesce">Repartition and Coalesce</a></li>
+<li><a href="#PySpark-RDD-Transformations" title="PySpark RDD Transformations">PySpark RDD Transformations</a><ul class="nav">
+<li><a href="#map-and-flatMap" title="map and flatMap">map and flatMap</a></li>
+<li><a href="#filter" title="filter">filter</a></li>
+<li><a href="#distinct" title="distinct">distinct</a></li>
+<li><a href="#sample" title="sample">sample</a></li>
+<li><a href="#randomSplit" title="randomSplit">randomSplit</a></li>
+<li><a href="#mapPartitions-and-mapPartitionsWithIndex" title="mapPartitions and mapPartitionsWithIndex">mapPartitions and mapPartitionsWithIndex</a></li>
+<li><a href="#sortBy-and-groupBy" title="sortBy and groupBy">sortBy and groupBy</a></li>
+<li><a href="#sortByKey-and-reduceByKey" title="sortByKey and reduceByKey">sortByKey and reduceByKey</a></li>
 </ul>
 </li>
 <li><a href="#PySpark-RDD-Actions" title="PySpark RDD Actions">PySpark RDD Actions</a><ul class="nav">
