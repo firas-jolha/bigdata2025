@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>
+        BS - Lab 5 - Apache Hadoop YARN &amp; MapReduce - CodiMD
+    </title>
+    <link rel="icon" type="image/png" href="http://localhost:3000/favicon.png">
+    <link rel="apple-touch-icon" href="http://localhost:3000/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.0/css/bootstrap.min.css" integrity="sha256-H0KfTigpUV+0/5tn2HXC0CPwhhDhWgSawJdnFd0CGCo=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fork-awesome/1.1.3/css/fork-awesome.min.css" integrity="sha256-ZhApazu+kejqTYhMF+1DzNKjIzP7KXu6AzyXcC1gMus=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" integrity="sha256-3iu9jgsy9TpTwXKb7bNQzqWekRX7pPK+2OLj3R922fo=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css" integrity="sha256-vtR0hSWRc3Tb26iuN2oZHt3KRUomwTufNIf5/4oeCyg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github-gist.min.css" integrity="sha256-tAflq+ymku3Khs+I/WcAneIlafYgDiOQ9stIHH985Wo=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@hackmd/emojify.js@2.1.0/dist/css/basic/emojify.min.css" integrity="sha256-UOrvMOsSDSrW6szVLe8ZDZezBxh5IoIfgTwdNDgTjiU=" crossorigin="anonymous" />
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,600,600italic,300italic,300|Source+Serif+Pro|Source+Code+Pro:400,300,500&subset=latin,latin-ext);.markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body:after,.markdown-body:before{display:table;content:""}.markdown-body:after{clear:both}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body .absent{color:#c00}.markdown-body .anchor{float:left;padding-right:4px;margin-left:-20px;line-height:1}.markdown-body .anchor:focus{outline:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-top:0;margin-bottom:16px}.markdown-body hr{height:.25em;padding:0;margin:24px 0;background-color:#e7e7e7;border:0}.markdown-body blockquote{padding:0 1em;color:#777;border-left:.25em solid #ddd}.night .markdown-body blockquote{color:#bcbcbc}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body .loweralpha{list-style-type:lower-alpha}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-top:24px;margin-bottom:16px;font-weight:600;line-height:1.25}.night .markdown-body h1,.night .markdown-body h2,.night .markdown-body h3,.night .markdown-body h4,.night .markdown-body h5,.night .markdown-body h6{color:#ddd}.markdown-body h1 .fa-link,.markdown-body h2 .fa-link,.markdown-body h3 .fa-link,.markdown-body h4 .fa-link,.markdown-body h5 .fa-link,.markdown-body h6 .fa-link{color:#000;vertical-align:middle;visibility:hidden;font-size:16px}.night .markdown-body h1 .fa-link,.night .markdown-body h2 .fa-link,.night .markdown-body h3 .fa-link,.night .markdown-body h4 .fa-link,.night .markdown-body h5 .fa-link,.night .markdown-body h6 .fa-link{color:#fff}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .fa-link,.markdown-body h2:hover .anchor .fa-link,.markdown-body h3:hover .anchor .fa-link,.markdown-body h4:hover .anchor .fa-link,.markdown-body h5:hover .anchor .fa-link,.markdown-body h6:hover .anchor .fa-link{visibility:visible}.markdown-body h1 code,.markdown-body h1 tt,.markdown-body h2 code,.markdown-body h2 tt,.markdown-body h3 code,.markdown-body h3 tt,.markdown-body h4 code,.markdown-body h4 tt,.markdown-body h5 code,.markdown-body h5 tt,.markdown-body h6 code,.markdown-body h6 tt{font-size:inherit}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{padding-bottom:.3em;border-bottom:1px solid #eee}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{font-size:.85em;color:#777}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol.no-list,.markdown-body ul.no-list{padding:0;list-style-type:none}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-top:0;margin-bottom:0}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}.markdown-body dl dd{padding:0 16px;margin-bottom:16px}.markdown-body table{display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}.markdown-body table th{font-weight:700}.markdown-body table td,.markdown-body table th{padding:6px 13px;border:1px solid #ddd}.markdown-body table tr{background-color:#fff;border-top:1px solid #ccc}.night .markdown-body table tr{background-color:#5f5f5f}.markdown-body table tr:nth-child(2n){background-color:#f8f8f8}.night .markdown-body table tr:nth-child(2n){background-color:#4f4f4f}.markdown-body img{max-width:100%;box-sizing:content-box;background-color:#fff}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body .emoji{max-width:none;vertical-align:text-top;background-color:transparent}.markdown-body span.frame{display:block;overflow:hidden}.markdown-body span.frame>span{display:block;float:left;width:auto;padding:7px;margin:13px 0 0;overflow:hidden;border:1px solid #ddd}.markdown-body span.frame span img{display:block;float:left}.markdown-body span.frame span span{display:block;padding:5px 0 0;clear:both;color:#333}.markdown-body span.align-center{display:block;overflow:hidden;clear:both}.markdown-body span.align-center>span{display:block;margin:13px auto 0;overflow:hidden;text-align:center}.markdown-body span.align-center span img{margin:0 auto;text-align:center}.markdown-body span.align-right{display:block;overflow:hidden;clear:both}.markdown-body span.align-right>span{display:block;margin:13px 0 0;overflow:hidden;text-align:right}.markdown-body span.align-right span img{margin:0;text-align:right}.markdown-body span.float-left{display:block;float:left;margin-right:13px;overflow:hidden}.markdown-body span.float-left span{margin:13px 0 0}.markdown-body span.float-right{display:block;float:right;margin-left:13px;overflow:hidden}.markdown-body span.float-right>span{display:block;margin:13px auto 0;overflow:hidden;text-align:right}.markdown-body code,.markdown-body tt{padding:.2em 0;margin:0;font-size:85%;background-color:rgba(0,0,0,.04);border-radius:3px}.night .markdown-body code,.night .markdown-body tt{color:#eee;background-color:hsla(0,0%,90.2%,.36)}.markdown-body code:after,.markdown-body code:before,.markdown-body tt:after,.markdown-body tt:before{letter-spacing:-.2em;content:"\A0"}.markdown-body code br,.markdown-body tt br{display:none}.markdown-body del code{text-decoration:inherit}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{padding:0;margin:0;font-size:100%;word-break:normal;white-space:pre;background:transparent;border:0}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{padding:16px;overflow:auto;font-size:85%;line-height:1.45;background-color:#f7f7f7;border-radius:3px}.markdown-body pre code,.markdown-body pre tt{display:inline;max-width:auto;padding:0;margin:0;overflow:visible;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}.markdown-body pre code:after,.markdown-body pre code:before,.markdown-body pre tt:after,.markdown-body pre tt:before{content:normal}.markdown-body .csv-data td,.markdown-body .csv-data th{padding:5px;overflow:hidden;font-size:12px;line-height:1;text-align:left;white-space:nowrap}.markdown-body .csv-data .blob-line-num{padding:10px 8px 9px;text-align:right;background:#fff;border:0}.markdown-body .csv-data tr{border-top:0}.markdown-body .csv-data th{font-weight:700;background:#f8f8f8;border-top:0}.markdown-body kbd{display:inline-block;padding:3px 5px;font-size:11px;line-height:10px;color:#555;vertical-align:middle;background-color:#fcfcfc;border:1px solid;border-color:#ccc #ccc #bbb;border-radius:3px;box-shadow:inset 0 -1px 0 #bbb}.news .alert .markdown-body blockquote{padding:0 0 0 40px;border:0}.activity-tab .news .alert .commits,.activity-tab .news .markdown-body blockquote{padding-left:0}.task-list-item{list-style-type:none}.task-list-item label{font-weight:400}.task-list-item.enabled label{cursor:pointer}.task-list-item+.task-list-item{margin-top:3px}.task-list-item-checkbox{float:left;margin:.31em 0 .2em -1.3em!important;vertical-align:middle;cursor:default!important}.markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;padding-top:40px;padding-bottom:40px;max-width:758px;overflow:visible!important}.markdown-body pre{border:inherit!important}.night .markdown-body pre{filter:invert(100%)}.markdown-body code{color:inherit!important}.markdown-body pre code .wrapper{display:-webkit-inline-flex;display:-moz-inline-flex;display:-ms-inline-flex;display:-o-inline-flex;display:inline-flex}.markdown-body pre code .gutter{float:left;overflow:hidden;-webkit-user-select:none;user-select:none}.markdown-body pre code .gutter.linenumber{text-align:right;position:relative;display:inline-block;cursor:default;z-index:4;padding:0 8px 0 0;min-width:20px;box-sizing:content-box;color:#afafaf!important;border-right:3px solid #6ce26c!important}.markdown-body pre code .gutter.linenumber>span:before{content:attr(data-linenumber)}.markdown-body pre code .code{float:left;margin:0 0 0 16px}.markdown-body .gist .line-numbers{border-left:none;border-top:none;border-bottom:none}.markdown-body .gist .line-data{border:none}.markdown-body .gist table{border-spacing:0;border-collapse:inherit!important}.night .markdown-body .gist table tr:nth-child(2n){background-color:#ddd}.markdown-body code[data-gist-id]{background:none;padding:0;filter:invert(100%)}.markdown-body code[data-gist-id]:after,.markdown-body code[data-gist-id]:before{content:""}.markdown-body code[data-gist-id] .blob-num{border:unset}.markdown-body code[data-gist-id] table{overflow:unset;margin-bottom:unset}.markdown-body code[data-gist-id] table tr{background:unset}.markdown-body[dir=rtl] pre{direction:ltr}.markdown-body[dir=rtl] code{direction:ltr;unicode-bidi:embed}.markdown-body .alert>p{margin-bottom:0}.markdown-body pre.abc,.markdown-body pre.flow-chart,.markdown-body pre.geo,.markdown-body pre.graphviz,.markdown-body pre.mermaid,.markdown-body pre.sequence-diagram,.markdown-body pre.vega{text-align:center;background-color:inherit;border-radius:0;white-space:inherit}.night .markdown-body pre.graphviz .graph>polygon{fill:#333}.night .markdown-body pre.mermaid .sectionTitle,.night .markdown-body pre.mermaid .titleText,.night .markdown-body pre.mermaid text{fill:#fff}.markdown-body pre.abc>code,.markdown-body pre.flow-chart>code,.markdown-body pre.graphviz>code,.markdown-body pre.mermaid>code,.markdown-body pre.sequence-diagram>code,.markdown-body pre.vega>code{text-align:left}.markdown-body pre.abc>svg,.markdown-body pre.flow-chart>svg,.markdown-body pre.graphviz>svg,.markdown-body pre.mermaid>svg,.markdown-body pre.sequence-diagram>svg,.markdown-body pre.vega>svg{max-width:100%;height:100%}.night .markdown-body .abc path{fill:#eee}.night .markdown-body .abc path.note_selected{fill:##4DD0E1}.night tspan{fill:#fefefe}.night pre rect{fill:transparent}.night pre.flow-chart path,.night pre.flow-chart rect{stroke:#fff}.markdown-body pre>code.wrap{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}.markdown-body .alert>p,.markdown-body .alert>ul{margin-bottom:0}.markdown-body summary{display:list-item}.markdown-body summary:focus{outline:none}.markdown-body details summary{cursor:pointer}.markdown-body details:not([open])>:not(summary){display:none}.markdown-body figure{margin:1em 40px}.markdown-body img{background-color:transparent}.vimeo,.youtube{cursor:pointer;display:table;text-align:center;background-position:50%;background-repeat:no-repeat;background-size:contain;background-color:#000;overflow:hidden}.vimeo,.youtube{position:relative;width:100%}.youtube{padding-bottom:56.25%}.vimeo img{width:100%;object-fit:contain;z-index:0}.youtube img{object-fit:cover;z-index:0}.vimeo iframe,.youtube iframe,.youtube img{width:100%;height:100%;position:absolute;top:0;left:0}.vimeo iframe,.youtube iframe{vertical-align:middle;z-index:1}.vimeo .icon,.youtube .icon{position:absolute;height:auto;width:auto;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;opacity:.3;-webkit-transition:opacity .2s;transition:opacity .2s;z-index:0}.vimeo:hover .icon,.youtube:hover .icon{opacity:.6;-webkit-transition:opacity .2s;transition:opacity .2s}.slideshare .inner,.speakerdeck .inner{position:relative;width:100%}.slideshare .inner iframe,.speakerdeck .inner iframe{position:absolute;top:0;bottom:0;left:0;right:0;width:100%;height:100%}.geo-map{width:100%;height:250px}.markmap-container{height:300px}.markmap-container>svg{width:100%;height:100%}.MJX_Assistive_MathML{display:none}.ui-infobar{position:relative;z-index:2;max-width:758px;margin-top:25px;margin-bottom:-25px;color:#777}.toc .invisable-node{list-style-type:none}.ui-toc{position:fixed;bottom:20px;z-index:10000}.ui-toc-label{opacity:.9;background-color:#ccc;border:none}.ui-toc-label,.ui-toc .open .ui-toc-label{-webkit-transition:opacity .2s;transition:opacity .2s}.ui-toc .open .ui-toc-label{opacity:1;color:#5f5f5f}.ui-toc-label:focus{opacity:1;background-color:#ccc;color:#000}.ui-toc-label:hover{opacity:1;background-color:#ccc;-webkit-transition:opacity .2s;transition:opacity .2s}.ui-toc-dropdown{margin-top:23px;margin-bottom:20px;padding-left:10px;padding-right:10px;max-width:45vw;width:25vw;max-height:70vh;overflow:auto;text-align:inherit}.ui-toc-dropdown>.toc{max-height:calc(70vh - 100px);overflow:auto}.ui-toc-dropdown[dir=rtl] .nav{padding-right:0;letter-spacing:.0029em}.ui-toc-dropdown a{overflow:hidden;text-overflow:ellipsis;white-space:pre}.ui-toc-dropdown .nav>li>a{display:block;padding:4px 20px;font-size:13px;font-weight:500;color:#767676}.ui-toc-dropdown .nav>li:first-child:last-child>ul,.ui-toc-dropdown .toc.expand ul{display:block}.ui-toc-dropdown .nav>li>a:focus,.ui-toc-dropdown .nav>li>a:hover{padding-left:19px;color:#000;text-decoration:none;background-color:transparent;border-left:1px solid #000}.night .ui-toc-dropdown .nav>li>a:focus,.night .ui-toc-dropdown .nav>li>a:hover{color:#fff;border-left-color:#fff}.ui-toc-dropdown[dir=rtl] .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav>li>a:hover{padding-right:19px;border-left:none;border-right:1px solid #000}.ui-toc-dropdown .nav>.active:focus>a,.ui-toc-dropdown .nav>.active:hover>a,.ui-toc-dropdown .nav>.active>a{padding-left:18px;font-weight:700;color:#000;background-color:transparent;border-left:2px solid #000}.night .ui-toc-dropdown .nav>.active:focus>a,.night .ui-toc-dropdown .nav>.active:hover>a,.night .ui-toc-dropdown .nav>.active>a{color:#fff;border-left:2px solid #fff}.ui-toc-dropdown[dir=rtl] .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav>.active>a{padding-right:18px;border-left:none;border-right:2px solid #000}.ui-toc-dropdown .nav .nav{display:none;padding-bottom:10px}.ui-toc-dropdown .nav>.active>ul{display:block}.ui-toc-dropdown .nav .nav>li>a{padding-top:1px;padding-bottom:1px;padding-left:30px;font-size:12px;font-weight:400}.night .ui-toc-dropdown .nav>li>a{color:#aaa}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a{padding-right:30px}.ui-toc-dropdown .nav .nav>li>ul>li>a{padding-top:1px;padding-bottom:1px;padding-left:40px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a{padding-right:40px}.ui-toc-dropdown .nav .nav>li>ul>li>ul>li>a{padding-top:1px;padding-bottom:1px;padding-left:50px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>ul>li>a{padding-right:50px}.ui-toc-dropdown .nav .nav>li>ul>li>ul>li>ul>li>a{padding-top:1px;padding-bottom:1px;padding-left:60px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>ul>li>ul>li>a{padding-right:60px}.ui-toc-dropdown .nav .nav>li>a:focus,.ui-toc-dropdown .nav .nav>li>a:hover{padding-left:29px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:hover{padding-right:29px}.ui-toc-dropdown .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown .nav .nav>li>ul>li>a:hover{padding-left:39px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:hover{padding-right:39px}.ui-toc-dropdown .nav .nav>li>ul>li>ul>li>a:focus,.ui-toc-dropdown .nav .nav>li>ul>li>ul>li>a:hover{padding-left:49px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>ul>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>ul>li>a:hover{padding-right:49px}.ui-toc-dropdown .nav .nav>li>ul>li>ul>li>ul>li>a:focus,.ui-toc-dropdown .nav .nav>li>ul>li>ul>li>ul>li>a:hover{padding-left:59px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>ul>li>ul>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>ul>li>ul>li>a:hover{padding-right:59px}.ui-toc-dropdown .nav .nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>a{padding-left:28px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>a{padding-right:28px}.ui-toc-dropdown .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>a{padding-left:38px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>a{padding-right:38px}.ui-toc-dropdown .nav .nav>.active>.nav>.active>.nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>.nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>.nav>.active>a{padding-left:48px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.active>.nav>.nav>.active>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>.nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>.nav>.active:hover>a{padding-right:48px}.ui-toc-dropdown .nav .nav>.active>.nav>.active>.nav>.active>.nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>.nav>.active>.nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>.nav>.active>.nav>.active>a{padding-left:58px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.active>.nav>.nav>.active>.nav>.active>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>.nav>.active>.nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>.nav>.active>.nav>.active:hover>a{padding-right:58px}.markdown-body[lang^=ja]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Helvetica,Arial,Hiragino Kaku Gothic Pro,"\30D2\30E9\30AE\30CE\89D2\30B4   Pro W3",Osaka,Meiryo,"\30E1\30A4\30EA\30AA",MS Gothic,"\FF2D\FF33   \30B4\30B7\30C3\30AF",sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol}.ui-toc-dropdown[lang^=ja]{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,"\FF2D\FF33   \FF30\30B4\30B7\30C3\30AF",sans-serif}.markdown-body[lang=zh-tw]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Helvetica,Arial,PingFang TC,Microsoft JhengHei,"\5FAE\8EDF\6B63\9ED1",sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol}.ui-toc-dropdown[lang=zh-tw]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,"\5FAE\8EDF\6B63\9ED1UI",sans-serif}.markdown-body[lang=zh-cn]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Helvetica,Arial,PingFang SC,Microsoft YaHei,"\5FAE\8F6F\96C5\9ED1",sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol}.ui-toc-dropdown[lang=zh-cn]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,"\5FAE\8F6F\96C5\9ED1UI",sans-serif}.ui-affix-toc{position:fixed;top:0;max-width:15vw;max-height:70vh;overflow:auto}.back-to-top,.expand-toggle,.go-to-bottom{display:block;padding:4px 10px;margin-top:10px;margin-left:10px;font-size:12px;font-weight:500;color:rgba(0,0,0,.85)}.back-to-top:focus,.back-to-top:hover,.expand-toggle:focus,.expand-toggle:hover,.go-to-bottom:focus,.go-to-bottom:hover{color:#563d7c;text-decoration:none}.back-to-top,.go-to-bottom{margin-top:0}.ui-user-icon{width:20px;height:20px;display:block;border-radius:3px;margin-top:2px;margin-bottom:2px;margin-right:5px;background-position:50%;background-repeat:no-repeat;background-size:contain}.ui-user-icon.small{width:18px;height:18px;display:inline-block;vertical-align:middle;margin:0 0 .2em}small span{line-height:22px}small .dropdown{display:inline-block}small .dropdown a:focus,small .dropdown a:hover{text-decoration:none}.unselectable{-moz-user-select:none;-khtml-user-select:none;-webkit-user-select:none;-o-user-select:none;user-select:none}.night .navbar{background:#333;border-bottom-color:#333;color:#eee}.night .navbar a{color:#eee}@media print{blockquote,div,img,pre,table{page-break-inside:avoid!important}a[href]:after{font-size:12px!important}}.markdown-body.slides{position:relative;z-index:1;color:#222}.markdown-body.slides:before{content:"";display:block;position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1;background-color:currentColor;box-shadow:0 0 0 50vw}.markdown-body.slides section[data-markdown]{position:relative;margin-bottom:1.5em;background-color:#fff;text-align:center}.markdown-body.slides section[data-markdown] code{text-align:left}.markdown-body.slides section[data-markdown]:before{content:"";display:block;padding-bottom:56.23%}.markdown-body.slides section[data-markdown]>div:first-child{position:absolute;top:50%;left:1em;right:1em;transform:translateY(-50%);max-height:100%;overflow:hidden}.markdown-body.slides section[data-markdown]>ul{display:inline-block}.markdown-body.slides>section>section+section:after{content:"";position:absolute;top:-1.5em;right:1em;height:1.5em;border:3px solid #777}body{font-smoothing:subpixel-antialiased!important;-webkit-font-smoothing:subpixel-antialiased!important;-moz-osx-font-smoothing:auto!important;text-shadow:0 0 1em transparent,1px 1px 1.2px rgba(0,0,0,.004);-webkit-overflow-scrolling:touch;font-family:Source Sans Pro,Helvetica,Arial,sans-serif;letter-spacing:.025em}.focus,:focus{outline:none!important}::-moz-focus-inner{border:0!important}body.modal-open{overflow-y:auto;padding-right:0!important}
+    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g=" crossorigin="anonymous"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js" integrity="sha256-8E4Is26QH0bD52WoQpcB+R/tcWQtpzlCojrybUd7Mxo=" crossorigin="anonymous"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div id="doc" class="markdown-body container-fluid" lang="en"><h1 id="Lab-5---Apache-Hadoop-YARN-amp-MapReduce"><a class="anchor hidden-xs" href="#Lab-5---Apache-Hadoop-YARN-amp-MapReduce" title="Lab-5---Apache-Hadoop-YARN-amp-MapReduce"><i class="fa fa-link"></i></a>Lab 5 - Apache Hadoop YARN &amp; MapReduce</h1><p><strong>Course:</strong> Big Data - IU S25<br>
+<strong>Author:</strong> Firas Jolha</p><h1 id="Agenda"><a class="anchor hidden-xs" href="#Agenda" title="Agenda"><i class="fa fa-link"></i></a>Agenda</h1><p></p><div class="toc"><ul>
+<li><a href="#Lab-5---Apache-Hadoop-YARN-amp-MapReduce" title="Lab 5 - Apache Hadoop YARN &amp; MapReduce">Lab 5 - Apache Hadoop YARN &amp; MapReduce</a></li>
+<li><a href="#Agenda" title="Agenda">Agenda</a></li>
+<li><a href="#Prerequisites" title="Prerequisites">Prerequisites</a></li>
+<li><a href="#Objectives" title="Objectives">Objectives</a></li>
+<li><a href="#Hadoop-MapReduce" title="Hadoop MapReduce">Hadoop MapReduce</a><ul>
+<li><a href="#MapReduce-framework" title="MapReduce framework">MapReduce framework</a></li>
+<li><a href="#mapred-sitexml" title="mapred-site.xml">mapred-site.xml</a></li>
+<li><a href="#Word-Count-MapReduce-Example" title="Word Count MapReduce Example">Word Count MapReduce Example</a></li>
+<li><a href="#Inverted-Index-MapReduce-Example" title="Inverted Index MapReduce Example">Inverted Index MapReduce Example</a></li>
+</ul>
+</li>
+<li><a href="#Hadoop-YARN" title="Hadoop YARN">Hadoop YARN</a><ul>
+<li><a href="#Start-Hadoop-YARN" title="Start Hadoop YARN">Start Hadoop YARN</a></li>
+<li><a href="#yarn-tool" title="yarn tool">yarn tool</a></li>
+<li><a href="#yarn-sitexml" title="yarn-site.xml">yarn-site.xml</a></li>
+<li><a href="#capacity-schedulerxml" title="capacity-scheduler.xml">capacity-scheduler.xml</a></li>
+</ul>
+</li>
+<li><a href="#References" title="References">References</a></li>
+</ul>
+</div><p></p><h1 id="Prerequisites"><a class="anchor hidden-xs" href="#Prerequisites" title="Prerequisites"><i class="fa fa-link"></i></a>Prerequisites</h1><ul>
+<li>Installed Docker and Docker compose</li>
+<li>Experience with HDFS</li>
+<li>Background in Hadoop and its components</li>
+</ul><h1 id="Objectives"><a class="anchor hidden-xs" href="#Objectives" title="Objectives"><i class="fa fa-link"></i></a>Objectives</h1><ul>
+<li>Run YARN components</li>
+<li>Run MapReduce server</li>
+<li>Write MapReduce jobs in Python</li>
+<li>Run MapReduce jobs on YARN</li>
+</ul><h1 id="Hadoop-MapReduce"><a class="anchor hidden-xs" href="#Hadoop-MapReduce" title="Hadoop-MapReduce"><i class="fa fa-link"></i></a>Hadoop MapReduce</h1><p>Hadoop MapReduce is a software framework for easily writing applications which process vast amounts of data (multi-terabyte data-sets) in-parallel on large clusters (thousands of nodes) of commodity hardware in a reliable, fault-tolerant manner.</p><p>A MapReduce job usually splits the input data-set into independent chunks which are processed by the map tasks in a completely parallel manner. The framework sorts the outputs of the maps, which are then input to the reduce tasks. Typically both the input and the output of the job are stored in a file-system. The framework takes care of scheduling tasks, monitoring them and re-executes the failed tasks.</p><h2 id="MapReduce-framework"><a class="anchor hidden-xs" href="#MapReduce-framework" title="MapReduce-framework"><i class="fa fa-link"></i></a>MapReduce framework</h2><p>The MapReduce framework <strong>version 1</strong> consists of a single master <strong>JobTracker</strong> and one slave <strong>TaskTracker</strong> per cluster-node. The master is responsible for scheduling the jobs’ component tasks on the slaves, monitoring them and re-executing the failed tasks. The slaves execute the tasks as directed by the master. Both processes are now deprecated in MRv2 (or Hadoop version 2) and replaced by Resource Manager, Application Master and Node Manager Daemons.</p><p>The Hadoop MapReduce framework <strong>versions 2 and 3</strong> (running on YARN) consists of a single master <em>ResourceManager</em>, one worker <em>NodeManager</em> per cluster-node, and <em>MRAppMaster</em> per application.</p><p>Typically the compute nodes and the storage nodes are the same, that is, the MapReduce framework and the Hadoop Distributed File System are running on the same set of nodes. This configuration allows the framework to effectively schedule tasks on the nodes where data is already present, resulting in very high aggregate bandwidth across the cluster.</p><p><img src="https://i.imgur.com/l7hLN1u.png" alt="" class="md-image md-image"></p><p>A classic example of showing the MapReduce framework at work is the word count example. The following are the various stages of processing the input data, first splitting the input across multiple worker nodes and then finally generating the output, the word counts:</p><p><img src="https://i.imgur.com/V3wKqv5.png" alt="" class="md-image md-image"></p><p>A MapReduce job usually splits the input data-set into independent chunks which are processed by the map tasks in a completely parallel manner. The framework sorts the outputs of the maps, which are then input to the reduce tasks. Typically both the input and the output of the job are stored in a file-system. The framework takes care of scheduling tasks, monitoring them and re-executes the failed tasks.</p><div class="alert alert-info">
+<p>Regardless of Hadoop Map-Reduce, Map-reduce is a programming model that has its roots in functional programming. In addition to often producing short, elegant code for problems involving lists or collections, this model has proven very useful for large-scale highly parallel data processing. In Python, we can define a simple map-reduce program as follows.</p>
+<pre><code class="python hljs"><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> reduce
+<span class="hljs-keyword">from</span> operator <span class="hljs-keyword">import</span> add, mul
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mapper</span><span class="hljs-params">(x)</span>:</span> 
+    <span class="hljs-keyword">return</span> mul(x, x)
+
+inp = list(range(<span class="hljs-number">1</span>,<span class="hljs-number">100</span>)) <span class="hljs-comment"># input is [1, 2, 3, ..., 99]</span>
+
+res = map(mapper, inp) <span class="hljs-comment"># returns iterator over [1*1, 2*2, 3*3, ..., 99*99]</span>
+
+output = reduce(add, res) <span class="hljs-comment"># computes (((((1+4)+9)+16)+25)...+9801)</span>
+
+print(output) <span class="hljs-comment"># output is 328350</span>
+
+</code></pre>
+</div><p>Minimally, applications specify the input/output locations and supply map and reduce functions via implementations of appropriate interfaces and/or abstract-classes. These, and other job parameters, comprise the job configuration. Although the Hadoop framework is implemented in Java™, MapReduce applications need not be written in Java. Here we will use Python language to write MapReduce apps.</p><p><a href="https://hadoop.apache.org/docs/stable/api/org/apache/hadoop/streaming/package-summary.html" target="_blank" rel="noopener">Hadoop Streaming</a> is a utility which allows users to create and run Map-Reduce jobs with any executables (e.g. shell utilities) as the <strong>mapper</strong> and/or the <strong>reducer</strong>.</p><p>The Hadoop job client then submits the job and configuration to the <em>ResourceManager</em> which then assumes the responsibility of distributing the software/configuration to the workers, scheduling tasks and monitoring them, providing status and diagnostic information to the job-client.</p><p>The MapReduce framework operates exclusively on <strong>&lt;key, value&gt; pairs</strong>, that is, the framework views the <strong>input</strong> to the job as a set of &lt;key, value&gt; pairs and produces a set of &lt;key, value&gt; pairs as the <strong>output</strong> of the job, conceivably of different types.</p><p>Input and Output types of a MapReduce job are:</p><pre><code>(input) &lt;k1, v1&gt; -&gt; map -&gt; &lt;k2, v2&gt; -&gt; combine -&gt; &lt;k2, v2&gt; -&gt; reduce -&gt; &lt;k3, v3&gt; (output)
+</code></pre><p><strong>Mapper</strong> maps input key/value pairs to a set of intermediate key/value pairs. Maps are the individual tasks that transform input records into intermediate records. The transformed intermediate records do not need to be of the same type as the input records. A given input pair may map to zero or many output pairs.</p><p>The number of maps is usually driven by the total size of the inputs, that is, the total number of blocks of the input files. The right level of parallelism for maps seems to be around 10-100 maps per-node, although it has been set up to 300 maps for very cpu-light map tasks. Task setup takes a while, so it is best if the maps take at least a minute to execute. Thus, if you expect 10TB of input data and have a blocksize of 128MB, you’ll end up with 82,000 maps.</p><p><strong>Reducer</strong> reduces a set of intermediate values which share a key to a smaller set of values. Reducer has 3 primary phases: <strong>shuffle</strong>, <strong>sort</strong> and <strong>reduce</strong>. The input to the Reducer is the <strong>sorted</strong> output of the mappers. In this phase the framework fetches the relevant partition of the output of all the mappers, via HTTP. The framework <strong>groups</strong> Reducer <strong>inputs</strong> by <strong>keys</strong> (since different mappers may have output the same key) in this stage. The shuffle and sort phases occur simultaneously; while map-outputs are being fetched they are merged.</p><p>The right number of reduces seems to be 0.95 or 1.75 multiplied by (<em>&lt;no. of nodes&gt; * &lt;no. of maximum containers per node&gt;</em>). With 0.95 all of the reduces can launch immediately and start transferring map outputs as the maps finish. With 1.75 the faster nodes will finish their first round of reduces and launch a second wave of reduces doing a much better job of load balancing. Increasing the number of reduces increases the framework overhead, but increases load balancing and lowers the cost of failures. The scaling factors above are slightly less than whole numbers to reserve a few reduce slots in the framework for speculative-tasks and failed tasks. It is legal to set the number of reduce-tasks to <strong>zero</strong> if <strong>no reduction is desired</strong>.</p><p><strong>Partitioner</strong> partitions the key space. Partitioner controls the partitioning of the keys of the intermediate map-outputs. The key (or a subset of the key) is used to derive the partition, typically by a hash function. The total number of partitions is the same as the number of reduce tasks for the job. Hence this controls which of the <span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-1-Frame" tabindex="0" style="position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>m</mi></math>" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-1" style="width: 1.026em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.865em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.781em, 1000.87em, 2.535em, -999.997em); top: -2.368em; left: 0em;"><span class="mrow" id="MathJax-Span-2"><span class="mi" id="MathJax-Span-3" style="font-family: MathJax_Math-italic;">m</span></span><span style="display: inline-block; width: 0px; height: 2.373em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.059em; border-left: 0px solid; width: 0px; height: 0.628em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>m</mi></math></span></span><script type="math/tex" id="MathJax-Element-1">m</script></span> reduce tasks the intermediate key (and hence the record) is sent to for reduction. HashPartitioner is the default Partitioner. You can start the MapReduce history server as follows.</p><pre><code class="wrap yaml hljs"><span class="hljs-string">mapred</span> <span class="hljs-bullet">--daemon</span> <span class="hljs-string">start</span> <span class="hljs-string">historyserver</span>
+</code></pre><p>You can access the web UI of this server hosted on (<a href="http://localhost:19888" target="_blank" rel="noopener">http://localhost:19888</a>) where the default port is 19888.<br>
+<img src="https://i.imgur.com/v6UHvlY.png" alt="" class="md-image md-image"></p><h2 id="mapred-sitexml"><a class="anchor hidden-xs" href="#mapred-sitexml" title="mapred-sitexml"><i class="fa fa-link"></i></a>mapred-site.xml</h2><p>This is the configuration file for MapReduce in Hadoop. This file exists in Hadoop home directory in the folder <code>etc/hadoop</code>. You can find the documentation of this file from the <a href="https://hadoop.apache.org/docs/stable/hadoop-mapreduce-client/hadoop-mapreduce-client-core/mapred-default.xml" target="_blank" rel="noopener">official website</a>. Here I present some of the important properties to set as follows.</p><ul>
+<li><code>mapreduce.framework.name</code>
+<ul>
+<li>The runtime framework for executing MapReduce jobs. Can be one of local (default), classic or yarn.</li>
+</ul>
+</li>
+<li><code>mapreduce.job.maps</code>
+<ul>
+<li>The default number of map tasks per job.</li>
+</ul>
+</li>
+<li><code>mapreduce.job.reduces</code>
+<ul>
+<li>The default number of reduce tasks per job.</li>
+</ul>
+</li>
+<li><code>mapreduce.map.memory.mb</code>
+<ul>
+<li>The amount of memory to request from the scheduler for each map task. The default value is 1024.</li>
+</ul>
+</li>
+<li><code>mapreduce.reduce.memory.mb</code>
+<ul>
+<li>The amount of memory to request from the scheduler for each reduce task. The default value is 1024.</li>
+</ul>
+</li>
+<li><code>mapreduce.jobhistory.address</code>
+<ul>
+<li>MapReduce JobHistory Server <code>host:port</code>. The default value <code>0.0.0.0:10020</code>.</li>
+</ul>
+</li>
+<li><code>mapreduce.jobhistory.webapp.address</code>
+<ul>
+<li>MapReduce JobHistory Server Web UI <code>host:port</code>. The default value is <code>0.0.0.0:19888</code>.</li>
+</ul>
+</li>
+</ul><h2 id="Word-Count-MapReduce-Example"><a class="anchor hidden-xs" href="#Word-Count-MapReduce-Example" title="Word-Count-MapReduce-Example"><i class="fa fa-link"></i></a>Word Count MapReduce Example</h2><p>Here we will build a simple word counter program and run it on Hadoop Map-Reduce engine. We need to prepare two modules/files, one is <code>mapper.py</code> and another is <code>reducer.py</code>, then we pass the files to Hadoop MapReduce via Hadoop Streaming utility. The input to the <code>mapper</code> will be read from <code>STDIN</code> and the output will be written to <code>STDOUT</code> which will be input to the <code>reducer</code> whose output will be written to <code>STDOUT</code>.</p><pre><code class="wrap python hljs"><span class="hljs-comment"># app/mapreduce/wordcount/mapper.py</span>
+<span class="hljs-keyword">import</span> sys
+
+<span class="hljs-comment"># input comes from STDIN (standard input)</span>
+<span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> sys.stdin:
+    <span class="hljs-comment"># remove leading and trailing whitespace</span>
+    line = line.strip()
+    <span class="hljs-comment"># split the line into words</span>
+    words = line.split()
+    <span class="hljs-comment"># increase counters</span>
+    <span class="hljs-keyword">for</span> word <span class="hljs-keyword">in</span> words:
+        <span class="hljs-comment"># write the results to STDOUT (standard output);</span>
+        <span class="hljs-comment"># what we output here will be the input for the</span>
+        <span class="hljs-comment"># Reduce step, i.e. the input for reducer.py</span>
+        <span class="hljs-comment">#</span>
+        <span class="hljs-comment"># tab-delimited; the trivial word count is 1</span>
+        <span class="hljs-keyword">print</span> <span class="hljs-string">f'<span class="hljs-subst">{word}</span>\t1'</span>
+</code></pre><pre><code class="wrap python hljs"><span class="hljs-comment"># app/mapreduce/wordcount/reducer.py</span>
+<span class="hljs-keyword">from</span> operator <span class="hljs-keyword">import</span> itemgetter
+<span class="hljs-keyword">import</span> sys
+
+current_word = <span class="hljs-literal">None</span>
+current_count = <span class="hljs-number">0</span>
+word = <span class="hljs-literal">None</span>
+
+<span class="hljs-comment"># input comes from STDIN</span>
+<span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> sys.stdin:
+    <span class="hljs-comment"># remove leading and trailing whitespace</span>
+    line = line.strip()
+
+    <span class="hljs-comment"># parse the input we got from mapper.py</span>
+    word, count = line.split(<span class="hljs-string">'\t'</span>, <span class="hljs-number">1</span>)
+
+    <span class="hljs-comment"># convert count (currently a string) to int</span>
+    <span class="hljs-keyword">try</span>:
+        count = int(count)
+    <span class="hljs-keyword">except</span> ValueError:
+        <span class="hljs-comment"># count was not a number, so silently</span>
+        <span class="hljs-comment"># ignore/discard this line</span>
+        <span class="hljs-keyword">continue</span>
+
+    <span class="hljs-comment"># this IF-switch only works because Hadoop sorts map output</span>
+    <span class="hljs-comment"># by key (here: word) before it is passed to the reducer</span>
+    <span class="hljs-keyword">if</span> current_word == word:
+        current_count += count
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">if</span> current_word:
+            <span class="hljs-comment"># write result to STDOUT</span>
+            <span class="hljs-keyword">print</span> <span class="hljs-string">f'<span class="hljs-subst">{current_word}</span>\t<span class="hljs-subst">{current_count}</span>'</span>
+        current_count = count
+        current_word = word
+
+<span class="hljs-comment"># do not forget to output the last word if needed!</span>
+<span class="hljs-keyword">if</span> current_word == word:
+    <span class="hljs-keyword">print</span> <span class="hljs-string">f'<span class="hljs-subst">{current_word}</span>\t<span class="hljs-subst">{current_count}</span>'</span>
+</code></pre><p>We can test the source code on a simple input text as follows:</p><pre><code class="wrap clike hljs"><span class="hljs-comment"># Testing the mapper</span>
+printf <span class="hljs-string">"hello map reduce world map \n reduce hadoop engine"</span> | python3 <span class="hljs-regexp">/app/m</span>apreduce<span class="hljs-regexp">/wordcount/m</span>apper.py
+
+<span class="hljs-comment"># Testing the reducer</span>
+printf <span class="hljs-string">"hello map reduce world map \n reduce hadoop engine"</span> | python3 <span class="hljs-regexp">/app/m</span>apreduce<span class="hljs-regexp">/wordcount/m</span>apper.py | sort -k <span class="hljs-number">1</span> | python3 <span class="hljs-regexp">/app/m</span>apreduce<span class="hljs-regexp">/wordcount/</span>reducer.py
+</code></pre><p>We can also pass a file to the program as follows:</p><pre><code class="wrap clike hljs"><span class="hljs-keyword">cat</span> /app/data/story.txt | \
+<span class="hljs-keyword">python3</span> /app/mapreduce/wordcount/mapper.<span class="hljs-keyword">py</span> | \
+<span class="hljs-keyword">sort</span> -<span class="hljs-keyword">k</span> <span class="hljs-number">1</span> | \
+<span class="hljs-keyword">python3</span> /app/mapreduce/wordcount/reducer.<span class="hljs-keyword">py</span>
+</code></pre><p>Let’s download some text files and run the MapReduce application on Hadoop MapReduce engine as follows:</p><ol>
+<li>Download some text files (e.g. from <code>https://www.gutenberg.org</code>)</li>
+</ol><pre><code class="yaml hljs"><span class="hljs-comment"># Here I will download Plain text files</span>
+<span class="hljs-string">wget</span> <span class="hljs-attr">https://www.gutenberg.org/ebooks/20417.txt.utf-8</span> <span class="hljs-bullet">-P</span> <span class="hljs-string">/app/data/gutenberg/</span>
+<span class="hljs-string">wget</span> <span class="hljs-attr">https://www.gutenberg.org/ebooks/20418.txt.utf-8</span> <span class="hljs-bullet">-P</span> <span class="hljs-string">/app/data/gutenberg/</span>
+<span class="hljs-string">wget</span> <span class="hljs-attr">https://www.gutenberg.org/ebooks/20419.txt.utf-8</span> <span class="hljs-bullet">-P</span> <span class="hljs-string">/app/data/gutenberg/</span>
+<span class="hljs-string">wget</span> <span class="hljs-attr">https://www.gutenberg.org/ebooks/20420.txt.utf-8</span> <span class="hljs-bullet">-P</span> <span class="hljs-string">/app/data/gutenberg/</span>
+</code></pre><ol start="2">
+<li>Put the input files to HDFS.</li>
+</ol><pre><code class="wrap clike hljs">hdfs dfs  -put  <span class="hljs-regexp">/app/</span>data<span class="hljs-regexp">/gutenberg /</span>
+hdfs dfs -ls /gutenberg
+</code></pre><ol start="3">
+<li>Run the application.</li>
+</ol><pre><code class="wrap yaml hljs"><span class="hljs-string">mapred</span> <span class="hljs-string">streaming</span> <span class="hljs-string">\</span>
+<span class="hljs-bullet">-</span><span class="hljs-string">files</span> <span class="hljs-string">mapper.py,reducer.py</span> <span class="hljs-string">\</span>
+<span class="hljs-bullet">-</span><span class="hljs-string">mapper</span> <span class="hljs-string">'python3 mapper.py'</span> <span class="hljs-string">\</span>
+<span class="hljs-bullet">-</span><span class="hljs-string">reducer</span> <span class="hljs-string">'python3 reducer.py'</span> <span class="hljs-string">\</span>
+<span class="hljs-bullet">-</span><span class="hljs-string">input</span> <span class="hljs-string">/gutenberg/*</span> <span class="hljs-bullet">-output</span> <span class="hljs-string">/gutenberg/gutenberg.output</span>
+</code></pre><ol start="4">
+<li>Check the output in HDFS.</li>
+</ol><pre><code class="wrap bash hljs">hdfs dfs -ls /gutenberg/gutenberg.output
+hdfs dfs -cat /gutenberg/gutenberg.output/part-00000
+</code></pre><p>You can change the number of output partitions using the option <code>-D mapred.reduce.tasks=&lt;number&gt;</code> as follows.</p><pre><code class="wrap bash hljs">mapred streaming \
+-D mapred.reduce.tasks 5 \
+-files mapper.py,reducer.py \
+-mapper <span class="hljs-string">'python3 mapper.py'</span> \
+-reducer <span class="hljs-string">'python3 reducer.py'</span> \
+-input /gutenberg/* -output /gutenberg/gutenberg.output
+</code></pre><h2 id="Inverted-Index-MapReduce-Example"><a class="anchor hidden-xs" href="#Inverted-Index-MapReduce-Example" title="Inverted-Index-MapReduce-Example"><i class="fa fa-link"></i></a>Inverted Index MapReduce Example</h2><p>An Inverted Index is a data structure used in information retrieval systems to efficiently retrieve documents or web pages containing a specific term or set of terms. In an inverted index, the index is organized by terms (words), and each term points to a list of documents or web pages that contain that term.</p><p><img src="https://spotintelligence.com/wp-content/uploads/2023/10/inverted-index.png" alt="" class="md-image md-image"></p><p>Inverted indexes are widely used in search engines, database systems, and other applications where efficient text search is required. They are especially useful for large collections of documents, where searching through all the documents would be prohibitively slow.</p><p>Here we will build a MapReduce application for creating the inverted index for input documents where each input line is considered here as a single document.</p><pre><code class="wrap python hljs"><span class="hljs-comment"># app/mapreduce/inverted_index/mapper.py</span>
+<span class="hljs-keyword">import</span> sys
+
+i = <span class="hljs-number">1</span>
+<span class="hljs-comment"># input comes from STDIN (standard input)</span>
+<span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> sys.stdin:
+    <span class="hljs-comment"># remove leading and trailing whitespace</span>
+    line = line.strip()
+    <span class="hljs-comment"># split the line into words</span>
+    words = line.split()
+    <span class="hljs-comment"># increase counters</span>
+    <span class="hljs-keyword">for</span> word <span class="hljs-keyword">in</span> words:
+        <span class="hljs-comment"># write the results to STDOUT (standard output);</span>
+        <span class="hljs-comment"># what we output here will be the input for the</span>
+        <span class="hljs-comment"># Reduce step, i.e. the input for reducer.py</span>
+        <span class="hljs-comment"># We are storing here the line number as document identifier</span>
+        <span class="hljs-comment">#  where lines start from 1</span>
+        print(<span class="hljs-string">f'<span class="hljs-subst">{word}</span>\t<span class="hljs-subst">{i}</span>'</span>)
+    i+=<span class="hljs-number">1</span>
+
+</code></pre><pre><code class="wrap python hljs"><span class="hljs-comment"># app/mapreduce/inverted_index/reducer.py</span>
+<span class="hljs-keyword">import</span> sys
+
+key   = <span class="hljs-literal">None</span>
+total = <span class="hljs-number">0</span>
+index = {}
+<span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> sys.stdin:
+    word, loc  = line.split(<span class="hljs-string">'\t'</span>, <span class="hljs-number">1</span>)
+    word = word.strip()
+    loc = loc.strip()
+    <span class="hljs-keyword">if</span> word <span class="hljs-keyword">in</span> index:
+        index[word].add(loc)
+    <span class="hljs-keyword">else</span>:
+        index[word] = set([loc])
+
+<span class="hljs-keyword">for</span> word, docs <span class="hljs-keyword">in</span> index.items():
+    print(<span class="hljs-string">'{}\t{}'</span>.format(word, docs))
+</code></pre><p>We can test the source code on a simple input text as follows:</p><pre><code class="wrap clike hljs"><span class="hljs-comment"># Testing the mapper</span>
+printf <span class="hljs-string">"hello map reduce world map \n reduce hadoop engine \n world engine hello"</span> | python3 <span class="hljs-regexp">/app/m</span>apreduce<span class="hljs-regexp">/inverted_index/m</span>apper.py 
+
+<span class="hljs-comment"># Testing the reducer</span>
+printf <span class="hljs-string">"hello map reduce world map \n reduce hadoop engine \n world engine hello"</span> | python3 <span class="hljs-regexp">/app/m</span>apreduce<span class="hljs-regexp">/inverted_index/m</span>apper.py | sort -k <span class="hljs-number">1</span> | python3 <span class="hljs-regexp">/app/m</span>apreduce<span class="hljs-regexp">/inverted_index/</span>reducer.py
+</code></pre><p>We can run this MapReduce job on <code>gutenberg</code> data as follows.</p><pre><code class="wrap yaml hljs"><span class="hljs-string">cd</span> <span class="hljs-string">/app/mapreduce/inverted_index</span>
+<span class="hljs-string">mapred</span> <span class="hljs-string">streaming</span> <span class="hljs-bullet">-files</span> <span class="hljs-string">mapper.py,reducer.py</span> <span class="hljs-bullet">-mapper</span> <span class="hljs-string">'python3 mapper.py'</span> <span class="hljs-bullet">-reducer</span> <span class="hljs-string">'python3 reducer.py'</span> <span class="hljs-bullet">-input</span> <span class="hljs-string">/gutenberg/*</span> <span class="hljs-bullet">-output</span> <span class="hljs-string">/gutenberg/gutenberg.output1</span>
+</code></pre><p>Check the output in HDFS.</p><pre><code class="wrap yaml hljs"><span class="hljs-string">hdfs</span> <span class="hljs-string">dfs</span> <span class="hljs-bullet">-ls</span> <span class="hljs-string">/gutenberg/gutenberg.output1</span>
+<span class="hljs-string">hdfs</span> <span class="hljs-string">dfs</span> <span class="hljs-bullet">-cat</span> <span class="hljs-string">/gutenberg/gutenberg.output1/part-00000</span>
+</code></pre><p>You can change the number of output partitions by changing the number of reducers in the file <code>mapred-site.xml</code> or you can set it in the command as follows.</p><pre><code class="wrap yaml hljs"><span class="hljs-string">mapred</span> <span class="hljs-string">streaming</span> <span class="hljs-bullet">-D</span> <span class="hljs-string">mapreduce.job.reduces=3</span> 
+<span class="hljs-string">s</span> <span class="hljs-string">mapper.py,reducer.py</span> <span class="hljs-bullet">-mapper</span> <span class="hljs-string">'python3 mapper.py'</span>  <span class="hljs-bullet">-reducer</span> <span class="hljs-string">'python3 reducer.py'</span> <span class="hljs-bullet">-input</span> <span class="hljs-string">/gutenberg/*</span> <span class="hljs-bullet">-output</span> <span class="hljs-string">/gutenberg/gutenberg.output3</span>
+</code></pre><p>This will create 3 reducers for the job and the output in HDFS will be as follows.</p><pre><code class="yaml hljs"><span class="hljs-string">hdfs</span> <span class="hljs-string">dfs</span> <span class="hljs-bullet">-ls</span> <span class="hljs-string">/gutenberg/gutenberg.output3</span>
+
+<span class="hljs-comment"># output </span>
+<span class="hljs-comment"># -rw-r--r--   1 root supergroup          0 2025-03-11 06:03 /gutenberg/gutenberg.output3/_SUCCESS</span>
+<span class="hljs-comment"># -rw-r--r--   1 root supergroup    4087036 2025-03-11 06:03 /gutenberg/gutenberg.output3/part-00000</span>
+<span class="hljs-comment"># -rw-r--r--   1 root supergroup    4236668 2025-03-11 06:03 /gutenberg/gutenberg.output3/part-00001</span>
+<span class="hljs-comment"># -rw-r--r--   1 root supergroup    4545167 2025-03-11 06:03 /gutenberg/gutenberg.output3/part-00002</span>
+</code></pre><h1 id="Hadoop-YARN"><a class="anchor hidden-xs" href="#Hadoop-YARN" title="Hadoop-YARN"><i class="fa fa-link"></i></a>Hadoop YARN</h1><p>When an application wants to run, the client launches the ApplicationMaster, which then negotiates with the <strong>ResourceManager</strong> to get resources in the cluster in the form of containers. A container represents CPUs (cores) and memory allocated on a single node to be used to run tasks and processes. Containers are supervised by the <strong>NodeManager</strong> and scheduled by the ResourceManager.</p><p><img src="https://i.imgur.com/xbeyrHp.png" alt="" class="md-image md-image"></p><p>The fundamental idea of YARN is to split up the functionalities of resource management and job scheduling/monitoring into separate daemons. The idea is to have a global ResourceManager (RM) and per-application <strong>ApplicationMaster</strong> (AM). An application is either a single job or a DAG of jobs.</p><p>The ResourceManager and the NodeManager form the data-computation framework. The ResourceManager is the ultimate authority that arbitrates resources among all the applications in the system. The NodeManager is the per-machine framework agent who is responsible for containers, monitoring their resource usage (cpu, memory, disk, network) and reporting the same to the ResourceManager/Scheduler.</p><p>The per-application ApplicationMaster is, in effect, a framework specific library and is tasked with negotiating resources from the ResourceManager and working with the NodeManager(s) to execute and monitor the tasks.</p><p>The ResourceManager has two main components: <strong>Scheduler</strong> and <strong>ApplicationsManager</strong>. The Scheduler is responsible for allocating resources to the various running applications subject to familiar constraints of capacities, queues etc. The current schedulers such as the <strong>CapacityScheduler</strong> and the <strong>FairScheduler</strong> would be some examples of plug-ins. The <strong>ApplicationsManager</strong> is responsible for accepting job-submissions, negotiating the first container for executing the application specific ApplicationMaster and provides the service for restarting the ApplicationMaster container on failure. The per-application ApplicationMaster has the responsibility of negotiating appropriate resource containers from the Scheduler, tracking their status and monitoring for progress.</p><h2 id="Start-Hadoop-YARN"><a class="anchor hidden-xs" href="#Start-Hadoop-YARN" title="Start-Hadoop-YARN"><i class="fa fa-link"></i></a>Start Hadoop YARN</h2><p>Hadoop Yarn is included within Hadoop installation and you can start its components as follows.</p><pre><code class="wrap yaml hljs"><span class="hljs-comment"># Starting YARN</span>
+<span class="hljs-string">start-yarn.sh</span>
+
+<span class="hljs-comment"># Starting YARN + HDFS</span>
+<span class="hljs-string">start-all.sh</span>
+</code></pre><p>You can also start each component individually. For instance you can start the resource manager as follows:</p><pre><code class="yaml hljs"><span class="hljs-string">yarn</span> <span class="hljs-bullet">--daemon</span> <span class="hljs-string">start</span> <span class="hljs-string">resourcemanager</span>
+</code></pre><p>Similarly you can start the node manager as follows. <strong>Notice</strong> that you should run this on the slave nodes and not the master node.</p><pre><code class="yaml hljs"><span class="hljs-string">yarn</span> <span class="hljs-bullet">--daemon</span> <span class="hljs-string">start</span> <span class="hljs-string">nodemanager</span> <span class="hljs-comment"># On slave node</span>
+
+<span class="hljs-comment"># Using worker mode</span>
+<span class="hljs-string">yarn</span> <span class="hljs-bullet">--workers</span> <span class="hljs-bullet">--daemon</span> <span class="hljs-string">start</span> <span class="hljs-string">nodemanager</span> <span class="hljs-comment"># On master node</span>
+</code></pre><div class="alert alert-warning">
+<p><strong>Note:</strong> If you want to add a new node to the YARN cluster, you need to add its domain to <code>$HADOOP_HOME/etc/hadoop/workers</code> file.</p>
+</div><p>You can access the web UI for YARN resource manager via (<a href="http://localhost:8088" target="_blank" rel="noopener">http://localhost:8088</a>).</p><h2 id="yarn-tool"><a class="anchor hidden-xs" href="#yarn-tool" title="yarn-tool"><i class="fa fa-link"></i></a><code>yarn</code> tool</h2><p>This tool allows you to manage the YARN cluster. Here I present some of the important functions that it can do.</p><ul>
+<li><code>yarn version</code>
+<ul>
+<li>Prints info about the installation of the tool.</li>
+</ul>
+</li>
+<li><code>yarn top</code>
+<ul>
+<li>Runs <code>top</code>-like window for monitoring the apps on the cluster.</li>
+</ul>
+</li>
+<li><code>yarn app|application</code>
+<ul>
+<li>Allows to manage the application on YARN cluster.</li>
+<li>It has a set of options, here I show some of them
+<ul>
+<li><code>yarn app -list</code>
+<ul>
+<li>List applications.</li>
+<li>You can filter the applications by status.
+<ul>
+<li><code>yarn app -list -appStates &lt;States&gt;</code>
+<ul>
+<li>where States could be {ALL,NEW,NEW_SAVING,SUBMITTED,ACCEPTED,RUNNING,FINISHED,FAILED,KILLED}</li>
+<li><code>yarn app -list -appStates RUNNING,KILLED</code>
+<ul>
+<li>Will list all applications that are killed and also the running ones</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>yarn app -status &lt;Application Name or ID&gt;</code>
+<ul>
+<li>Prints the status of the application.</li>
+</ul>
+</li>
+<li><code>yarn app -kill &lt;Application ID&gt;</code>
+<ul>
+<li>Kills the application.</li>
+</ul>
+</li>
+<li></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul><div class="alert alert-info">
+<p>You can run a MapReduce job in the background using the option <code>-background</code> as follows.</p>
+<pre><code class="wrap yaml hljs"><span class="hljs-string">mapred</span> <span class="hljs-string">streaming</span> <span class="hljs-bullet">-D</span> <span class="hljs-string">mapreduce.framework.name=yarn</span> <span class="hljs-bullet">-files</span> <span class="hljs-string">mapper.py,reducer.py</span> <span class="hljs-bullet">-background</span> <span class="hljs-bullet">-mapper</span> <span class="hljs-string">'python3 mapper.py'</span> <span class="hljs-bullet">-reducer</span> <span class="hljs-string">'python3 reducer.py'</span> <span class="hljs-bullet">-input</span> <span class="hljs-string">/gutenberg/*</span> <span class="hljs-bullet">-output</span> <span class="hljs-string">/gutenberg/gutenberg.output</span>
+</code></pre>
+</div><h2 id="yarn-sitexml"><a class="anchor hidden-xs" href="#yarn-sitexml" title="yarn-sitexml"><i class="fa fa-link"></i></a><code>yarn-site.xml</code></h2><p>This file stores the configuration of the YARN cluster. You can check the <a href="https://hadoop.apache.org/docs/r3.3.1/hadoop-yarn/hadoop-yarn-common/yarn-default.xml" target="_blank" rel="noopener">official resource</a> for more info about the properties. Here I present some of them.</p><ul>
+<li><code>yarn.resourcemanager.scheduler.class</code>
+<ul>
+<li>The class to use as the resource scheduler.</li>
+<li>The default value is <code>org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.CapacityScheduler</code>.</li>
+</ul>
+</li>
+<li><code>yarn.scheduler.minimum-allocation-mb</code>
+<ul>
+<li>The minimum allocation for every container request at the RM, in MBs. Memory requests lower than this will throw a InvalidResourceRequestException.</li>
+</ul>
+</li>
+<li><code>yarn.scheduler.maximum-allocation-mb</code>
+<ul>
+<li>The maximum allocation for every container request at the RM, in MBs. Memory requests higher than this will throw a InvalidResourceRequestException.</li>
+</ul>
+</li>
+<li><code>yarn.scheduler.minimum-allocation-vcores</code>
+<ul>
+<li>The minimum allocation for every container request at the RM, in terms of virtual CPU cores. Requests lower than this will throw a InvalidResourceRequestException.</li>
+</ul>
+</li>
+<li><code>yarn.scheduler.maximum-allocation-vcores</code>
+<ul>
+<li>The maximum allocation for every container request at the RM, in terms of virtual CPU cores. Requests higher than this will throw a InvalidResourceRequestException.</li>
+</ul>
+</li>
+<li><code>yarn.resourcemanager.cluster-id</code>
+<ul>
+<li>Name of the cluster.</li>
+</ul>
+</li>
+<li><code>yarn.nodemanager.resource.memory-mb</code>
+<ul>
+<li>Amount of physical memory, in MB, that can be allocated for containers.</li>
+</ul>
+</li>
+<li><code>yarn.nodemanager.resource.cpu-vcores</code>
+<ul>
+<li>Number of vcores that can be allocated for containers. This is used by the RM scheduler when allocating resources for containers. This is not used to limit the number of physical cores used by YARN containers.</li>
+</ul>
+</li>
+<li><code>yarn.nodemanager.resource.percentage-physical-cpu-limit</code>
+<ul>
+<li>Percentage of CPU that can be allocated for containers. This setting allows users to limit the amount of CPU that YARN containers use.</li>
+</ul>
+</li>
+<li><code>yarn.nodemanager.webapp.address</code>
+<ul>
+<li>NM Webapp address. The default port is 8042.</li>
+</ul>
+</li>
+</ul><h2 id="capacity-schedulerxml"><a class="anchor hidden-xs" href="#capacity-schedulerxml" title="capacity-schedulerxml"><i class="fa fa-link"></i></a><code>capacity-scheduler.xml</code></h2><p>This file is the configuration file for the CapacityScheduler. The CapacityScheduler has a predefined queue called root. All queues in the system are children of the root queue. The configuration for CapacityScheduler uses a concept called queue path to configure the hierarchy of queues. The queue path is the full path of the queue’s hierarchy, starting at root, with . (dot) as the delimiter.<br>
+Here is an example with three top-level child-queues a, b and c and some sub-queues for a and b:</p><pre><code class="wrap xml hljs"><span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.scheduler.capacity.root.queues<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>a,b,c<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">description</span>&gt;</span>The queues at the this level (root is the root queue).
+  <span class="hljs-tag">&lt;/<span class="hljs-name">description</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.scheduler.capacity.root.a.queues<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>a1,a2<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">description</span>&gt;</span>The queues at the this level (root is the root queue).
+  <span class="hljs-tag">&lt;/<span class="hljs-name">description</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>
+
+<span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.scheduler.capacity.root.b.queues<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>b1,b2,b3<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">description</span>&gt;</span>The queues at the this level (root is the root queue).
+  <span class="hljs-tag">&lt;/<span class="hljs-name">description</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>
+</code></pre><p>Next we need to define the capacity for each queue in the hierarchy. For example, for the queue whose path <code>root.a.a1</code> the capacity is 50% of the capacity of queue <code>root.a</code>.</p><pre><code class="wrap xml hljs"> <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">name</span>&gt;</span>yarn.scheduler.capacity.root.a.a1.capacity<span class="hljs-tag">&lt;/<span class="hljs-name">name</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>50<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">description</span>&gt;</span>Default queue target capacity.<span class="hljs-tag">&lt;/<span class="hljs-name">description</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span>
+</code></pre><h1 id="References"><a class="anchor hidden-xs" href="#References" title="References"><i class="fa fa-link"></i></a>References</h1><ul>
+<li><a href="https://hadoop.apache.org/" target="_blank" rel="noopener">Apache Hadoop</a></li>
+<li><a href="https://hadoop.apache.org/docs/stable/hadoop-mapreduce-client/hadoop-mapreduce-client-core/mapred-default.xml" target="_blank" rel="noopener">MapReduce default config file</a></li>
+<li><a href="https://www.michael-noll.com/tutorials/writing-an-hadoop-mapreduce-program-in-python" target="_blank" rel="noopener">MapReduce example in Python</a></li>
+</ul></div>
+    <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
+        <div class="pull-right dropdown">
+            <a id="tocLabel" class="ui-toc-label btn btn-default" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="Table of content">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
+                <div class="toc"><ul class="nav">
+<li><a href="#Lab-5---Apache-Hadoop-YARN-amp-MapReduce" title="Lab 5 - Apache Hadoop YARN &amp; MapReduce">Lab 5 - Apache Hadoop YARN &amp; MapReduce</a></li>
+<li><a href="#Agenda" title="Agenda">Agenda</a></li>
+<li><a href="#Prerequisites" title="Prerequisites">Prerequisites</a></li>
+<li><a href="#Objectives" title="Objectives">Objectives</a></li>
+<li><a href="#Hadoop-MapReduce" title="Hadoop MapReduce">Hadoop MapReduce</a><ul class="nav">
+<li><a href="#MapReduce-framework" title="MapReduce framework">MapReduce framework</a></li>
+<li><a href="#mapred-sitexml" title="mapred-site.xml">mapred-site.xml</a></li>
+<li><a href="#Word-Count-MapReduce-Example" title="Word Count MapReduce Example">Word Count MapReduce Example</a></li>
+<li><a href="#Inverted-Index-MapReduce-Example" title="Inverted Index MapReduce Example">Inverted Index MapReduce Example</a></li>
+</ul>
+</li>
+<li class=""><a href="#Hadoop-YARN" title="Hadoop YARN">Hadoop YARN</a><ul class="nav">
+<li><a href="#Start-Hadoop-YARN" title="Start Hadoop YARN">Start Hadoop YARN</a></li>
+<li><a href="#yarn-tool" title="yarn tool">yarn tool</a></li>
+<li><a href="#yarn-sitexml" title="yarn-site.xml">yarn-site.xml</a></li>
+<li class=""><a href="#capacity-schedulerxml" title="capacity-scheduler.xml">capacity-scheduler.xml</a></li>
+</ul>
+</li>
+<li><a href="#References" title="References">References</a></li>
+</ul>
+</div><div class="toc-menu" style="">
+    <a class="expand-toggle expand-all" href="#">Expand all</a>
+    <a class="expand-toggle collapse-all" href="#" style="display: none;">Collapse all</a>
+    <a class="back-to-top" href="#">Back to top</a>
+    <a class="go-to-bottom" href="#">Go to bottom</a>
+</div>
+            </ul>
+        </div>
+    </div>
+    <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;"  >
+        <div class="toc"><ul class="nav">
+<li><a href="#Lab-5---Apache-Hadoop-YARN-amp-MapReduce" title="Lab 5 - Apache Hadoop YARN &amp; MapReduce">Lab 5 - Apache Hadoop YARN &amp; MapReduce</a></li>
+<li><a href="#Agenda" title="Agenda">Agenda</a></li>
+<li><a href="#Prerequisites" title="Prerequisites">Prerequisites</a></li>
+<li><a href="#Objectives" title="Objectives">Objectives</a></li>
+<li><a href="#Hadoop-MapReduce" title="Hadoop MapReduce">Hadoop MapReduce</a><ul class="nav">
+<li><a href="#MapReduce-framework" title="MapReduce framework">MapReduce framework</a></li>
+<li><a href="#mapred-sitexml" title="mapred-site.xml">mapred-site.xml</a></li>
+<li><a href="#Word-Count-MapReduce-Example" title="Word Count MapReduce Example">Word Count MapReduce Example</a></li>
+<li><a href="#Inverted-Index-MapReduce-Example" title="Inverted Index MapReduce Example">Inverted Index MapReduce Example</a></li>
+</ul>
+</li>
+<li class=""><a href="#Hadoop-YARN" title="Hadoop YARN">Hadoop YARN</a><ul class="nav">
+<li><a href="#Start-Hadoop-YARN" title="Start Hadoop YARN">Start Hadoop YARN</a></li>
+<li><a href="#yarn-tool" title="yarn tool">yarn tool</a></li>
+<li><a href="#yarn-sitexml" title="yarn-site.xml">yarn-site.xml</a></li>
+<li class=""><a href="#capacity-schedulerxml" title="capacity-scheduler.xml">capacity-scheduler.xml</a></li>
+</ul>
+</li>
+<li><a href="#References" title="References">References</a></li>
+</ul>
+</div><div class="toc-menu" style="">
+    <a class="expand-toggle expand-all" href="#">Expand all</a>
+    <a class="expand-toggle collapse-all" href="#" style="display: none;">Collapse all</a>
+    <a class="back-to-top" href="#">Back to top</a>
+    <a class="go-to-bottom" href="#">Go to bottom</a>
+</div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.0/js/bootstrap.min.js" integrity="sha256-kJrlY+s09+QoWjpkOrXXwhxeaoDz9FW5SaxF8I0DibQ=" crossorigin="anonymous" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gist-embed/2.6.0/gist-embed.min.js" integrity="sha256-KyF2D6xPIJUW5sUDSs93vWyZm+1RzIpKCexxElmxl8g=" crossorigin="anonymous" defer></script>
+    <script>
+        var markdown = $(".markdown-body");
+        //smooth all hash trigger scrolling
+        function smoothHashScroll() {
+            var hashElements = $("a[href^='#']").toArray();
+            for (var i = 0; i < hashElements.length; i++) {
+                var element = hashElements[i];
+                var $element = $(element);
+                var hash = element.hash;
+                if (hash) {
+                    $element.on('click', function (e) {
+                        // store hash
+                        var hash = this.hash;
+                        if ($(hash).length <= 0) return;
+                        // prevent default anchor click behavior
+                        e.preventDefault();
+                        // animate
+                        $('body, html').stop(true, true).animate({
+                            scrollTop: $(hash).offset().top
+                        }, 100, "linear", function () {
+                            // when done, add hash to url
+                            // (default click behaviour)
+                            window.location.hash = hash;
+                        });
+                    });
+                }
+            }
+        }
+
+        smoothHashScroll();
+        var toc = $('.ui-toc');
+        var tocAffix = $('.ui-affix-toc');
+        var tocDropdown = $('.ui-toc-dropdown');
+        //toc
+        tocDropdown.click(function (e) {
+            e.stopPropagation();
+        });
+
+        var enoughForAffixToc = true;
+
+        function generateScrollspy() {
+            $(document.body).scrollspy({
+                target: ''
+            });
+            $(document.body).scrollspy('refresh');
+            if (enoughForAffixToc) {
+                toc.hide();
+                tocAffix.show();
+            } else {
+                tocAffix.hide();
+                toc.show();
+            }
+            $(document.body).scroll();
+        }
+
+        function windowResize() {
+            //toc right
+            var paddingRight = parseFloat(markdown.css('padding-right'));
+            var right = ($(window).width() - (markdown.offset().left + markdown.outerWidth() - paddingRight));
+            toc.css('right', right + 'px');
+            //affix toc left
+            var newbool;
+            var rightMargin = (markdown.parent().outerWidth() - markdown.outerWidth()) / 2;
+            //for ipad or wider device
+            if (rightMargin >= 133) {
+                newbool = true;
+                var affixLeftMargin = (tocAffix.outerWidth() - tocAffix.width()) / 2;
+                var left = markdown.offset().left + markdown.outerWidth() - affixLeftMargin;
+                tocAffix.css('left', left + 'px');
+            } else {
+                newbool = false;
+            }
+            if (newbool != enoughForAffixToc) {
+                enoughForAffixToc = newbool;
+                generateScrollspy();
+            }
+        }
+        $(window).resize(function () {
+            windowResize();
+        });
+        $(document).ready(function () {
+            windowResize();
+            generateScrollspy();
+        });
+
+        //remove hash
+        function removeHash() {
+            window.location.hash = '';
+        }
+
+        var backtotop = $('.back-to-top');
+        var gotobottom = $('.go-to-bottom');
+
+        backtotop.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToTop)
+                scrollToTop();
+            removeHash();
+        });
+        gotobottom.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToBottom)
+                scrollToBottom();
+            removeHash();
+        });
+
+        var toggle = $('.expand-toggle');
+        var tocExpand = false;
+
+        checkExpandToggle();
+        toggle.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            tocExpand = !tocExpand;
+            checkExpandToggle();
+        })
+
+        function checkExpandToggle () {
+            var toc = $('.ui-toc-dropdown .toc');
+            var toggle = $('.expand-toggle');
+            if (!tocExpand) {
+                toc.removeClass('expand');
+                toggle.text('Expand all');
+            } else {
+                toc.addClass('expand');
+                toggle.text('Collapse all');
+            }
+        }
+
+        function scrollToTop() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: 0
+            }, 100, "linear");
+        }
+
+        function scrollToBottom() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: $(document.body)[0].scrollHeight
+            }, 100, "linear");
+        }
+    </script>
+</body>
+
+</html>
