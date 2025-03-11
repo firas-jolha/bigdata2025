@@ -13,7 +13,7 @@ layout: page
 ### [Lab 3 - MongoDB](html/bs/BS - Lab 3 - MongoDB.html)
 ### [Extra Lab - Memgraph/Neo4j](html/bs/BS - Lab - Memgraph_Neo4j.html)
 ### [Lab 4 - Apache Hadoop HDFS](html/bs/BS - Lab 4 - Apache Hadoop HDFS.html)
-<!-- ### [Lab 5 - Apache Hadoop YARN & MapReduce](html/bs/BS - Lab 5 - Apache Hadoop YARN & MapReduce.html) -->
+### [Lab 5 - Apache Hadoop YARN & MapReduce](html/bs/BS - Lab 5 - Apache Hadoop YARN & MapReduce.html)
 
 ## Assignments
 ### [Assignment 1 - SQL and NoSQL databases](html/bs/BS%20-%20Assignment%201%20-%20SQL%20%26%20NoSQL%20Databases.html)
