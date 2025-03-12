@@ -208,7 +208,7 @@ hdfs dfs -ls /gutenberg
 </ol><pre><code class="wrap bash hljs">hdfs dfs -ls /gutenberg/gutenberg.output
 hdfs dfs -cat /gutenberg/gutenberg.output/part-00000
 </code></pre><p>You can change the number of output partitions using the option <code>-D mapred.reduce.tasks=&lt;number&gt;</code> as follows.</p><pre><code class="wrap bash hljs">mapred streaming \
--D mapred.reduce.tasks 5 \
+-D mapred.reduce.tasks=5 \
 -files mapper.py,reducer.py \
 -mapper <span class="hljs-string">'python3 mapper.py'</span> \
 -reducer <span class="hljs-string">'python3 reducer.py'</span> \
@@ -325,7 +325,6 @@ printf <span class="hljs-string">"hello map reduce world map \n reduce hadoop en
 <li>Kills the application.</li>
 </ul>
 </li>
-<li></li>
 </ul>
 </li>
 </ul>
@@ -412,7 +411,6 @@ Here is an example with three top-level child-queues a, b and c and some sub-que
     <span class="hljs-tag">&lt;<span class="hljs-name">value</span>&gt;</span>50<span class="hljs-tag">&lt;/<span class="hljs-name">value</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">description</span>&gt;</span>Default queue target capacity.<span class="hljs-tag">&lt;/<span class="hljs-name">description</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">property</span>&gt;</span>
 </code></pre><h1 id="References"><a class="anchor hidden-xs" href="#References" title="References"><i class="fa fa-link"></i></a>References</h1><ul>
 <li><a href="https://hadoop.apache.org/" target="_blank" rel="noopener">Apache Hadoop</a></li>
 <li><a href="https://hadoop.apache.org/docs/stable/hadoop-mapreduce-client/hadoop-mapreduce-client-core/mapred-default.xml" target="_blank" rel="noopener">MapReduce default config file</a></li>
@@ -425,7 +423,7 @@ Here is an example with three top-level child-queues a, b and c and some sub-que
             </a>
             <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
                 <div class="toc"><ul class="nav">
-<li><a href="#Lab-5---Apache-Hadoop-YARN-amp-MapReduce" title="Lab 5 - Apache Hadoop YARN &amp; MapReduce">Lab 5 - Apache Hadoop YARN &amp; MapReduce</a></li>
+<li class=""><a href="#Lab-5---Apache-Hadoop-YARN-amp-MapReduce" title="Lab 5 - Apache Hadoop YARN &amp; MapReduce">Lab 5 - Apache Hadoop YARN &amp; MapReduce</a></li>
 <li><a href="#Agenda" title="Agenda">Agenda</a></li>
 <li><a href="#Prerequisites" title="Prerequisites">Prerequisites</a></li>
 <li><a href="#Objectives" title="Objectives">Objectives</a></li>
@@ -436,11 +434,11 @@ Here is an example with three top-level child-queues a, b and c and some sub-que
 <li><a href="#Inverted-Index-MapReduce-Example" title="Inverted Index MapReduce Example">Inverted Index MapReduce Example</a></li>
 </ul>
 </li>
-<li class=""><a href="#Hadoop-YARN" title="Hadoop YARN">Hadoop YARN</a><ul class="nav">
+<li><a href="#Hadoop-YARN" title="Hadoop YARN">Hadoop YARN</a><ul class="nav">
 <li><a href="#Start-Hadoop-YARN" title="Start Hadoop YARN">Start Hadoop YARN</a></li>
 <li><a href="#yarn-tool" title="yarn tool">yarn tool</a></li>
 <li><a href="#yarn-sitexml" title="yarn-site.xml">yarn-site.xml</a></li>
-<li class=""><a href="#capacity-schedulerxml" title="capacity-scheduler.xml">capacity-scheduler.xml</a></li>
+<li><a href="#capacity-schedulerxml" title="capacity-scheduler.xml">capacity-scheduler.xml</a></li>
 </ul>
 </li>
 <li><a href="#References" title="References">References</a></li>
@@ -456,7 +454,7 @@ Here is an example with three top-level child-queues a, b and c and some sub-que
     </div>
     <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;"  >
         <div class="toc"><ul class="nav">
-<li><a href="#Lab-5---Apache-Hadoop-YARN-amp-MapReduce" title="Lab 5 - Apache Hadoop YARN &amp; MapReduce">Lab 5 - Apache Hadoop YARN &amp; MapReduce</a></li>
+<li class=""><a href="#Lab-5---Apache-Hadoop-YARN-amp-MapReduce" title="Lab 5 - Apache Hadoop YARN &amp; MapReduce">Lab 5 - Apache Hadoop YARN &amp; MapReduce</a></li>
 <li><a href="#Agenda" title="Agenda">Agenda</a></li>
 <li><a href="#Prerequisites" title="Prerequisites">Prerequisites</a></li>
 <li><a href="#Objectives" title="Objectives">Objectives</a></li>
@@ -467,11 +465,11 @@ Here is an example with three top-level child-queues a, b and c and some sub-que
 <li><a href="#Inverted-Index-MapReduce-Example" title="Inverted Index MapReduce Example">Inverted Index MapReduce Example</a></li>
 </ul>
 </li>
-<li class=""><a href="#Hadoop-YARN" title="Hadoop YARN">Hadoop YARN</a><ul class="nav">
+<li><a href="#Hadoop-YARN" title="Hadoop YARN">Hadoop YARN</a><ul class="nav">
 <li><a href="#Start-Hadoop-YARN" title="Start Hadoop YARN">Start Hadoop YARN</a></li>
 <li><a href="#yarn-tool" title="yarn tool">yarn tool</a></li>
 <li><a href="#yarn-sitexml" title="yarn-site.xml">yarn-site.xml</a></li>
-<li class=""><a href="#capacity-schedulerxml" title="capacity-scheduler.xml">capacity-scheduler.xml</a></li>
+<li><a href="#capacity-schedulerxml" title="capacity-scheduler.xml">capacity-scheduler.xml</a></li>
 </ul>
 </li>
 <li><a href="#References" title="References">References</a></li>
