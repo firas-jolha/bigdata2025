@@ -14,10 +14,18 @@ layout: page
 ### [Extra Lab - Memgraph/Neo4j](html/bs/BS - Lab - Memgraph_Neo4j.html)
 ### [Lab 4 - Apache Hadoop HDFS](html/bs/BS - Lab 4 - Apache Hadoop HDFS.html)
 ### [Lab 5 - Apache Hadoop YARN & MapReduce](html/bs/BS - Lab 5 - Apache Hadoop YARN & MapReduce.html)
+### [Lab 6 - Apache Spark RDD](html/bs/BS - Lab 6 - Apache Spark RDD.html)
+<!-- ### [Lab 7 - Apache Spark DataFrame & SQL](html/bs/BS - Lab 6 - Apache Spark DataFrame & SQL.html) -->
+<!-- ### [Lab 8 - Apache Spark MLLib](html/bs/BS - Lab 6 - Apache Spark MLLib.html) -->
+
+
 
 ## Assignments
 ### [Assignment 1 - SQL and NoSQL databases](html/bs/BS%20-%20Assignment%201%20-%20SQL%20%26%20NoSQL%20Databases.html)
-
-
+<!-- ### [Assignment 2 - Apache Hadoop](html/bs/Apache Hadoop.html) -->
+<!-- [Assignment 3 - Apache Spark](html/bs/Apache Spark.html) -->
 
 ## Project
+<!-- ### [Project Description](html/bs/BS - Final Project.html) -->
+
+
