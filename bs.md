@@ -26,6 +26,6 @@ layout: page
 <!-- [Assignment 3 - Apache Spark](html/bs/Apache Spark.html) -->
 
 ## Project
-<!-- ### [Project Description](html/bs/BS - Final Project.html) -->
+### [Project Description](html/bs/BS - Final Project.html)
 
 
