@@ -35,17 +35,17 @@
 
 <body>
     <div id="doc" class="markdown-body container-fluid" lang="en"><h1 id="Lab-4---Apache-Spark-Core-amp-SQL"><a class="anchor hidden-xs" href="#Lab-4---Apache-Spark-Core-amp-SQL" title="Lab-4---Apache-Spark-Core-amp-SQL"><i class="fa fa-link"></i></a>Lab 4 - Apache Spark Core &amp; SQL</h1><p><strong>Course:</strong> Big Data - IU S25<br>
-<strong>Author:</strong> Firas Jolha</p><h2 id="Dataset"><a class="anchor hidden-xs" href="#Dataset" title="Dataset"><i class="fa fa-link"></i></a>Dataset</h2><ul>
+<strong>Author:</strong> Firas Jolha</p><h2 id="Datasets"><a class="anchor hidden-xs" href="#Datasets" title="Datasets"><i class="fa fa-link"></i></a>Datasets</h2><ul>
 <li><a href="https://raw.githubusercontent.com/dscape/spell/master/test/resources/big.txt" target="_blank" rel="noopener">The Adventures of Sherlock Holmes E. 12</a></li>
 <li><a href="https://github.com/firas-jolha/fjiubd2024/raw/main/data/movies.csv" target="_blank" rel="noopener">Top gross movies between 2007 and 2011</a></li>
 <li><a href="https://raw.githubusercontent.com/aminebennaji19/FIFA-World-Cup-Qatar-2022/main/data/results.csv" target="_blank" rel="noopener">World cup results from 1872 till 2022</a></li>
 </ul><h2 id="PySpark-on-Colab"><a class="anchor hidden-xs" href="#PySpark-on-Colab" title="PySpark-on-Colab"><i class="fa fa-link"></i></a>PySpark on Colab</h2><ul>
-<li><a href="https://colab.research.google.com/drive/1HYtvI_a4ZIhq6nmMwKa3wPoaxniEW2vv?usp=sharing" target="_blank" rel="noopener">PySparkOnColab 2025.ipynb</a></li>
+<li><a href="https://colab.research.google.com/drive/1HYtvI_a4ZIhq6nmMwKa3wPoaxniEW2vv?usp=sharing" target="_blank" rel="noopener">PySparkOnColab.ipynb</a></li>
 </ul><h2 id="Readings"><a class="anchor hidden-xs" href="#Readings" title="Readings"><i class="fa fa-link"></i></a>Readings</h2><ul>
 <li><a href="https://spark.apache.org/docs/latest/api/python/index.html" target="_blank" rel="noopener">Spark 3 Python API Docs</a></li>
 </ul><h1 id="Agenda"><a class="anchor hidden-xs" href="#Agenda" title="Agenda"><i class="fa fa-link"></i></a>Agenda</h1><p></p><div class="toc"><ul>
 <li><a href="#Lab-4---Apache-Spark-Core-amp-SQL" title="Lab 4 - Apache Spark Core &amp; SQL">Lab 4 - Apache Spark Core &amp; SQL</a><ul>
-<li><a href="#Dataset" title="Dataset">Dataset</a></li>
+<li><a href="#Datasets" title="Datasets">Datasets</a></li>
 <li><a href="#PySpark-on-Colab" title="PySpark on Colab">PySpark on Colab</a></li>
 <li><a href="#Readings" title="Readings">Readings</a></li>
 </ul>
@@ -332,7 +332,7 @@
 <span class="hljs-string">git</span> <span class="hljs-string">clone</span> <span class="hljs-string">git@github.com:firas-jolha/docker-spark-yarn-cluster.git</span>
 <span class="hljs-string">cd</span> <span class="hljs-string">docker-spark-yarn-cluster</span>
 </code></pre><ol start="2">
-<li>Run the script <code>startHadoopCluster.sh</code> passing the number of slaves <span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-1-Frame" tabindex="0" style="position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>N</mi></math>" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-1" style="width: 1.08em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.919em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.457em, 1000.92em, 2.481em, -999.997em); top: -2.314em; left: 0em;"><span class="mrow" id="MathJax-Span-2"><span class="mi" id="MathJax-Span-3" style="font-family: MathJax_Math-italic;">N<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.11em;"></span></span></span><span style="display: inline-block; width: 0px; height: 2.32em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.059em; border-left: 0px solid; width: 0px; height: 0.941em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>N</mi></math></span></span><script type="math/tex" id="MathJax-Element-1">N</script></span> (default value is 2).</li>
+<li>Run the script <code>startHadoopCluster.sh</code> passing the number of slaves <span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-1-Frame" tabindex="0" style="position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>N</mi></math>" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-1" style="width: 1.08em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.919em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.511em, 1000.92em, 2.535em, -999.997em); top: -2.368em; left: 0em;"><span class="mrow" id="MathJax-Span-2"><span class="mi" id="MathJax-Span-3" style="font-family: MathJax_Math-italic;">N<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.11em;"></span></span></span><span style="display: inline-block; width: 0px; height: 2.373em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.059em; border-left: 0px solid; width: 0px; height: 0.941em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>N</mi></math></span></span><script type="math/tex" id="MathJax-Element-1">N</script></span> (default value is 2).</li>
 </ol><pre><code class="wrap yaml hljs"><span class="hljs-string">N=5</span>
 <span class="hljs-string">bash</span> <span class="hljs-string">startHadoopCluster.sh</span> <span class="hljs-string">$N</span>
 </code></pre><p>Here I am running a cluster of one master node and 5 slave nodes. In HDFS, the master node will run the namenode and seconadry namenodes and the slave nodes will run the datanodes. In YARN, the master node will run the resource manager and the slave nodes will run the node managers. In Spark, the master node will run the Spark Cluster master and the slave nodes will run the workers.</p><ol start="3">
@@ -785,7 +785,7 @@ rdd2.take(<span class="hljs-number">10</span>)
 rdd3 = rdd2.map(<span class="hljs-keyword">lambda</span> x : x.strip())
 rdd3.take(<span class="hljs-number">10</span>)
 </code></pre><div class="alert alert-info">
-<p><code>take(k)</code> is a Spark action and returns the first <span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-2-Frame" tabindex="0" style="position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>k</mi></math>" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-4" style="width: 0.649em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.541em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.457em, 1000.54em, 2.481em, -999.997em); top: -2.314em; left: 0em;"><span class="mrow" id="MathJax-Span-5"><span class="mi" id="MathJax-Span-6" style="font-family: MathJax_Math-italic;">k</span></span><span style="display: inline-block; width: 0px; height: 2.32em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.059em; border-left: 0px solid; width: 0px; height: 0.941em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>k</mi></math></span></span><script type="math/tex" id="MathJax-Element-2">k</script></span> elements of the RDD.</p>
+<p><code>take(k)</code> is a Spark action and returns the first <span class="mathjax"><span class="MathJax_Preview" style="color: inherit;"></span><span class="MathJax" id="MathJax-Element-2-Frame" tabindex="0" style="position: relative;" data-mathml="<math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;><mi>k</mi></math>" role="presentation"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-4" style="width: 0.649em; display: inline-block;"><span style="display: inline-block; position: relative; width: 0.541em; height: 0px; font-size: 116%;"><span style="position: absolute; clip: rect(1.511em, 1000.54em, 2.535em, -999.997em); top: -2.368em; left: 0em;"><span class="mrow" id="MathJax-Span-5"><span class="mi" id="MathJax-Span-6" style="font-family: MathJax_Math-italic;">k</span></span><span style="display: inline-block; width: 0px; height: 2.373em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.059em; border-left: 0px solid; width: 0px; height: 0.941em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>k</mi></math></span></span><script type="math/tex" id="MathJax-Element-2">k</script></span> elements of the RDD.</p>
 </div><h3 id="filter"><a class="anchor hidden-xs" href="#filter" title="filter"><i class="fa fa-link"></i></a>filter</h3><p>Returns a new RDD after applying filter function on source dataset.</p><pre><code class="wrap python hljs"><span class="hljs-comment"># Returns only values which are digits</span>
 rdd4 = rdd3.filter(<span class="hljs-keyword">lambda</span> x : str(x).isdigit())
 
@@ -1016,7 +1016,7 @@ df3 = spark.read.csv(path, schema)
 </code></pre><p>You can store the dataframe in Mongodb as follows.</p><pre><code class="wrap python hljs">df.write.format(<span class="hljs-string">"com.mongodb.spark.sql.DefaultSource"</span>) \
     .option(<span class="hljs-string">"uri"</span>, <span class="hljs-string">"mongodb://127.0.0.1:27017/db_name.collection_name"</span>) \
     .save()
-</code></pre><p><strong>Note:</strong> Make sure that you added Mongodb connector <code>.config('spark.jars.packages', 'org.mongodb.spark:mongo-spark-connector_2.12:3.0.1')</code> to the configuration of SparkSession.</p><h2 id="5-Read-from-HDFS"><a class="anchor hidden-xs" href="#5-Read-from-HDFS" title="5-Read-from-HDFS"><i class="fa fa-link"></i></a>5. Read from HDFS</h2><pre><code class="wrap python hljs">path = <span class="hljs-string">"hdfs://localhost:9000/data/movies.csv"</span> <span class="hljs-comment"># See note below</span>
+</code></pre><p><strong>Note:</strong> Make sure that you added Mongodb connector <code>.config('spark.jars.packages', 'org.mongodb.spark:mongo-spark-connector_2.12:3.0.1')</code> to the configuration of SparkSession.</p><h2 id="5-Read-from-HDFS"><a class="anchor hidden-xs" href="#5-Read-from-HDFS" title="5-Read-from-HDFS"><i class="fa fa-link"></i></a>5. Read from HDFS</h2><pre><code class="wrap python hljs">path = <span class="hljs-string">"hdfs://localhost:9000/data/movies.csv"</span>
 df = spark.read.load(path, format=<span class="hljs-string">"csv"</span>, sep = <span class="hljs-string">","</span>, inferSchema = <span class="hljs-string">"true"</span>, header = <span class="hljs-string">"true"</span>) 
 <span class="hljs-comment"># a spark dataframe</span>
 
@@ -1077,7 +1077,7 @@ df.select(<span class="hljs-string">"name"</span>, \
 </code></pre><p><img src="https://i.imgur.com/wK8K36m.png" alt="" class="md-image md-image"></p><pre><code class="wrap python hljs">df.select([col <span class="hljs-keyword">for</span> col <span class="hljs-keyword">in</span> df.columns]).show()
 </code></pre><p><img src="https://i.imgur.com/F3qeTRp.png" alt="" class="md-image md-image"></p><pre><code class="wrap python hljs">df.select(df.columns[:<span class="hljs-number">2</span>]).show()
 </code></pre><p><img src="https://i.imgur.com/kDklnx4.png" alt="" class="md-image md-image"></p><h2 id="withColumn-withColumnRenamed-drop-Transformation"><a class="anchor hidden-xs" href="#withColumn-withColumnRenamed-drop-Transformation" title="withColumn-withColumnRenamed-drop-Transformation"><i class="fa fa-link"></i></a>withColumn, withColumnRenamed, drop [Transformation]</h2><p>withColumn() is a transformation function of DataFrame which is used to change the value, convert the datatype of an existing column, create a new column, and many more.</p><pre><code class="wrap python hljs"><span class="hljs-comment"># Read the data</span>
-path = <span class="hljs-string">"hdfs://sandbox-hdp.hortonworks.com:8020/data/movies.csv"</span> <span class="hljs-comment"># See note below</span>
+path = <span class="hljs-string">"hdfs://localhost:9000/data/movies.csv"</span>
 df = spark.read.load(path, format=<span class="hljs-string">"csv"</span>, sep = <span class="hljs-string">","</span>, inferSchema = <span class="hljs-string">"true"</span>, header = <span class="hljs-string">"true"</span>) 
 
 <span class="hljs-comment"># Print Schema</span>
@@ -1195,7 +1195,7 @@ df.write.format(<span class="hljs-string">"csv"</span>) \
     .save(<span class="hljs-string">"movies_df"</span>)
     
 df.write.option(<span class="hljs-string">"header"</span>,<span class="hljs-string">"true"</span>) \
-  .csv(<span class="hljs-string">"hdfs://sandbox-hdp.hortonworks.com:8020/movies_df"</span>)
+  .csv(<span class="hljs-string">"hdfs://localhost:9000/movies_df"</span>)
 </code></pre><h4 id="Partitioning-in-Spark"><a class="anchor hidden-xs" href="#Partitioning-in-Spark" title="Partitioning-in-Spark"><i class="fa fa-link"></i></a>Partitioning in Spark</h4><p>PySpark <code>partitionBy()</code> is a function of <code>pyspark.sql.DataFrameWriter</code> class which is used to partition the large dataset (DataFrame) into smaller files based on one or multiple columns while writing to disk. Partitioning the data on the file system is a way to improve the performance of the query when dealing with a large dataset in the Data lake.</p><p>PySpark supports partition in two ways; partition in memory (DataFrame) and partition on the disk (File system).</p><ol>
 <li>
 <p><strong>Partition in memory:</strong> You can partition or repartition the DataFrame by calling repartition() or coalesce() transformations. This is discussed above in RDD section.</p>
@@ -1411,6 +1411,7 @@ joinDF = spark.sql(<span class="hljs-string">"select * from EMP e FULL OUTER JOI
 <li><a href="https://www.amazon.com/Learning-PySpark-Tomasz-Drabas/dp/1786463709" target="_blank" rel="noopener">Learning PySpark</a></li>
 <li><a href="https://spark.apache.org/docs/latest/web-ui.html#storage-tab" target="_blank" rel="noopener">Spark Web UI Guide</a></li>
 <li><a href="https://sparkbyexamples.com/spark/spark-submit-command/" target="_blank" rel="noopener">spark-submit examples</a></li>
+<li><a href="https://jcristharif.com/venv-pack/spark.html" target="_blank" rel="noopener">venv-pack tutorial</a></li>
 </ul></div>
     <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
         <div class="pull-right dropdown">
@@ -1419,8 +1420,8 @@ joinDF = spark.sql(<span class="hljs-string">"select * from EMP e FULL OUTER JOI
             </a>
             <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
                 <div class="toc"><ul class="nav">
-<li class=""><a href="#Lab-4---Apache-Spark-Core-amp-SQL" title="Lab 4 - Apache Spark Core &amp; SQL">Lab 4 - Apache Spark Core &amp; SQL</a><ul class="nav">
-<li><a href="#Dataset" title="Dataset">Dataset</a></li>
+<li><a href="#Lab-4---Apache-Spark-Core-amp-SQL" title="Lab 4 - Apache Spark Core &amp; SQL">Lab 4 - Apache Spark Core &amp; SQL</a><ul class="nav">
+<li><a href="#Datasets" title="Datasets">Datasets</a></li>
 <li><a href="#PySpark-on-Colab" title="PySpark on Colab">PySpark on Colab</a></li>
 <li><a href="#Readings" title="Readings">Readings</a></li>
 </ul>
@@ -1439,7 +1440,7 @@ joinDF = spark.sql(<span class="hljs-string">"select * from EMP e FULL OUTER JOI
 <li><a href="#Supported-Cluster-Managers" title="Supported Cluster Managers">Supported Cluster Managers</a></li>
 </ul>
 </li>
-<li class=""><a href="#PySpark" title="PySpark">PySpark</a><ul class="nav">
+<li><a href="#PySpark" title="PySpark">PySpark</a><ul class="nav">
 <li><a href="#PySpark-Modules-amp-Packages" title="PySpark Modules &amp; Packages">PySpark Modules &amp; Packages</a></li>
 <li><a href="#Install-PySpark" title="Install PySpark">Install PySpark</a><ul class="nav">
 <li><a href="#On-Colab" title="On Colab">On Colab</a></li>
@@ -1449,16 +1450,16 @@ joinDF = spark.sql(<span class="hljs-string">"select * from EMP e FULL OUTER JOI
 <li><a href="#Optional-Install-PySpark-on-HDP-Sandbox" title="[Optional] Install PySpark on HDP Sandbox">[Optional] Install PySpark on HDP Sandbox</a></li>
 </ul>
 </li>
-<li class=""><a href="#Running-Spark-applications" title="Running Spark applications">Running Spark applications</a><ul class="nav">
+<li><a href="#Running-Spark-applications" title="Running Spark applications">Running Spark applications</a><ul class="nav">
 <li><a href="#pyspark-shell" title="pyspark shell">pyspark shell</a></li>
-<li class=""><a href="#spark-submit" title="spark-submit">spark-submit</a></li>
+<li><a href="#spark-submit" title="spark-submit">spark-submit</a></li>
 </ul>
 </li>
-<li class=""><a href="#Python-Package-Management-in-PySpark-apps" title="Python Package Management in PySpark apps">Python Package Management in PySpark apps</a></li>
+<li><a href="#Python-Package-Management-in-PySpark-apps" title="Python Package Management in PySpark apps">Python Package Management in PySpark apps</a></li>
 </ul>
 </li>
-<li class=""><a href="#Spark-Web-UI" title="Spark Web UI">Spark Web UI</a><ul class="nav">
-<li class=""><a href="#Jobs-Tab" title="Jobs Tab">Jobs Tab</a><ul class="nav">
+<li><a href="#Spark-Web-UI" title="Spark Web UI">Spark Web UI</a><ul class="nav">
+<li><a href="#Jobs-Tab" title="Jobs Tab">Jobs Tab</a><ul class="nav">
 <li><a href="#Job-details" title="Job details">Job details</a></li>
 </ul>
 </li>
@@ -1520,7 +1521,7 @@ joinDF = spark.sql(<span class="hljs-string">"select * from EMP e FULL OUTER JOI
 </li>
 </ul>
 </li>
-<li><a href="#Spark-DataFrame" title="Spark DataFrame">Spark DataFrame</a><ul class="nav">
+<li class=""><a href="#Spark-DataFrame" title="Spark DataFrame">Spark DataFrame</a><ul class="nav">
 <li><a href="#1-using-createDataFrame-function" title="1. using createDataFrame() function">1. using createDataFrame() function</a></li>
 <li><a href="#2-using-toDF-function" title="2. using toDF() function">2. using toDF() function</a></li>
 <li><a href="#3-Read-from-a-local-file" title="3. Read from a local file">3. Read from a local file</a></li>
@@ -1532,21 +1533,21 @@ joinDF = spark.sql(<span class="hljs-string">"select * from EMP e FULL OUTER JOI
 <li><a href="#collect-Action" title="collect [Action]">collect [Action]</a></li>
 <li><a href="#select-Transformation" title="select [Transformation]">select [Transformation]</a></li>
 <li><a href="#withColumn-withColumnRenamed-drop-Transformation" title="withColumn, withColumnRenamed, drop [Transformation]">withColumn, withColumnRenamed, drop [Transformation]</a></li>
-<li><a href="#filter-where-Transformation" title="filter, where [Transformation]">filter, where [Transformation]</a><ul class="nav">
+<li class=""><a href="#filter-where-Transformation" title="filter, where [Transformation]">filter, where [Transformation]</a><ul class="nav">
 <li><a href="#distinct-dropDuplicates-Transformation" title="distinct, dropDuplicates [Transformation]">distinct, dropDuplicates [Transformation]</a></li>
 <li><a href="#groupby-Transformation" title="groupby [Transformation]">groupby [Transformation]</a></li>
 <li><a href="#orderBy-sort-Transformation" title="orderBy, sort [Transformation]">orderBy, sort [Transformation]</a></li>
 <li><a href="#Join" title="Join">Join</a></li>
-<li><a href="#UDF-User-Defined-Function" title="UDF (User Defined Function)">UDF (User Defined Function)</a></li>
-<li><a href="#Save-DataFrame-to-disk" title="Save DataFrame to disk">Save DataFrame to disk</a></li>
+<li class=""><a href="#UDF-User-Defined-Function" title="UDF (User Defined Function)">UDF (User Defined Function)</a></li>
+<li class=""><a href="#Save-DataFrame-to-disk" title="Save DataFrame to disk">Save DataFrame to disk</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#Spark-Dataset" title="Spark Dataset">Spark Dataset</a></li>
-<li><a href="#Spark-SQL" title="Spark SQL">Spark SQL</a><ul class="nav">
-<li><a href="#Data-Description" title="Data Description">Data Description</a></li>
-<li><a href="#Spark-SQL-Examples" title="Spark SQL Examples">Spark SQL Examples</a></li>
+<li class=""><a href="#Spark-Dataset" title="Spark Dataset">Spark Dataset</a></li>
+<li class=""><a href="#Spark-SQL" title="Spark SQL">Spark SQL</a><ul class="nav">
+<li class=""><a href="#Data-Description" title="Data Description">Data Description</a></li>
+<li class=""><a href="#Spark-SQL-Examples" title="Spark SQL Examples">Spark SQL Examples</a></li>
 </ul>
 </li>
 <li><a href="#References" title="References">References</a></li>
@@ -1563,7 +1564,7 @@ joinDF = spark.sql(<span class="hljs-string">"select * from EMP e FULL OUTER JOI
     <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;"  >
         <div class="toc"><ul class="nav">
 <li><a href="#Lab-4---Apache-Spark-Core-amp-SQL" title="Lab 4 - Apache Spark Core &amp; SQL">Lab 4 - Apache Spark Core &amp; SQL</a><ul class="nav">
-<li><a href="#Dataset" title="Dataset">Dataset</a></li>
+<li><a href="#Datasets" title="Datasets">Datasets</a></li>
 <li><a href="#PySpark-on-Colab" title="PySpark on Colab">PySpark on Colab</a></li>
 <li><a href="#Readings" title="Readings">Readings</a></li>
 </ul>
@@ -1582,7 +1583,7 @@ joinDF = spark.sql(<span class="hljs-string">"select * from EMP e FULL OUTER JOI
 <li><a href="#Supported-Cluster-Managers" title="Supported Cluster Managers">Supported Cluster Managers</a></li>
 </ul>
 </li>
-<li class=""><a href="#PySpark" title="PySpark">PySpark</a><ul class="nav">
+<li><a href="#PySpark" title="PySpark">PySpark</a><ul class="nav">
 <li><a href="#PySpark-Modules-amp-Packages" title="PySpark Modules &amp; Packages">PySpark Modules &amp; Packages</a></li>
 <li><a href="#Install-PySpark" title="Install PySpark">Install PySpark</a><ul class="nav">
 <li><a href="#On-Colab" title="On Colab">On Colab</a></li>
@@ -1592,16 +1593,16 @@ joinDF = spark.sql(<span class="hljs-string">"select * from EMP e FULL OUTER JOI
 <li><a href="#Optional-Install-PySpark-on-HDP-Sandbox" title="[Optional] Install PySpark on HDP Sandbox">[Optional] Install PySpark on HDP Sandbox</a></li>
 </ul>
 </li>
-<li class=""><a href="#Running-Spark-applications" title="Running Spark applications">Running Spark applications</a><ul class="nav">
+<li><a href="#Running-Spark-applications" title="Running Spark applications">Running Spark applications</a><ul class="nav">
 <li><a href="#pyspark-shell" title="pyspark shell">pyspark shell</a></li>
-<li class=""><a href="#spark-submit" title="spark-submit">spark-submit</a></li>
+<li><a href="#spark-submit" title="spark-submit">spark-submit</a></li>
 </ul>
 </li>
-<li class=""><a href="#Python-Package-Management-in-PySpark-apps" title="Python Package Management in PySpark apps">Python Package Management in PySpark apps</a></li>
+<li><a href="#Python-Package-Management-in-PySpark-apps" title="Python Package Management in PySpark apps">Python Package Management in PySpark apps</a></li>
 </ul>
 </li>
-<li class=""><a href="#Spark-Web-UI" title="Spark Web UI">Spark Web UI</a><ul class="nav">
-<li class=""><a href="#Jobs-Tab" title="Jobs Tab">Jobs Tab</a><ul class="nav">
+<li><a href="#Spark-Web-UI" title="Spark Web UI">Spark Web UI</a><ul class="nav">
+<li><a href="#Jobs-Tab" title="Jobs Tab">Jobs Tab</a><ul class="nav">
 <li><a href="#Job-details" title="Job details">Job details</a></li>
 </ul>
 </li>
@@ -1663,7 +1664,7 @@ joinDF = spark.sql(<span class="hljs-string">"select * from EMP e FULL OUTER JOI
 </li>
 </ul>
 </li>
-<li><a href="#Spark-DataFrame" title="Spark DataFrame">Spark DataFrame</a><ul class="nav">
+<li class=""><a href="#Spark-DataFrame" title="Spark DataFrame">Spark DataFrame</a><ul class="nav">
 <li><a href="#1-using-createDataFrame-function" title="1. using createDataFrame() function">1. using createDataFrame() function</a></li>
 <li><a href="#2-using-toDF-function" title="2. using toDF() function">2. using toDF() function</a></li>
 <li><a href="#3-Read-from-a-local-file" title="3. Read from a local file">3. Read from a local file</a></li>
@@ -1675,21 +1676,21 @@ joinDF = spark.sql(<span class="hljs-string">"select * from EMP e FULL OUTER JOI
 <li><a href="#collect-Action" title="collect [Action]">collect [Action]</a></li>
 <li><a href="#select-Transformation" title="select [Transformation]">select [Transformation]</a></li>
 <li><a href="#withColumn-withColumnRenamed-drop-Transformation" title="withColumn, withColumnRenamed, drop [Transformation]">withColumn, withColumnRenamed, drop [Transformation]</a></li>
-<li><a href="#filter-where-Transformation" title="filter, where [Transformation]">filter, where [Transformation]</a><ul class="nav">
+<li class=""><a href="#filter-where-Transformation" title="filter, where [Transformation]">filter, where [Transformation]</a><ul class="nav">
 <li><a href="#distinct-dropDuplicates-Transformation" title="distinct, dropDuplicates [Transformation]">distinct, dropDuplicates [Transformation]</a></li>
 <li><a href="#groupby-Transformation" title="groupby [Transformation]">groupby [Transformation]</a></li>
 <li><a href="#orderBy-sort-Transformation" title="orderBy, sort [Transformation]">orderBy, sort [Transformation]</a></li>
 <li><a href="#Join" title="Join">Join</a></li>
-<li><a href="#UDF-User-Defined-Function" title="UDF (User Defined Function)">UDF (User Defined Function)</a></li>
-<li><a href="#Save-DataFrame-to-disk" title="Save DataFrame to disk">Save DataFrame to disk</a></li>
+<li class=""><a href="#UDF-User-Defined-Function" title="UDF (User Defined Function)">UDF (User Defined Function)</a></li>
+<li class=""><a href="#Save-DataFrame-to-disk" title="Save DataFrame to disk">Save DataFrame to disk</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#Spark-Dataset" title="Spark Dataset">Spark Dataset</a></li>
-<li><a href="#Spark-SQL" title="Spark SQL">Spark SQL</a><ul class="nav">
-<li><a href="#Data-Description" title="Data Description">Data Description</a></li>
-<li><a href="#Spark-SQL-Examples" title="Spark SQL Examples">Spark SQL Examples</a></li>
+<li class=""><a href="#Spark-Dataset" title="Spark Dataset">Spark Dataset</a></li>
+<li class=""><a href="#Spark-SQL" title="Spark SQL">Spark SQL</a><ul class="nav">
+<li class=""><a href="#Data-Description" title="Data Description">Data Description</a></li>
+<li class=""><a href="#Spark-SQL-Examples" title="Spark SQL Examples">Spark SQL Examples</a></li>
 </ul>
 </li>
 <li><a href="#References" title="References">References</a></li>
