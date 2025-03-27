@@ -14,6 +14,8 @@ layout: page
 
 ### [Lab 3 - Data Retrieval with MongoDB](html/ms/MS - Lab 3 - MongoDB.html)
 ### [Lab 4 - Apache Spark Core & SQL](html/ms/MS - Lab 4 - Apache Spark Core & SQL.html)
+### [Lab 5 - Apache Spark MLlib](html/ms/MS Lab 5 - Apache Spark MLlib.html)
+
 
 ## Midterm
 ### [MS - Midterm Prerequisites](html/ms/MS - Midterm Prerequisites 2025.html)
