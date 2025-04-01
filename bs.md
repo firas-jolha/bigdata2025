@@ -27,5 +27,5 @@ layout: page
 
 ## Project
 ### [Project Description](html/bs/BS - Final Project.html)
-
+### [Stage I - Data collection and Ingestion](html/bs/BS - Stage I - Data collection and Ingestion.html)
 
