@@ -22,6 +22,7 @@ layout: page
 
 ## Assignments
 ### [Assignment 1 - SQL and NoSQL databases](html/bs/BS%20-%20Assignment%201%20-%20SQL%20%26%20NoSQL%20Databases.html)
+### [Assignment 2 - Simple Search Engine using Hadoop MapReduce](html/bs/BS - Assignment 2 - Simple Search Engine using Hadoop MapReduce.html)
 <!-- ### [Assignment 2 - Apache Hadoop](html/bs/Apache Hadoop.html) -->
 <!-- [Assignment 3 - Apache Spark](html/bs/Apache Spark.html) -->
 
