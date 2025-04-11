@@ -29,4 +29,6 @@ layout: page
 ## Project
 ### [Project Description](html/bs/BS - Final Project.html)
 ### [Stage I - Data collection and Ingestion](html/bs/BS - Stage I - Data collection and Ingestion.html)
+### [Stage II - Data Storage/Preparation & EDA](html/common/BS_MS Stage II - Data Storage_Preparation & EDA.html)
+
 

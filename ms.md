@@ -30,4 +30,4 @@ layout: page
 ## Project
 ### [Final Project - Description](html/ms/MS - Final Project.html)
 ### [Stage I - Data collection and Ingestion](html/ms/MS - Stage I - Data collection and Ingestion.html)
-
+### [Stage II - Data Storage/Preparation & EDA](html/common/BS_MS Stage II - Data Storage_Preparation & EDA.html)

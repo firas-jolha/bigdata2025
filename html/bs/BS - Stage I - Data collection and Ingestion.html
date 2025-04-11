@@ -68,7 +68,7 @@
 <li>Analyze the business problem</li>
 <li>Build databases for data storage</li>
 <li>Ingest the data into HDFS</li>
-</ul><h1 id="Description"><a class="anchor hidden-xs" href="#Description" title="Description"><i class="fa fa-link"></i></a>Description</h1><p>Big data is changing the way companies do business and creating a need for data engineers who can collect and manage large quantities of data. Data engineering is the practice of designing and building systems for collecting, storing, and analyzing data at scale.</p><p>In the final project of this course, you need to to analyze a business case study from your choice using CRISP-DM framework. We divided the project into four stages where in this tutorial we will cover the first stage in simple manner. Before starting the first stage, it is always good to check the data and perform preprocessing if needed. For simplicity, here, we are dealing with batch processing since the data in the files is fixed and no real-time updates exist. If you prefer to process real-time data, you are welcome. In this first stage, I will present here the steps for building a database and ingesting it into HDFS:<br>
+</ul><h1 id="Description"><a class="anchor hidden-xs" href="#Description" title="Description"><i class="fa fa-link"></i></a>Description</h1><p>Big data is changing the way companies do business and creating a need for data engineers who can collect and manage large quantities of data. Data engineering is the practice of designing and building systems for collecting, storing, and analyzing data at scale.</p><p>In the final project of this course, you need to build an end-to-end big data pipeline that accepts input data from some data source, analyzes the data in the cluster and displays the results in a dashboard. We divided the project into four stages where in this tutorial we will cover the first stage in simple manner. Before starting the first stage, it is always good to check the data and perform cleaning/preprocessing if needed. For simplicity, here, we are dealing with batch processing since the data in the files are fixed and no real-time updates exist. If you prefer to process real-time data, you are welcome. In this first stage, I will present here the steps for building a database and ingesting it into HDFS:<br>
 1- Build a relational database via PostgreSQL<br>
 2- Import the database into HDFS via Sqoop</p><h1 id="Dataset-Description"><a class="anchor hidden-xs" href="#Dataset-Description" title="Dataset-Description"><i class="fa fa-link"></i></a>Dataset Description</h1><p>The dataset that I am using in these tutorials is about the departments and employees in a company. It consists of two <code>.csv</code> files.</p><p>The file <code>emps.csv</code> contains information about employees:</p><ul>
 <li>EMPNO is a unique employee number; it is the primary key of the employee table.</li>
@@ -93,9 +93,7 @@
 <span class="hljs-title">rm</span> <span class="hljs-class"><span class="hljs-keyword">data</span>/<span class="hljs-keyword">data</span>.zip</span>
 </code></pre><p>To test data collection step, we can run the script <code>bash scripts/data_collection.sh</code></p><div class="alert alert-warning">
 <p>You have to run the scripts from the root directory of the local repository and this is how the TA will test your project. So, make sure that you have configured the scripts according to this rule.</p>
-</div><h2 id="Build-a-relational-database-via-PostgreSQL"><a class="anchor hidden-xs" href="#Build-a-relational-database-via-PostgreSQL" title="Build-a-relational-database-via-PostgreSQL"><i class="fa fa-link"></i></a>Build a relational database via PostgreSQL</h2><div class="alert alert-warning">
-<p>In the project, you should use at least one NoSQL database and here I just show a demo on SQL database.</p>
-</div><p>In this task, I will use PostgreSQL as data storage and write SQL statements for importing the data files into the database. You can explore the database in an interactive mode in <code>pgAdmin</code> but for project purposes, you need to write them in <code>.sql</code> files and then you execute the statements using Python scripts. Here, I will use <code>psycopg2</code> library for <code>python 3</code>. I will create three sql files (1.<code>sql/create_tables.sql</code> and 2. <code>sql/import_data.sql</code> 3.<code>sql/test_database.sql</code>) then I will write a Python script <code>scripts/build_projectdb.py</code> which will use <code>execute</code> and <code>copy_expert</code> functions from the abovementioned library to create the tables and import the data. This library uses The JDBC driver for Postgresql to run SQL statements on the dbms. You can also connect to the database (JDBC connection) using the tool <code>beeline</code> from Apache Hive (This is made to run HiveQL queries which will be covered in stage II). Notice that the script <code>scripts/build_projectdb.py</code> should replicate this task without errors. This means, for the second run of the script I should not get any errors.</p><p>I will give here some of the basic steps to build this database <code>teamx_projectdb</code> but feel free to extend it for your project purposes.</p><div class="alert alert-warning">
+</div><h2 id="Build-a-relational-database-via-PostgreSQL"><a class="anchor hidden-xs" href="#Build-a-relational-database-via-PostgreSQL" title="Build-a-relational-database-via-PostgreSQL"><i class="fa fa-link"></i></a>Build a relational database via PostgreSQL</h2><p>In this task, I will use PostgreSQL as data storage and write SQL statements for importing the data files into the database. You can explore the database in an interactive mode in <code>pgAdmin</code> but for project purposes, you need to write them in <code>.sql</code> files and then you execute the statements using Python scripts. Here, I will use <code>psycopg2</code> library for <code>python 3</code>. I will create three sql files (1.<code>sql/create_tables.sql</code> and 2. <code>sql/import_data.sql</code> 3.<code>sql/test_database.sql</code>) then I will write a Python script <code>scripts/build_projectdb.py</code> which will use <code>execute</code> and <code>copy_expert</code> functions from the abovementioned library to create the tables and import the data. This library uses The JDBC driver for Postgresql to run SQL statements on the dbms. You can also connect to the database (JDBC connection) using the tool <code>beeline</code> from Apache Hive (This is made to run HiveQL queries which will be covered in stage II). Notice that the script <code>scripts/build_projectdb.py</code> should replicate this task without errors. This means, for the second run of the script I should not get any errors.</p><p>I will give here some of the basic steps to build this database <code>teamx_projectdb</code> but feel free to extend it for your project purposes.</p><div class="alert alert-warning">
 <p><strong>Note:</strong> You do not need to drop or create a database since it is already created by the TA.</p>
 </div><p>We will store the SQL statements for building the tables in a file <code>sql/create_tables.sql</code>.</p><ol>
 <li>Create tables <code>emps</code>, <code>depts</code>.</li>
@@ -286,24 +284,24 @@ conn_string=<span class="hljs-string">"host=hadoop-04.uni.innopolis.ru port=5432
             </a>
             <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
                 <div class="toc"><ul class="nav">
-<li class=""><a href="#Stage-I---Data-collection-and-Ingestion" title="Stage I - Data collection and Ingestion">Stage I - Data collection and Ingestion</a></li>
-<li class=""><a href="#Dataset" title="Dataset">Dataset</a></li>
-<li class=""><a href="#Agenda" title="Agenda">Agenda</a></li>
+<li><a href="#Stage-I---Data-collection-and-Ingestion" title="Stage I - Data collection and Ingestion">Stage I - Data collection and Ingestion</a></li>
+<li><a href="#Dataset" title="Dataset">Dataset</a></li>
+<li><a href="#Agenda" title="Agenda">Agenda</a></li>
 <li><a href="#Prerequisites" title="Prerequisites">Prerequisites</a></li>
 <li><a href="#Objectives" title="Objectives">Objectives</a></li>
-<li><a href="#Description" title="Description">Description</a></li>
-<li><a href="#Dataset-Description" title="Dataset Description">Dataset Description</a></li>
-<li><a href="#IU-Hadoop-cluster" title="IU Hadoop cluster">IU Hadoop cluster</a><ul class="nav">
-<li><a href="#Initiate-the-project-repository" title="Initiate the project repository">Initiate the project repository</a></li>
-<li><a href="#Download-dataset" title="Download dataset">Download dataset</a></li>
-<li><a href="#Build-a-relational-database-via-PostgreSQL" title="Build a relational database via PostgreSQL">Build a relational database via PostgreSQL</a></li>
-<li><a href="#Import-the-database-into-HDFS-via-Sqoop" title="Import the database into HDFS via Sqoop">Import the database into HDFS via Sqoop</a></li>
+<li class=""><a href="#Description" title="Description">Description</a></li>
+<li class=""><a href="#Dataset-Description" title="Dataset Description">Dataset Description</a></li>
+<li class=""><a href="#IU-Hadoop-cluster" title="IU Hadoop cluster">IU Hadoop cluster</a><ul class="nav">
+<li class=""><a href="#Initiate-the-project-repository" title="Initiate the project repository">Initiate the project repository</a></li>
+<li class=""><a href="#Download-dataset" title="Download dataset">Download dataset</a></li>
+<li class=""><a href="#Build-a-relational-database-via-PostgreSQL" title="Build a relational database via PostgreSQL">Build a relational database via PostgreSQL</a></li>
+<li class=""><a href="#Import-the-database-into-HDFS-via-Sqoop" title="Import the database into HDFS via Sqoop">Import the database into HDFS via Sqoop</a></li>
 </ul>
 </li>
-<li><a href="#AVRO" title="AVRO">AVRO</a></li>
-<li><a href="#Parquet" title="Parquet">Parquet</a></li>
-<li><a href="#Row-vs-Columnar-Format" title="Row vs Columnar Format">Row vs Columnar Format</a></li>
-<li><a href="#Snappy" title="Snappy">Snappy</a></li>
+<li class=""><a href="#AVRO" title="AVRO">AVRO</a></li>
+<li class=""><a href="#Parquet" title="Parquet">Parquet</a></li>
+<li class=""><a href="#Row-vs-Columnar-Format" title="Row vs Columnar Format">Row vs Columnar Format</a></li>
+<li class=""><a href="#Snappy" title="Snappy">Snappy</a></li>
 <li><a href="#References" title="References">References</a></li>
 </ul>
 </div><div class="toc-menu" style="">
@@ -317,24 +315,24 @@ conn_string=<span class="hljs-string">"host=hadoop-04.uni.innopolis.ru port=5432
     </div>
     <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;"  >
         <div class="toc"><ul class="nav">
-<li class=""><a href="#Stage-I---Data-collection-and-Ingestion" title="Stage I - Data collection and Ingestion">Stage I - Data collection and Ingestion</a></li>
-<li class=""><a href="#Dataset" title="Dataset">Dataset</a></li>
-<li class=""><a href="#Agenda" title="Agenda">Agenda</a></li>
+<li><a href="#Stage-I---Data-collection-and-Ingestion" title="Stage I - Data collection and Ingestion">Stage I - Data collection and Ingestion</a></li>
+<li><a href="#Dataset" title="Dataset">Dataset</a></li>
+<li><a href="#Agenda" title="Agenda">Agenda</a></li>
 <li><a href="#Prerequisites" title="Prerequisites">Prerequisites</a></li>
 <li><a href="#Objectives" title="Objectives">Objectives</a></li>
-<li><a href="#Description" title="Description">Description</a></li>
-<li><a href="#Dataset-Description" title="Dataset Description">Dataset Description</a></li>
-<li><a href="#IU-Hadoop-cluster" title="IU Hadoop cluster">IU Hadoop cluster</a><ul class="nav">
-<li><a href="#Initiate-the-project-repository" title="Initiate the project repository">Initiate the project repository</a></li>
-<li><a href="#Download-dataset" title="Download dataset">Download dataset</a></li>
-<li><a href="#Build-a-relational-database-via-PostgreSQL" title="Build a relational database via PostgreSQL">Build a relational database via PostgreSQL</a></li>
-<li><a href="#Import-the-database-into-HDFS-via-Sqoop" title="Import the database into HDFS via Sqoop">Import the database into HDFS via Sqoop</a></li>
+<li class=""><a href="#Description" title="Description">Description</a></li>
+<li class=""><a href="#Dataset-Description" title="Dataset Description">Dataset Description</a></li>
+<li class=""><a href="#IU-Hadoop-cluster" title="IU Hadoop cluster">IU Hadoop cluster</a><ul class="nav">
+<li class=""><a href="#Initiate-the-project-repository" title="Initiate the project repository">Initiate the project repository</a></li>
+<li class=""><a href="#Download-dataset" title="Download dataset">Download dataset</a></li>
+<li class=""><a href="#Build-a-relational-database-via-PostgreSQL" title="Build a relational database via PostgreSQL">Build a relational database via PostgreSQL</a></li>
+<li class=""><a href="#Import-the-database-into-HDFS-via-Sqoop" title="Import the database into HDFS via Sqoop">Import the database into HDFS via Sqoop</a></li>
 </ul>
 </li>
-<li><a href="#AVRO" title="AVRO">AVRO</a></li>
-<li><a href="#Parquet" title="Parquet">Parquet</a></li>
-<li><a href="#Row-vs-Columnar-Format" title="Row vs Columnar Format">Row vs Columnar Format</a></li>
-<li><a href="#Snappy" title="Snappy">Snappy</a></li>
+<li class=""><a href="#AVRO" title="AVRO">AVRO</a></li>
+<li class=""><a href="#Parquet" title="Parquet">Parquet</a></li>
+<li class=""><a href="#Row-vs-Columnar-Format" title="Row vs Columnar Format">Row vs Columnar Format</a></li>
+<li class=""><a href="#Snappy" title="Snappy">Snappy</a></li>
 <li><a href="#References" title="References">References</a></li>
 </ul>
 </div><div class="toc-menu" style="">
