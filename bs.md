@@ -15,6 +15,10 @@ layout: page
 ### [Lab 4 - Apache Hadoop HDFS](html/bs/BS - Lab 4 - Apache Hadoop HDFS.html)
 ### [Lab 5 - Apache Hadoop YARN & MapReduce](html/bs/BS - Lab 5 - Apache Hadoop YARN & MapReduce.html)
 ### [Lab 6 - Apache Spark RDD](html/bs/BS - Lab 6 - Apache Spark RDD.html)
+### [Lab 7 - Apache Spark DataFrame & SQL](html/bs/BS - Lab 7 - Apache Spark DataFrame & SQL.html)
+### [Lab 8 - Apache Spark MLlib](html/bs/BS - Lab 8 - Apache Spark MLlib.html)
+
+
 <!-- ### [Lab 7 - Apache Spark DataFrame & SQL](html/bs/BS - Lab 6 - Apache Spark DataFrame & SQL.html) -->
 <!-- ### [Lab 8 - Apache Spark MLLib](html/bs/BS - Lab 6 - Apache Spark MLLib.html) -->
 
