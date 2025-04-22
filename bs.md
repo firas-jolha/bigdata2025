@@ -27,7 +27,7 @@ layout: page
 ## Assignments
 ### [Assignment 1 - SQL and NoSQL databases](html/bs/BS%20-%20Assignment%201%20-%20SQL%20%26%20NoSQL%20Databases.html)
 ### [Assignment 2 - Simple Search Engine using Hadoop MapReduce](html/bs/BS - Assignment 2 - Simple Search Engine using Hadoop MapReduce.html)
-
+### [Assignment 3 - Apache Spark SQL & MLlib](html/bs/BS - Assignment 3 - Apache Spark SQL & MLlib.html)
 <!-- ### [Assignment 2 - Apache Hadoop](html/bs/Apache Hadoop.html) -->
 <!-- [Assignment 3 - Apache Spark](html/bs/Apache Spark.html) -->
 
@@ -36,5 +36,5 @@ layout: page
 ### [Stage I - Data collection and Ingestion](html/bs/BS - Stage I - Data collection and Ingestion.html)
 ### [Stage II - Data Storage/Preparation & EDA](html/common/BS_MS Stage II - Data Storage_Preparation & EDA.html)
 ### [Stage III - Predictive Data Analytics](html/common/BS_MS Stage III - Predictive Data Analytics.html)
-
+### [Stage IV - Presentation](html/common/BS_MS Stage IV - Presentation.html)
 
